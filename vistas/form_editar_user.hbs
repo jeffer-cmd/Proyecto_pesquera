@@ -1,0 +1,35 @@
+<h1>Edición de usuarios</h1>
+
+{{#if usuario.id }}
+
+    <form action="/gestion_usuarios/form_editar_user/{{usuario.id}}" method="post">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+        <label for="" class="my-3">Nombre</label>
+        <input value="{{usuario.nombre}}" type="text" placeholder="Ingrese nombre de usuario" name="nombre" class="form-control my-2">
+        <label for="" class="my-3">Rol</label>
+        <br>
+        {{!-- <input value="{{usuario.rol}}" type="text" placeholder="Ingrese rol de usuario" name="rol" class="form-control my-2"> --}}
+        <label for="admin">Administrador</label>
+        <input value="admin" type="radio" placeholder="Ingrese rol de usuario" name="rol" class="mx-3" id="admin"
+        {{#if (eq usuario.rol "admin")}}checked{{/if}}>
+
+        <label for="empleado">Empleado operario</label>
+        <input value="empleado" type="radio" placeholder="Ingrese rol de usuario" name="rol" class="mx-3" id="empleado"
+        {{#if (eq usuario.rol "empleado")}}checked{{/if}}>
+        <br>
+
+
+        <label for="" class="my-3">Contraseña</label>
+        <input type="password" placeholder="Ingrese contraseña" name="passwordHash" class="form-control my-2">
+        <button type="submit" class="btn btn-warning w-100 mb-2">Editar usuario</button>
+    </form>
+
+{{!-- {{else}}
+    <form action="/users" method="post">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+        <input type="text" placeholder="Ingrese nombre de usuario" name="user" class="form-control my-2">
+        <button type="submit" class="btn btn-primary w-100 mb-2">Agregar categoria</button>
+    </form> --}}
+
+{{/if}}
+

@@ -1,0 +1,32 @@
+<h1>Resumen de tus compras</h1>
+
+
+<table class="table table-bordered table-hover text-center align-middle" id="tablaCompras">
+
+    <thead class="table-primary">
+        <tr>
+            <th>COMPRA #</th>
+            <th>PROVEEDOR</th>
+            <th>PRODUCTO</th>
+            <th>LOTE</th>
+            <th>CANTIDAD</th>
+            <th>PRECIO</th>
+            <th>OBSERVACIONES</th>
+
+        
+            <th class="" style="width: 150px;">ACCIONES</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {{#each lista_detalle_compras}}
+
+            {{>card_ver_detalle_compra item=this}}
+        
+        
+        {{/each}}
+    </tbody>
+
+</table> 
+

@@ -1,0 +1,18 @@
+<tr>
+    <td>{{item.nombre}}</td>
+    <td>{{item.codigoMaterial}}</td>
+    <td>{{item.proveedor}}</td>
+
+    <td>{{item.unidadMedida}}</td>
+    <td>{{item.categoria}}</td>
+    {{!-- <td>{{item.precioReferenciaCompra}}</td> --}}
+    <td>{{formatoCOP item.precioReferenciaCompra}}</td>
+    <td>{{formatoCOP item.precioReferenciaVenta}}</td>
+    <td>{{item.createdAt}}</td>
+    
+
+    <td>
+        <a href="/gestion_productos/form_editar_producto/{{item.id}}" class="btn btn-warning btn-sm">✏️</a>
+        <a href="/gestion_productos/eliminar_producto/{{item.id}}" class="btn btn-danger btn-sm">🗑️</a>
+    </td>
+</tr>

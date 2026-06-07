@@ -1,0 +1,21 @@
+<tr>
+    <td>{{item.id}}</td>
+    <td>{{item.proveedor}}</td>
+    <td>{{formatoCOP item.total}}</td>
+    <td>{{item.createdAt}}</td>
+    <td>{{item.estado}}</td>
+    
+
+    {{!-- <td>
+        <a href="/gestion_compras/ver_detalle_compra/{{item.id}}" class="btn btn-warning btn-sm">👁‍🗨</a>
+        <a href="/gestion_compras/anular_compra/{{item.id}}" class="btn btn-danger btn-sm">🔒</a>
+    </td>
+</tr> --}}
+
+{{#if mostrarAcciones}}
+    <td>
+        <a href="/gestion_compras/ver_detalle_compra/{{item.id}}" class="btn btn-warning btn-sm">👁‍🗨</a>
+        <a href="/gestion_compras/anular_compra/{{item.id}}" class="btn btn-danger btn-sm">🔒</a>
+    </td>
+    {{/if}}
+</tr>

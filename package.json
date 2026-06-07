@@ -20,12 +20,20 @@
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",
     "bcryptjs": "^3.0.3",
+    "connect-flash": "^0.1.1",
+    "connect-pg-simple": "^10.0.0",
+    "cors": "^2.8.6",
+    "csurf": "^1.11.0",
     "dotenv": "^17.4.2",
     "drizzle-orm": "^0.45.2",
     "express": "^5.2.1",
     "express-handlebars": "^8.0.3",
+    "express-session": "^1.19.0",
+    "express-validator": "^7.3.2",
+    "passport": "^0.7.0",
     "pg": "^8.20.0",
     "postgres": "^3.4.9",
-    "prisma": "^7.7.0"
+    "prisma": "^7.7.0",
+    "resend": "^6.12.3"
   }
 }

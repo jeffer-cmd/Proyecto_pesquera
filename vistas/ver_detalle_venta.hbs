@@ -1,0 +1,32 @@
+<h1>Resumen de tus ventas</h1>
+
+
+<table class="table table-bordered table-hover text-center align-middle" id="tablaVentas">
+
+    <thead class="table-primary">
+        <tr>
+            <th>VENTA #</th>
+            <th>VENDEDOR</th>
+            <th>PRODUCTO</th>
+            <th>LOTE</th>
+            <th>CANTIDAD</th>
+            <th>PRECIO</th>
+            <th>OBSERVACIONES</th>
+
+        
+            <th class="" style="width: 150px;">ACCIONES</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {{#each lista_detalle_ventas}}
+
+            {{>card_ver_detalle_venta item=this}}
+        
+        
+        {{/each}}
+    </tbody>
+
+</table> 
+

@@ -1,0 +1,16 @@
+<tr>
+    <td>{{item.id}}</td>
+    <td>{{item.usuario}}</td>
+    <td>{{item.producto}}</td>
+    <td>{{item.lote}}</td>
+    <td>{{formatoNumero item.cantidad}}</td>
+    <td>{{formatoCOP item.precio}}</td>
+    <td>{{item.observaciones}}</td>
+
+    
+
+    <td>
+        <a href="/gestion_ventas/form_editar_venta/{{item.detalleId}}" class="btn btn-warning btn-sm">✏️</a>
+        {{!-- <a href="/gestion_compras/eliminar_compra/{{item.id}}" class="btn btn-danger btn-sm">🗑️</a> --}}
+    </td>
+</tr> 

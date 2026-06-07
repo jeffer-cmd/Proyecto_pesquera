@@ -1,0 +1,21 @@
+<tr>
+    
+    <td>{{item.producto}}</td>
+    <td>{{item.lote}}</td>
+    <td>{{item.tipo}}</td>
+
+
+    {{!-- <td>{{item.estado}}</td> --}}
+    <td>{{formatoNumero item.cantidad}}</td>
+    <td>{{item.fecha}}</td>
+
+    <td>
+    {{#if (eq item.tipo "entrada")}}
+        {{item.estado_compra}}
+    {{else}}
+        {{item.estado_venta}}
+    {{/if}}
+</td>
+    
+
+</tr>

@@ -1,0 +1,123 @@
+<h1>Edición de productos</h1>
+
+{{#if producto.id }}
+
+    <form action="/gestion_productos/form_editar_producto/{{producto.id}}" method="post">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+        <label for="" class="my-3">Nombre producto</label>
+        <input value="{{producto.nombre}}" type="text" placeholder="Ingrese nombre de producto" name="nombre" class="form-control my-2">
+
+        <label for="" class="my-3">Proveedor</label>
+            <select class="form-select mb-2 select2" name="id_proveedor">
+
+                {{!-- <option value="">No registra</option> --}}
+
+                {{#each proveedores}}
+
+                    
+                    <option 
+                        value="{{this.id}}"
+
+                        {{#if (eq this.id ../producto.idProveedor)}}
+                            selected
+                        {{/if}}
+                    >
+                        {{this.nombre}}
+                    </option>
+
+                {{/each}}
+
+            </select>
+
+        <label for="" class="my-3">Escoja la unidad de medida</label>
+                            
+                    <br>
+
+                    <label for="kg" class="my-3">Kilogramos</label>
+                    <input
+                        class="mx-3"
+                        name="unidadMedida"
+                        type="radio"
+                        value="kg",
+                        id="kg"
+
+                        {{#if (eq producto.unidadMedida "kg")}}
+                            checked
+                        {{/if}}
+
+                    />
+
+                    <label for="g" class="my-3">Gramos</label>
+                    <input
+                        class="mx-3"
+                        name="unidadMedida"
+                        type="radio"
+                        value="g",
+                        id="g"
+
+                        {{#if (eq producto.unidadMedida "g")}}
+                            checked
+                        {{/if}}
+                    />
+
+                    <label for="u" class="my-3">Unidad</label>
+                    <input
+                        class="mx-3"
+                        name="unidadMedida"
+                        type="radio"
+                        value="unidad",
+                        id="u"
+
+                        {{#if (eq producto.unidadMedida "unidad")}}
+                            checked
+                        {{/if}}
+                    />
+                    <br>
+
+
+        <label for="" class="my-3">Categoria</label>
+            <select class="form-select mb-2 select2" name="id_categoria">
+
+                {{#each categorias}}
+
+                    <option 
+                        value="{{this.id_categoria}}"
+
+                        {{#if (eq this.id_categoria ../producto.idCategoria)}}
+                            selected
+                        {{/if}}
+                    >
+                        {{this.nombre_categoria}}
+                    </option>
+
+                {{/each}}
+
+            </select>
+
+            <label for="" class="my-3">Precio de compra</label>
+                    <input
+                        class="form-control mb-2"
+                        name="precioReferenciaCompra"
+                        placeholder="Ingrese precio de compra"
+                        type="number"
+                        min="0",
+                        step="1"
+                        value="{{parseInt producto.precioReferenciaCompra}}"
+                    
+                    />
+
+            <label for="" class="my-3">Precio de venta</label>
+                    <input
+                        class="form-control mb-2"
+                        name="precioReferenciaVenta"
+                        placeholder="Ingrese precio de compra"
+                        type="number"
+                        min="0",
+                        step="1"
+                        value="{{parseInt producto.precioReferenciaVenta}}"
+                    
+                    />
+
+        <button type="submit" class="btn btn-warning w-100 mb-2">Editar producto</button>
+    </form>
+{{/if}}

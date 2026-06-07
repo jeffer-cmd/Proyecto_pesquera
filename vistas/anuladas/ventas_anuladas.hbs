@@ -1,0 +1,38 @@
+<h1>Gestión de compras</h1>
+
+
+
+<div class="container">
+
+
+
+    <table class="table table-bordered table-hover text-center align-middle" id="tablaVentasAnuladas">
+
+        <thead class="table-primary">
+            <tr>
+                <th>VENTA #</th>
+                <th>VENDEDOR</th>
+                <th>MÉTODO DE PAGO</th>
+                <th>CLIENTE</th>
+                <th>TOTAL</th>
+                <th>FECHA DE REGISTRO</th>
+                <th>ESTADO DE VENTA</th>
+            
+            
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {{#each agrupado}}
+
+                {{#each this.ventas}}
+
+                    {{>card_ventas item=this mostrarAcciones=false}}
+                
+                {{/each}}
+            {{/each}}
+        </tbody>
+
+    </table>
+</div>

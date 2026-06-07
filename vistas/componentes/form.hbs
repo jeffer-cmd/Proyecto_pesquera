@@ -1,12 +1,14 @@
 {{#if categoria.id_categoria }}
 
     <form action="/editar/{{categoria.id_categoria}}" method="post">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}" />
         <input value="{{categoria.nombre_categoria}}" type="text" placeholder="Ingrese categoria de pez" name="pescado" class="form-control my-2">
         <button type="submit" class="btn btn-warning w-100 mb-2">Editar categoria</button>
     </form>
 
 {{else}}
     <form action="/" method="post">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}" />
         <input type="text" placeholder="Ingrese categoria de pez" name="pescado" class="form-control my-2">
         <button type="submit" class="btn btn-primary w-100 mb-2">Agregar categoria</button>
     </form>

@@ -1,0 +1,117 @@
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form action="/gestion_productos/form_producto" method="post">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+
+                <label for="" class="my-3">Nombre del producto</label>
+                <input
+                    class="form-control mb-2"
+                    name="nombre"
+                    placeholder="Ingrese nombre del producto"
+                    type="text"
+                    
+                    />
+
+                    <label for="" class="my-3">Código de material</label>
+                    <input
+                        class="form-control mb-2"
+                        name="codigoMaterial"
+                        placeholder="Ingrese código de material"
+                        type="text"
+                        
+                    />
+
+                    <label for="" class="my-3">Proveedor</label>
+                    <select class="form-select mb-2 select2" name="id_proveedor">
+
+                        <option value="">Seleccione un proveedor</option>
+
+                        {{#each proveedores}}
+
+                            <option value="{{this.id}}">
+                                {{this.nombre}}
+                            </option>
+
+                        {{/each}}
+
+                    </select>
+
+                    <label for="" class="my-3">Escoja la unidad de medida</label>
+                            
+                    <br>
+
+                    <label for="kg" class="my-3">Kilogramos</label>
+                    <input
+                        class="mx-3"
+                        name="unidadMedida"
+                        type="radio"
+                        value="kg",
+                        id="kg"
+
+                    />
+
+                    <label for="g" class="my-3">Gramos</label>
+                    <input
+                        class="mx-3"
+                        name="unidadMedida"
+                        type="radio"
+                        value="g",
+                        id="g"
+
+                    />
+
+                    <label for="u" class="my-3">Unidad</label>
+                    <input
+                        class="mx-3"
+                        name="unidadMedida"
+                        type="radio"
+                        value="unidad",
+                        id="u"
+
+                    />
+                    <br>
+
+                    <label for="" class="my-3">Categoria</label>
+                    <select class="form-select mb-2 select2" name="id_categoria">
+
+                        <option value="">Seleccione una categoria</option>
+
+                        {{#each categorias}}
+
+                            <option value="{{this.id_categoria}}">
+                                {{this.nombre_categoria}}
+                            </option>
+
+                        {{/each}}
+
+                    </select>
+
+                    <label for="" class="my-3">Precio de compra</label>
+                    <input
+                        class="form-control mb-2"
+                        name="precioReferenciaCompra"
+                        placeholder="Ingrese precio de compra"
+                        type="number"
+                        min="0",
+                        step="1"
+                    
+                    />
+                    
+
+                    <label for="" class="my-3">Precio de venta</label>
+                    <input
+                        class="form-control mb-2"
+                        name="precioReferenciaVenta"
+                        placeholder="Ingrese precio de venta"
+                        type="number"
+                        min="0"
+                        step="1"
+                    
+                    />
+
+
+                <button type="submit" class="btn btn-primary w-100 mb-2">Agregar producto</button>
+        </form>
+    </div>
+</div>
+

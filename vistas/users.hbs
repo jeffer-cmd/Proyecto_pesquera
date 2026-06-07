@@ -1,0 +1,37 @@
+ <h1 class="text-center my-5">Gestión de usuarios </h1>
+
+ <div class="d-flex justify-content-between align-items-center my-5  w-100 gap-3">
+
+    <a class="btn btn-warning text-white my-5" href="/sesion/register">Crear usuario</a>
+
+    <input type="text" id="buscador" class="form-control mb-3 w-50 border border-dark" placeholder="Buscar usuario">
+
+ </div>
+
+
+<table class="table table-bordered table-hover text-center align-middle" id="tablaUsuarios">
+
+    <thead class="table-primary">
+        <tr>
+            <th>NOMBRE</th>
+            <th>USUARIO</th>
+            <th>ROL</th>
+            <th>CUENTA VERIFICADA</th>
+            <th>FECHA DE CREACIÓN</th>
+            <th>ACCIONES</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {{#each lista_usuarios}}
+
+            {{>card_users item=this}}
+        
+        
+        {{/each}}
+    </tbody>
+
+</table>
+
+<script src="/filtro.js"> </script>

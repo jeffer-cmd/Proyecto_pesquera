@@ -1,0 +1,68 @@
+
+<h1>Gestión de inventario</h1>
+
+<div class="container">
+
+        {{!-- <a href="/gestion_inventario/inventario_anulado" class="btn btn-primary">
+            movimientos anulados
+        </a> --}}
+
+        {{!-- <form action="/gestion_inventario/inventario" method="POST">
+            <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+            <input type="text" name="buscar" placeholder="Buscar">
+
+            <input type="date" name="fechaInicio">
+
+            <input type="date" name="fechaFin">
+
+            <button type="submit" class="btn btn-warning text-white mx-2">
+                Buscar
+            </button>
+
+        </form>
+    </div> --}}
+
+    <div class="d-flex justify-content-between align-items-center my-5  w-100 gap-3">
+
+    <a href="/gestion_ventas/ventas_anuladas" class="btn btn-primary">
+            Ventas anuladas
+        </a>
+
+    <a href="/gestion_compras/compras_anuladas" class="btn btn-primary">
+            Compras anuladas
+        </a>
+
+    <input type="text" id="buscador" class="form-control mb-3 w-50 border border-dark" placeholder="Buscar movimiento">
+
+</div>
+
+    <table class="table table-bordered table-hover text-center align-middle" id="tablaInventario">
+
+        <thead class="table-primary">
+            <tr>
+                <th>PRODUCTO</th>
+                <th>LOTE</th>
+                <th>TIPO</th>
+                {{!-- <th>ESTADO</th> --}}
+                <th>CANTIDAD</th>
+
+                <th>FECHA DE REGISTRO</th>
+                <th>ESTADO</th>
+            
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {{#each lista_inventario}}
+
+                {{>card_inventario item=this}}
+            
+            
+            {{/each}}
+        </tbody>
+
+    </table>
+</div>
+
+<script src="/filtro_inventario.js"> </script>

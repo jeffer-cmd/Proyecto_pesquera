@@ -1,0 +1,61 @@
+<h1>Gestión de lotes</h1>
+
+
+
+<div class="container">
+
+        <form action="/gestion_lotes/lotes" method="POST">
+            <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+            {{!-- <input type="text" name="buscar" placeholder="Buscar"> --}}
+
+            {{!-- <button type="submit" class="btn btn-warning text-white mx-2">
+                Buscar
+            </button> --}}
+
+        </form>
+    </div>
+
+
+<div class="d-flex justify-content-between align-items-center my-5  w-100 gap-3">
+
+    <a href="/gestion_lotes/lotes_viejos" class="btn btn-primary">
+            Lotes agotados
+        </a>
+
+    <input type="text" id="buscador" class="form-control mb-3 w-50 border border-dark" placeholder="Buscar lote">
+
+</div>
+
+
+
+    <table class="table table-bordered table-hover text-center align-middle" id="tablaLotes">
+
+        <thead class="table-primary">
+            <tr>
+                <th>PRODUCTO</th>
+                <th>LOTE</th>
+                <th>ESTADO</th>
+                <th>FECHA INGRESO</th>
+                <th>FECHA VENCIMIENTO</th>
+            
+                <th>CANTIDAD</th>
+
+                {{!-- <th>FECHA DE CREACIÓN</th> --}}
+            
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {{#each lista_lotes}}
+
+                {{>card_lotes item=this}}
+            
+            
+            {{/each}}
+        </tbody>
+
+    </table>
+</div>
+
+<script src="/filtro_lotes.js"> </script>

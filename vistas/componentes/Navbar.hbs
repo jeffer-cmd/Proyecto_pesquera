@@ -8,14 +8,27 @@
     </button>
     <div class="collapse navbar-collapse justify-content-center " id="navbarNavAltMarkup">
       <div class="navbar-nav  ">
-        <a class="nav-link active me-5 text-white fw-bold fs-3" aria-current="page" href="/">DASHBOARD</a>
+        {{!-- <a class="nav-link active me-5 text-white fw-bold fs-3" aria-current="page" href="/">DASHBOARD</a> --}}
         {{!-- <a class="nav-link me-5 text-white fw-bold fs-3" href="/sesion/USUARIOS">USUARIOS</a> --}}
-        {{!-- <a class="nav-link me-5 text-white fw-bold fs-3" href="/sesion/INVENTARIO">INVENTARIO</a> --}}
-        <a class="nav-link me-5 text-white fw-bold fs-3" href="/sesion/login">INICIAR SESION</a>
-        <a class="nav-link me-5 text-white fw-bold fs-3" href="/sesion/register">REGISTRARSE</a>
+        <a class="nav-link me-5 text-white fw-bold fs-3" href="/gestion_inventario/inventario">INVENTARIO</a>
+        <a class="nav-link me-5 text-white fw-bold fs-3" href="/gestion_usuarios/users">USUARIOS</a>
+        {{!-- <a class="nav-link me-5 text-white fw-bold fs-3" href="/sesion/register">REGISTRARSE</a> --}}
         {{!-- <a class="nav-link me-5 text-white fw-bold fs-3" href="/sesion/REPORTES">REPORTES</a> --}}
         <a class="nav-link me-5 text-white fw-bold fs-3" href="/">INICIO</a>
-        <a class="nav-link me-5 text-white fw-bold fs-3" href="/sesion/login">SALIR</a>
+        {{!-- <a class="nav-link me-5 text-white fw-bold fs-3" href="/formulario_operario">OPERARIO</a> --}}
+        <a class="nav-link me-5 text-white fw-bold fs-3" href="/gestion_proveedores/proveedores">PROVEEDORES</a>
+        <a class="nav-link me-5 text-white fw-bold fs-3" href="/gestion_productos/productos">PRODUCTOS</a>
+        <a class="nav-link me-5 text-white fw-bold fs-3" href="/gestion_compras/compras">COMPRAS</a>
+        {{!-- <a class="nav-link me-5 text-white fw-bold fs-3" href="/sesion/logout">SALIR</a> --}}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle me-5 text-white fw-bold fs-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            OPERACIONES
+          </a>
+          <ul class="dropdown-menu" style="background-color: #00ACC9; border: none;">
+            <li><a class="dropdown-item fw-bold fs-3" style=" color: white;font-weight: 600;" href="/gestion_lotes/lotes">LOTES</a></li>
+            <li><a class="dropdown-item fw-bold fs-3" style=" color: white;font-weight:600;" href="/gestion_ventas/ventas">VENTAS</a></li>
+            <li><a class="dropdown-item fw-bold fs-3"style=" color: white;font-weight: 600;" href="/sesion/logout">SALIR</a></li>
+          </ul>
         
       </div>
     </div>

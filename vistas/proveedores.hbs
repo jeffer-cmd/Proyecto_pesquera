@@ -1,0 +1,36 @@
+<h1>Gestión de proveedores</h1>
+
+<div class="d-flex justify-content-between align-items-center my-5  w-100 gap-3">
+
+    <a class="btn btn-warning text-white my-5" href="/gestion_proveedores/form_proveedor">Crear proveedor</a>
+
+    <input type="text" id="buscador" class="form-control mb-3 w-50 border border-dark" placeholder="Buscar proveedor">
+
+ </div>
+
+<table class="table table-bordered table-hover text-center align-middle" id="tablaProveedores">
+
+    <thead class="table-primary">
+        <tr>
+            <th>NOMBRE</th>
+            <th>TELÉFONO</th>
+            <th>DIRECCIÓN</th>
+            <th>CORREO</th>
+            <th>FECHA DE CREACIÓN</th>
+            <th>ACCIONES</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {{#each lista_proveedores}}
+
+            {{>card_proveedores item=this}}
+        
+        
+        {{/each}}
+    </tbody>
+
+</table>
+
+<script src="/filtro_proveedor.js"> </script>

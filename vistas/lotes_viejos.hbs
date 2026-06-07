@@ -1,0 +1,39 @@
+<h1>Gestión de lotes</h1>
+
+
+
+<div class="container">
+
+
+
+    <table class="table table-bordered table-hover text-center align-middle" id="tablaLotesViejos">
+
+        <thead class="table-primary">
+            <tr>
+                <th>PRODUCTO</th>
+                <th>LOTE</th>
+                <th>ESTADO</th>
+                <th>FECHA INGRESO</th>
+                <th>FECHA VENCIMIENTO</th>
+            
+                <th>CANTIDAD</th>
+
+                {{!-- <th>FECHA DE CREACIÓN</th> --}}
+            
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {{#each agrupado}}
+
+                {{#each this.lotes}}
+
+                    {{>card_lotes item=this}}
+                
+                {{/each}}
+            {{/each}}
+        </tbody>
+
+    </table>
+</div>

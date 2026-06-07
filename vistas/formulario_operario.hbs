@@ -1,0 +1,89 @@
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form action="/gestion_ventas/form_venta" method="post">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+
+                
+
+                    <h5>PRODUCTOS DE ALISTAMIENTO</h5>
+
+                    <template id="lote-template">
+
+                            <div class="lote-row border p-3 mb-2">
+                                    
+                            <label for="" class="my-3">Producto</label>
+                            <select class="form-select producto-select  mb-2 " name="lotes[0][productoId]" >
+
+                                <option value="">Seleccione un producto</option>
+
+                                {{#each productos}}
+
+                                    <option value="{{this.id}}">
+                                        {{this.nombre}}
+                                    </option>
+
+                                {{/each}}
+
+                            </select>
+
+                                <!-- lote -->
+                                <label>lote</label>
+                                <select class="form-select  lote-select" name="lotes[0][loteId]">
+                                    <option value="">Seleccione lote</option>
+                                    
+                                </select>
+
+
+                                <!-- UNIDADES POR CAJA -->
+                                <label class="mt-2">Merma de proceso</label>
+                                <input type="number"
+                                    class="form-control"
+                                    name="lotes[0][unidadesPorCaja]"
+                                    min="1"
+                                    required
+                                    oninvalid="this.setCustomValidity('Ingrese la cantidad de la merma')"
+                                    oninput="this.setCustomValidity('')">
+
+
+                                <!-- OBSERVACIONES POR ITEM -->
+                                <label>Observaciones de la merma</label>
+                                <br>
+                                <textarea name="lotes[0][observaciones]" rows="3"></textarea>
+
+                                <input type="hidden"
+                                class="form-control"
+                                name="lotes[0][precio]"
+                                value="0"
+                                
+                                >
+
+                        <hr>
+                                <button
+                                type="button"
+                                class="btn btn-danger btn-sm eliminar-fila"
+                            >
+                                Eliminar
+
+                            </button>
+                            </div>
+
+                        
+
+                        </template>
+                    <div id="lotes-container">
+
+
+                    </div>
+
+                    <button type="button" class="btn btn-secondary w-100 mb-2"  onclick="agregarlote()">
+                        + Agregar lote
+                    </button>
+                    
+
+
+                <button type="submit" class="btn btn-primary w-100 mb-2">Guardar merma</button>
+        </form>
+    </div>
+</div>
+
+<script src="/carrito_ventas.js"> </script>

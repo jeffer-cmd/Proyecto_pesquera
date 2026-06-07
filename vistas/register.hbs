@@ -1,7 +1,18 @@
+<style>
+    .navbar {
+        display: none;
+    
+    }
+</style>
+
+
+
 <h1 class="text-center my-5">Registro de usuarios</h1>
 <div class="row justify-content-center">
     <div class="col-md-6">
         <form action="/sesion/register" method="post">
+            <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+            <label for="" class="my-3">Nombre</label>
             <input
                 class="form-control mb-2"
                 name="nombre"
@@ -10,13 +21,33 @@
                 value="jeff"
             />
 
+            <label for="" class="my-3">Escoja su rol:</label>
+            <br>
+
+            <label for="admin" class="my-3">Administrador</label>
             <input
-                class="form-control mb-2"
+                class="mx-3"
                 name="rol"
                 placeholder="Ingrese el rol a desempeñar"
-                type="text"
-                value="admin"
+                type="radio"
+                value="admin",
+                id="admin"
+
             />
+
+            <label for="empleado" class="my-3">Empleado operario</label>
+            <input
+                class="mx-3"
+                name="rol"
+                placeholder="Ingrese el rol a desempeñar"
+                type="radio"
+                value="empleado",
+                id="empleado"
+
+            />
+            <br>
+
+            <label for="" class="my-3">Correo</label>
             <input
                 class="form-control mb-2"
                 name="email"
@@ -24,6 +55,7 @@
                 type="email"
                 value="jeff@prueba.com"
             />
+            <label for="" class="my-3">Contraseña</label>
             <input
                 class="form-control mb-2"
                 name="password"
@@ -31,6 +63,7 @@
                 type="password"
                 value="hols"
             />
+            <label for="" class="my-3">Repita contraseña</label>            
             <input
                 class="form-control mb-2"
                 name="passwordRepit"
@@ -38,7 +71,7 @@
                 type="password"
                 value="123123"
             />
-            <button type="submit" class="btn btn-primary">Crear Cuenta</button>
+            <button type="submit" class="btn btn-primary my-3">Crear Cuenta</button>
         </form>
     </div>
 </div>

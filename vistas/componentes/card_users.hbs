@@ -1,0 +1,30 @@
+{{!-- <div class="card">
+        <div class="card-body">
+            <p>{{item.nombre}}</p>
+            <p>{{item.email}}</p>
+            <p>{{item.rol}}</p>
+            <p>{{item.created_at}}</p>
+            <a href="/eliminar/{{item.id}}" class="btn btn-primary">Eliminar</a>
+            <a href="/editar/{{item.id}}" class="btn btn-primary">Editar</a>
+        </div>
+    </div> --}}
+
+<tr>
+    <td>{{item.nombre}}</td>
+    <td>{{item.email}}</td>
+    <td>{{item.rol}}</td>
+    <td>
+        {{#if item.cuentaConfirmada}}
+                SI
+        {{else}}
+                NO
+        {{/if}}
+    </td>
+    <td>{{item.createdAt}}</td>
+
+    <td>
+        <a href="/gestion_usuarios/form_editar_user/{{item.id}}" class="btn btn-warning btn-sm">✏️</a>
+        <a href="/gestion_usuarios/eliminar_users/{{item.id}}" class="btn btn-danger btn-sm">🗑️</a>
+    </td>
+</tr>
+

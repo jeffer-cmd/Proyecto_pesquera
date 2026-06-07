@@ -1,0 +1,50 @@
+<h1>Gestión de productos</h1>
+
+<div class="d-flex justify-content-between align-items-center my-5  w-100 gap-3">
+
+    <a class="btn btn-warning text-white my-5" href="/gestion_productos/form_producto">Crear producto</a>
+
+    {{!-- <input type="text" id="buscador" class="form-control mb-3 w-50 border border-dark" placeholder="Buscar producto">
+
+    <a class="btn btn-warning text-white my-5" id="btnBuscar" href= "/gestion_productos/productos">Buscar producto</a> --}}
+    <form action="/gestion_productos/productos" method="POST">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+        <input type="text" name="nombre" placeholder="Buscar producto">
+
+        <button type="submit" class="btn btn-warning text-white mx-2">
+            Buscar
+        </button>
+
+    </form>
+</div>
+
+<table class="table table-bordered table-hover text-center align-middle" id="tablaProductos">
+
+    <thead class="table-primary">
+        <tr>
+            <th>NOMBRE PRODUCTO</th>
+            <th>CÓDIGO DE MATERIAL</th>
+            <th>PROVEEDOR</th>
+
+            <th>UNIDAD DE MEDIDA</th>
+            <th>CATEGORÍA</th>
+            {{!-- esto se trae de compras --}}
+            <th>PRECIO COMPRA</th> 
+            <th>PRECIO VENTA</th>
+            <th>FECHA DE CREACIÓN</th>
+            <th class="" style="width: 150px;">ACCIONES</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {{#each lista_productos}}
+
+            {{>card_productos item=this}}
+        
+        
+        {{/each}}
+    </tbody>
+
+</table>
+

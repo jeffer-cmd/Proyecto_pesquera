@@ -1,0 +1,18 @@
+<tr>
+    <td>{{item.id}}</td>
+    <td>{{item.usuario}}</td>
+    <td>{{item.metodoPago}}</td>
+    <td>{{item.cliente}}</td>
+    <td>{{formatoCOP item.total}}</td>
+    <td>{{item.createdAt}}</td>
+    <td>{{item.estado}}</td>
+    
+
+    {{#if mostrarAcciones}}
+        <td>
+            <a href="/gestion_ventas/ver_detalle_venta/{{item.id}}" class="btn btn-warning btn-sm">👁‍🗨</a>
+            <a href="/gestion_ventas/anular_venta/{{item.id}}" class="btn btn-danger btn-sm" onclick="return confirm('¿Desea anular esta venta?')">🔒</a>
+        </td>
+    </tr>
+
+    {{/if}}

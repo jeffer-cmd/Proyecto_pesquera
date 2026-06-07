@@ -1,0 +1,22 @@
+<h1>Edición de proveedores</h1>
+
+{{#if proveedor.id }}
+
+    <form action="/gestion_proveedores/form_editar_proveedor/{{proveedor.id}}" method="post">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+        <label for="" class="my-3">Nombre proveedor</label>
+        <input value="{{proveedor.nombre}}" type="text" placeholder="Ingrese nombre de proveedor" name="nombre" class="form-control my-2">
+
+        <label for="" class="my-3">Teléfono</label>
+        <input value="{{proveedor.telefono}}" type="text" placeholder="Ingrese teléfono" name="telefono" class="form-control my-2">
+
+        <label for="" class="my-3">Dirección</label>
+        <input value="{{proveedor.direccion}}" type="text" placeholder="Ingrese dirección" name="direccion" class="form-control my-2">
+
+        <label for="" class="my-3">Correo</label>
+        <input value="{{proveedor.email}}" type="text" placeholder="Ingrese correo" name="email" class="form-control my-2">
+
+
+        <button type="submit" class="btn btn-warning w-100 mb-2">Editar proveedor</button>
+    </form>
+{{/if}}

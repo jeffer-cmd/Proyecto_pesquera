@@ -1,0 +1,68 @@
+<h1>Edición de venta</h1>
+
+{{#if detalle_venta.id }}
+
+    <form action="/gestion_ventas/form_editar_venta/{{detalle_venta.id}}" method="post">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+
+
+            <label for="" class="my-3">Producto</label>
+            <select class="form-select mb-2 select2" name="id_producto">
+
+            
+
+                {{#each productos}}
+
+                        
+                        <option 
+                            value="{{this.id}}"
+
+                            {{#if (eq this.id ../detalle_venta.productoId)}}
+                                selected
+                            {{/if}}
+                        >
+                            {{this.nombre}}
+                        </option>
+
+                    {{/each}}
+
+            </select>
+
+{{!--             
+            <label class="mt-2">Cantidad de embalaje</label>
+            <input type="number"
+                class="form-control"
+                name="cantidad_embalaje"
+                min="0">
+
+            <!-- UNIDADES POR CAJA -->
+            <label class="mt-2">Unidades por embalaje</label>
+            <input type="number"
+                class="form-control"
+                name="unidades_embalaje"
+                min="1"
+                value="{{parseInt detalle_venta.cantidad}}"
+                required
+                oninvalid="this.setCustomValidity('Ingrese la cantidad de unidades por embalaje')"
+                oninput="this.setCustomValidity('')"> --}}
+
+        
+
+            <!-- PRECIO -->
+            <label class="mt-2">Precio de venta</label>
+            <input type="number"
+            class="form-control"
+            name="precio"
+            value="{{parseInt detalle_venta.precio}}"
+            required>
+
+
+            <!-- OBSERVACIONES POR ITEM -->
+            <label>Observaciones de la venta</label>
+            <br>
+            <textarea name="observaciones" rows="3"> {{detalle_venta.observaciones}}</textarea>   
+
+        
+        <button type="submit" class="btn btn-warning w-100 mb-2">Editar venta</button>
+    </form>
+{{/if}}

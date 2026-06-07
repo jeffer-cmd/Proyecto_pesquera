@@ -60,6 +60,8 @@ const productos = pgTable("productos", {
     .notNull()
     .references(() => categorias.id_categoria),
 
+  idProveedor:integer("id_proveedor").references(()=>proveedores.id),
+
   precioReferenciaCompra: numeric("precio_referencia_compra", {
     precision: 10,
     scale: 2,
@@ -98,7 +100,9 @@ const compras = pgTable("compras", {
     .notNull()
     .references(() => proveedores.id),
 
-  fecha: timestamp("fecha").defaultNow(),
+    total: numeric("total", { precision: 12, scale: 2 }).notNull(),
+
+    estado:varchar("estado", { length: 20 }).default("ACTIVA"),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
 });
 
@@ -116,17 +120,19 @@ const lotes = pgTable("lotes", {
     .notNull()
     .references(() => compras.id),
 
-  fechaIngreso: date("fecha_ingreso").notNull(),
-  fechaVencimiento: date("fecha_vencimiento"),
+    codigoLote: varchar("codigo_lote", { length: 50 }),
 
-  cantidadActual: numeric("cantidad_actual", {
-    precision: 10,
-    scale: 2,
-  }).notNull(),
+    fechaIngreso: date("fecha_ingreso").notNull(),
+    fechaVencimiento: date("fecha_vencimiento"),
 
-  estado: estadoLoteEnum("estado").default("disponible"),
+    cantidadActual: numeric("cantidad_actual", {
+      precision: 10,
+      scale: 2,
+    }).notNull(),
 
-  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+    estado: estadoLoteEnum("estado").default("disponible"),
+
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
 });
 
 
@@ -146,6 +152,9 @@ const detalleCompras = pgTable("detalle_compras", {
   cantidad: numeric("cantidad", { precision: 10, scale: 2 }).notNull(),
 
   precio: numeric("precio", { precision: 10, scale: 2 }).notNull(),
+
+  observaciones: text("observaciones"),
+
 });
 
 
@@ -161,6 +170,10 @@ const ventas = pgTable("ventas", {
 
   metodoPago: text("metodo_pago"),
   cliente: text("cliente"),
+
+  estado:varchar("estado", { length: 20 }).default("ACTIVA"),
+
+  total: numeric("total", { precision: 12, scale: 2 }).notNull(),
 
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
 });
@@ -182,6 +195,8 @@ const detalleVentas = pgTable("detalle_ventas", {
   cantidad: numeric("cantidad", { precision: 10, scale: 2 }).notNull(),
 
   precio: numeric("precio", { precision: 10, scale: 2 }).notNull(),
+
+  observaciones: text("observaciones"),
 });
 
 

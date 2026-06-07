@@ -1,0 +1,44 @@
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form action="/gestion_proveedores/form_proveedor" method="post">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+
+                <label for="" class="my-3">Nombre del proveedor</label>
+                <input
+                    class="form-control mb-2"
+                    name="nombre"
+                    placeholder="Ingrese nombre del proveedor"
+                    type="text"
+                    
+                    />
+
+                    <label for="" class="my-3">Teléfono</label>
+                    <input
+                        class="form-control mb-2"
+                        name="telefono"
+                        placeholder="Ingrese telefono"
+                        type="text"
+                        
+                    />
+
+                    <label for="" class="my-3">Dirección</label>
+                    <input
+                        class="form-control mb-2"
+                        name="direccion"
+                        placeholder="Ingrese dirección"
+                        type="text"
+                    
+                    />
+
+                    <label for="" class="my-3">Correo</label>
+                    <input
+                        class="form-control mb-2"
+                        name="email"
+                        placeholder="Ingrese correo"
+                        type="email"
+                    />
+
+                <button type="submit" class="btn btn-primary w-100 mb-2">Agregar proveedor</button>
+        </form>
+    </div>
+</div>

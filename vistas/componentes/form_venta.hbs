@@ -1,0 +1,276 @@
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form action="/gestion_ventas/form_venta" method="post">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+
+
+
+
+                
+
+                    <label for="" class="my-3">Nombre de cliente</label>
+                    <input type="text" name="cliente" 
+                    required
+                    >
+
+                    <br>
+
+                    <label for="" class="my-3">Escoja el método de pago</label>
+                            
+                    <br>
+
+                    <label for="transferencia" class="my-3">Transferencia</label>
+                    <input
+                        class="mx-3"
+                        name="metodoPago"
+                        type="radio"
+                        value="transferencia"
+                        id="transferencia"
+                        required
+
+                    />
+
+                    <label for="tarjeta" class="my-3">Tarjeta</label>
+                    <input
+                        class="mx-3"
+                        name="metodoPago"
+                        type="radio"
+                        value="tarjeta",
+                        id="tarjeta"
+
+                    />
+
+                    <label for="efectivo" class="my-3">Efectivo</label>
+                    <input
+                        class="mx-3"
+                        name="metodoPago"
+                        type="radio"
+                        value="efectivo",
+                        id="efectivo"
+
+                    />
+                    <br>
+
+                
+
+                    <h5>PRODUCTOS A VENDER</h5>
+
+                    <template id="lote-template">
+
+                            <div class="lote-row border p-3 mb-2">
+                                    
+                            <label for="" class="my-3">Producto</label>
+                            <select class="form-select producto-select  mb-2 " name="lotes[0][productoId]" >
+
+                                <option value="">Seleccione un producto</option>
+
+                                {{#each productos}}
+
+                                    <option value="{{this.id}}">
+                                        {{this.nombre}}
+                                    </option>
+
+                                {{/each}}
+
+                            </select>
+
+                                <!-- lote -->
+                                <label>lote</label>
+                                <select class="form-select  lote-select" name="lotes[0][loteId]">
+                                    <option value="">Seleccione lote</option>
+                                
+                                    
+                                </select>
+
+                                
+                                <label class="mt-2">Cantidad de embalaje</label>
+                                <input type="number"
+                                    class="form-control"
+                                    name="lotes[0][cajas]"
+                                    min="0">
+
+                                
+                                <label class="mt-2">Unidades por embalaje</label>
+                                <input type="number"
+                                    class="form-control"
+                                    name="lotes[0][unidadesPorCaja]"
+                                    min="1"
+                                    required
+                                    oninvalid="this.setCustomValidity('Ingrese la cantidad de unidades por embalaje')"
+                                    oninput="this.setCustomValidity('')">
+
+                            
+
+                            
+                                <label class="mt-2">Precio de venta</label>
+                                <input type="number"
+                                class="form-control"
+                                name="lotes[0][precio]"
+                                required
+                                >
+
+                                
+                                <label>Observaciones de la venta</label>
+                                <br>
+                                <textarea name="lotes[0][observaciones]" rows="3"></textarea>
+
+                        <hr>
+                                <button
+                                type="button"
+                                class="btn btn-danger btn-sm eliminar-fila"
+                            >
+                                Eliminar
+
+                            </button>
+                            </div>
+
+                        
+
+                        </template>
+                    <div id="lotes-container">
+
+
+                    </div>
+
+                    <button type="button" class="btn btn-secondary w-100 mb-2"  onclick="agregarlote()">
+                        + Agregar lote
+                    </button>
+                    
+
+
+                <button type="submit" class="btn btn-primary w-100 mb-2">Guardar venta</button>
+        </form>
+    </div>
+</div>
+
+{{!-- <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Registro de Venta - Pesquera</h5>
+            </div>
+
+            <div class="card-body">
+
+                <form action="/gestion_ventas/form_venta" method="post">
+                    <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+
+                    <!-- CLIENTE -->
+                    <div class="mb-3">
+                        <label class="form-label">Nombre del cliente</label>
+                        <input type="text" name="cliente" class="form-control" required>
+                    </div>
+
+                    <!-- METODO DE PAGO -->
+                    <div class="mb-3">
+                        <label class="form-label">Método de pago</label>
+
+                        <div class="d-flex gap-4 mt-2">
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="metodoPago" value="transferencia" id="transferencia" required>
+                                <label class="form-check-label" for="transferencia">Transferencia</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="metodoPago" value="tarjeta" id="tarjeta">
+                                <label class="form-check-label" for="tarjeta">Tarjeta</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="metodoPago" value="efectivo" id="efectivo">
+                                <label class="form-check-label" for="efectivo">Efectivo</label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- PRODUCTOS -->
+                    <h6 class="mb-3">Productos a vender</h6>
+
+                    <div id="lotes-container"></div>
+
+                    <button type="button" class="btn btn-outline-secondary w-100 mb-3" onclick="agregarlote()">
+                        + Agregar lote
+                    </button>
+
+                    <!-- SUBMIT -->
+                    <button type="submit" class="btn btn-success w-100">
+                        Guardar venta
+                    </button>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<template id="lote-template">
+    <div class="card border mb-3 lote-row">
+        <div class="card-body">
+
+            <!-- PRODUCTO -->
+            <div class="mb-2">
+                <label class="form-label">Producto</label>
+                <select class="form-select producto-select" name="lotes[0][productoId]">
+                    <option value="">Seleccione un producto</option>
+                    {{#each productos}}
+                        <option value="{{this.id}}">
+                            {{this.nombre}}
+                        </option>
+                    {{/each}}
+                </select>
+            </div>
+
+            <!-- LOTE -->
+            <div class="mb-2">
+                <label class="form-label">Lote</label>
+                <select class="form-select lote-select" name="lotes[0][loteId]">
+                    <option value="">Seleccione lote</option>
+                </select>
+            </div>
+
+            <div class="row">
+
+                <!-- CAJAS -->
+                <div class="col-md-4 mb-2">
+                    <label class="form-label">Cajas</label>
+                    <input type="number" class="form-control" name="lotes[0][cajas]" min="0">
+                </div>
+
+                <!-- UNIDADES -->
+                <div class="col-md-4 mb-2">
+                    <label class="form-label">Unidades por caja</label>
+                    <input type="number" class="form-control" name="lotes[0][unidadesPorCaja]" min="1" required>
+                </div>
+
+                <!-- PRECIO -->
+                <div class="col-md-4 mb-2">
+                    <label class="form-label">Precio</label>
+                    <input type="number" class="form-control" name="lotes[0][precio]" min="0" step="0.01" required>
+                </div>
+
+            </div>
+
+            <!-- OBSERVACIONES -->
+            <div class="mb-2">
+                <label class="form-label">Observaciones</label>
+                <textarea class="form-control" name="lotes[0][observaciones]" rows="2"></textarea>
+            </div>
+
+            <button type="button" class="btn btn-outline-danger btn-sm eliminar-fila">
+                Eliminar
+            </button>
+
+        </div>
+    </div>
+</template> --}}
+
+
+
+<script src="/carrito_ventas.js"> </script>

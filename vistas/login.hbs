@@ -1,24 +1,84 @@
-<h1 class="text-center my-5">Iniciar sesion</h1>
+
+<style>
+    .navbar {
+        display: none;
+    
+    }
+
+    .login-container {
+        text-align: center;
+        margin-top: 60px;
+        margin-bottom: 20px;
+    }
+
+    .login-img {
+        width: 100%;
+        max-width: 450px; /* 👈 tamaño grande */
+        height: auto;
+    }
+
+    body {
+        background-image: url('/img/fondo.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+    /* capa oscura encima del fondo
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4); /* oscurece 
+        z-index: -1;
+    }*/
+
+    html, body {
+    height: 100%;
+    margin: 0;
+}
+</style>
+
+
+<div class="login-container">
+
+
+    <img src="/img/logo.png" alt="Logo pesquera" class="login-img">
+
+    <h1 class="my-4  fw-bold text-white">Iniciar sesión</h1>
+
+</div>
+
+
+{{!-- <h1 class="text-center my-5">Iniciar sesion</h1> --}}
 <div class="row justify-content-center">
     <div class="col-md-6">
         <form action="/sesion/login" method="post">
         
+            <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+            <label for="" class="my-3 text-white fs-4 fw-bold">Correo</label>
             <input
                 class="form-control mb-2"
                 name="email"
                 placeholder="Ingrese email"
                 type="email"
-                value="jeff@prueba.com"
+                value="jefrir531@gmail.com"
             />
+            <label for="" class="my-3 text-white fs-4 fw-bold">Contraseña</label>
             <input
                 class="form-control mb-2"
                 name="password"
                 placeholder="Ingrese contraseña"
                 type="password"
-                value="hols"
+                value="123456"
             />
         
-            <button type="submit" class="btn btn-primary">Acceder</button>
+            <button type="submit" class="btn btn-warning my-3">Acceder</button>
+            <p>¿No tiene usuario?<a href="/sesion/register" class="text-white text-decoration-underline"> Registrese aquí</a></p>
         </form>
     </div>
 </div>

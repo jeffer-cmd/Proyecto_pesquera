@@ -1,0 +1,116 @@
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form action="/gestion_compras/form_compra" method="post">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+
+
+
+                    <label for="" class="my-3">Proveedor</label>
+                    <select class="form-select mb-2 select2" name="id_proveedor">
+
+                        <option value="">Seleccione un proveedor</option>
+
+                        {{#each proveedores}}
+
+                            <option value="{{this.id}}">
+                                {{this.nombre}}
+                            </option>
+
+                        {{/each}}
+
+                    </select>
+
+                
+
+                    <label for="" class="my-3">Fecha de compra</label>
+                    <input type="date" name="fechaIngreso">
+
+                
+
+                    <h5>Productos</h5>
+
+                    <div id="productos-container">
+
+
+                        <template id="producto-template">
+
+
+                            <div class="producto-row border p-3 mb-2">
+
+                                <!-- PRODUCTO -->
+                                <label>Producto</label>
+                                <select class="form-select select2" name="productos[0][productoId]">
+                                    <option value="">Seleccione producto</option>
+                                    {{#each productos}}
+                                        <option value="{{this.id}}">
+                                            {{this.nombre}}
+                                        </option>
+                                    {{/each}}
+                                </select>
+
+                                <!-- CAJAS (opcional frontend) -->
+                                <label class="mt-2">Cantidad de embalaje</label>
+                                <input type="number"
+                                    class="form-control"
+                                    name="productos[0][cajas]"
+                                    min="0">
+
+                                <!-- UNIDADES POR CAJA -->
+                                <label class="mt-2">Unidades por embalaje</label>
+                                <input type="number"
+                                    class="form-control"
+                                    name="productos[0][unidadesPorCaja]"
+                                    min="1"
+                                    required
+                                    oninvalid="this.setCustomValidity('Ingrese la cantidad de unidades por embalaje')"
+                                    oninput="this.setCustomValidity('')">
+
+                            
+
+                                <!-- PRECIO -->
+                                <label class="mt-2">Precio de compra</label>
+                                <input type="number"
+                                class="form-control"
+                                name="productos[0][precio]"
+                                required>
+
+                                <!-- VENCIMIENTO (Lotes) -->
+                                <label class="mt-2">Fecha vencimiento</label>
+                                <input type="date"
+                                    class="form-control"
+                                    name="productos[0][fechaVencimiento]">
+
+                                <!-- OBSERVACIONES POR ITEM -->
+                                <label>Observaciones de la compra</label>
+                                <br>
+                                <textarea name="productos[0][observaciones]" rows="3"></textarea>
+
+                        <hr>
+
+                            <button
+                                type="button"
+                                class="btn btn-danger btn-sm eliminar-fila"
+                            >
+                                Eliminar
+
+                            </button>
+
+
+
+                            </div>
+                        </template>
+
+                    </div>
+
+                    <button type="button" class="btn btn-secondary w-100 mb-2"  onclick="agregarProducto()">
+                        + Agregar producto
+                    </button>
+                    
+
+
+                <button type="submit" class="btn btn-primary w-100 mb-2">Guardar compra</button>
+        </form>
+    </div>
+</div>
+
+<script src="/carrito_compras.js"> </script>
