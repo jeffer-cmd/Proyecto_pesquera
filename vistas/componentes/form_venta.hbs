@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-    <div class="col-md-6">
+    <div class="col-12 col-md-6">
         <form action="/gestion_ventas/form_venta" method="post">
                 <input type="hidden" name="_csrf" value="{{csrfToken}}" />
 
@@ -67,7 +67,7 @@
                                 {{#each productos}}
 
                                     <option value="{{this.id}}">
-                                        {{this.nombre}}
+                                        {{this.nombre}} -{{this.codigoMaterial}}
                                     </option>
 
                                 {{/each}}
@@ -87,7 +87,8 @@
                                 <input type="number"
                                     class="form-control"
                                     name="lotes[0][cajas]"
-                                    min="0">
+                                    min="0"
+                                    >
 
                                 
                                 <label class="mt-2">Unidades por embalaje</label>

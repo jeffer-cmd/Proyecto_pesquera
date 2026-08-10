@@ -1,0 +1,654 @@
+{{!-- <h1>
+Dashboard Inventario
+</h1>
+
+
+<div class="cards">
+
+
+<div>
+<h3>Productos</h3>
+<p>{{totalProductos}}</p>
+</div>
+
+
+<div>
+<h3>Agotados</h3>
+<p>{{agotados}}</p>
+</div>
+
+
+<div>
+<h3>Valor inventario</h3>
+<p>
+$ {{valorInventario}}
+</p>
+</div>
+
+
+</div>
+
+
+
+<canvas id="categoriaChart"></canvas>
+
+
+<canvas id="movimientosChart"></canvas>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+const categorias =
+{{{categorias}}};
+
+
+const movimientos =
+{{{movimientos}}};
+
+
+
+new Chart(
+document.getElementById("categoriaChart"),
+{
+
+type:"bar",
+
+data:{
+
+labels:
+categorias.map(
+x=>x.categoria
+),
+
+datasets:[{
+
+label:"Cantidad inventario",
+
+data:
+categorias.map(
+x=>x.cantidad
+)
+
+}]
+
+}
+
+});
+
+
+
+
+new Chart(
+document.getElementById("movimientosChart"),
+{
+
+type:"doughnut",
+
+data:{
+
+labels:
+movimientos.map(
+x=>x.tipo
+),
+
+datasets:[{
+
+data:
+movimientos.map(
+x=>x.cantidad
+)
+
+}]
+
+}
+
+});
+
+</script> --}}
+
+<div class="container-fluid py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h1 class="fw-bold text-dark">
+            📦 Dashboard Inventario
+        </h1>
+
+
+    </div>
+
+
+
+    <!-- TARJETAS RESUMEN -->
+
+    <div class="row g-4 mb-5">
+
+
+        <div class="col-md-4">
+
+            <div class="card border-0 shadow-sm h-100 bg-primary text-white">
+
+                <div class="card-body d-flex align-items-center">
+
+                    <div class="fs-1 me-3">
+                        📦
+                    </div>
+
+                    <div>
+                        <h6 class="text-uppercase">
+                            Productos
+                        </h6>
+
+                        <h2 class="fw-bold">
+                            {{totalProductos}}
+                        </h2>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="col-md-4">
+
+            <div class="card border-0 shadow-sm h-100 bg-danger text-white">
+
+                <div class="card-body d-flex align-items-center">
+
+                    <div class="fs-1 me-3">
+                        ⚠️
+                    </div>
+
+
+                    <div>
+
+                        <h6 class="text-uppercase">
+                            Productos con lotes Agotados
+                        </h6>
+
+
+                        <h2 class="fw-bold">
+                            {{agotados}}
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+        <div class="col-md-4">
+
+            <div class="card border-0 shadow-sm h-100 bg-success text-white">
+
+                <div class="card-body d-flex align-items-center">
+
+                    <div class="fs-1 me-3">
+                        💰
+                    </div>
+
+
+                    <div>
+
+                        <h6 class="text-uppercase">
+                            Valor inventario
+                        </h6>
+
+
+                        <h2 class="fw-bold">
+                            {{ formatoCOP valorInventario}}
+                        </h2>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+    <!-- GRAFICAS -->
+
+
+    <div class="row g-4">
+
+
+        <div class="col-lg-7">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-header bg-white">
+
+                    <h5 class="mb-0 fw-bold">
+                        📊 Inventario por categoría
+                    </h5>
+
+                </div>
+
+
+                <div class="card-body">
+
+                    <canvas id="categoriaChart"
+                    style="max-height:350px">
+                    </canvas>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <div class="col-lg-5">
+
+
+            <div class="card shadow-sm border-0">
+
+
+                <div class="card-header bg-white">
+
+                    <h5 class="mb-0 fw-bold">
+                        🔄 Movimientos inventario
+                    </h5>
+
+                </div>
+
+
+                <div class="card-body">
+
+
+                    <canvas id="movimientosChart"
+                    style="max-height:350px">
+                    </canvas>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+<div class="row g-4 mt-1">
+
+    <div class="col-lg-12">
+
+        <div class="card shadow-sm border-0">
+
+            <div class="card-header bg-white">
+
+                <h5 class="mb-0 fw-bold">
+                    🏆 Top 5 productos más vendidos
+                </h5>
+
+            </div>
+
+
+            <div class="card-body">
+
+                <canvas id="topProductosChart"
+                style="max-height:350px">
+                </canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row g-4 mt-1">
+
+    <div class="col-lg-6">
+
+        <div class="card shadow-sm border-0">
+
+            <div class="card-header bg-white">
+
+                <h5 class="mb-0 fw-bold">
+                    📉 Productos con más mermas
+                </h5>
+
+            </div>
+
+
+            <div class="card-body">
+
+                <canvas id="mermasChart"
+                style="max-height:350px">
+                </canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+
+
+const categorias = {{{categorias}}};
+
+const movimientos = {{{movimientos}}};
+
+const topProductos = {{{topProductos}}};
+
+const topMermas = {{{topMermas}}};
+
+// GRAFICA CATEGORIAS
+
+new Chart(
+document.getElementById("categoriaChart"),
+{
+
+type:"bar",
+
+data:{
+
+labels:
+categorias.map(
+item=>item.categoria
+),
+
+
+datasets:[{
+
+label:"Cantidad disponible",
+
+data:
+categorias.map(
+item=>Number(item.cantidad)
+),
+
+
+backgroundColor:[
+"#0d6efd",
+"#6610f2",
+"#20c997",
+"#ffc107"
+],
+
+
+borderRadius:8
+
+}]
+
+},
+
+
+options:{
+
+responsive:true,
+
+
+plugins:{
+
+legend:{
+display:false
+}
+
+}
+
+
+}
+
+
+});
+
+
+
+
+
+
+// GRAFICA MOVIMIENTOS
+
+
+new Chart(
+document.getElementById("movimientosChart"),
+{
+
+type:"doughnut",
+
+data:{
+
+labels:
+movimientos.map(
+item=>item.tipo
+),
+
+
+datasets:[{
+
+data:
+movimientos.map(
+item=>Number(item.cantidad)
+),
+
+
+backgroundColor:[
+
+"#198754",
+"#dc3545"
+
+]
+
+
+}]
+
+
+},
+
+
+options:{
+
+
+responsive:true,
+
+
+plugins:{
+
+
+legend:{
+
+position:"bottom"
+
+}
+
+
+}
+
+
+
+}
+
+
+});
+
+//GRAFICA DE BARRAS
+new Chart(
+document.getElementById("topProductosChart"),
+{
+
+type:"bar",
+
+data:{
+
+labels:
+topProductos.map(
+item=>item.producto
+),
+
+
+datasets:[{
+
+label:"Unidades vendidas",
+
+data:
+topProductos.map(
+item=>Number(item.vendido)
+),
+
+
+backgroundColor:[
+"#0d6efd",
+"#198754",
+"#ffc107",
+"#dc3545",
+"#6610f2"
+],
+
+
+borderRadius:8
+
+}]
+
+},
+
+
+options:{
+
+responsive:true,
+
+plugins:{
+
+legend:{
+display:false
+}
+
+},
+
+
+scales:{
+
+y:{
+
+beginAtZero:true
+
+}
+
+}
+
+}
+
+
+});
+
+// GRAFICA TOP MERMAS
+
+new Chart(
+document.getElementById("mermasChart"),
+{
+
+type:"bar",
+
+data:{
+
+labels:
+topMermas.map(
+item=>item.producto
+),
+
+
+datasets:[{
+
+label:"Cantidad mermada",
+
+data:
+topMermas.map(
+item=>Number(item.cantidad)
+),
+
+
+backgroundColor:[
+"#dc3545",
+"#fd7e14",
+"#ffc107",
+"#6f42c1",
+"#d63384"
+],
+
+
+borderRadius:8
+
+}]
+
+
+},
+
+
+options:{
+
+indexAxis: "y",
+
+responsive:true,
+
+
+plugins:{
+
+legend:{
+display:false
+}
+
+},
+
+
+scales:{
+
+y:{
+
+beginAtZero:true
+
+}
+
+}
+
+
+}
+
+
+});
+
+
+
+</script>

@@ -1,4 +1,4 @@
-<h1>Gestión de lotes</h1>
+{{!-- <h1>Gestión de lotes</h1>
 
 
 
@@ -6,11 +6,11 @@
 
         <form action="/gestion_lotes/lotes" method="POST">
             <input type="hidden" name="_csrf" value="{{csrfToken}}" />
-            {{!-- <input type="text" name="buscar" placeholder="Buscar"> --}}
+            {{!-- <input type="text" name="buscar" placeholder="Buscar">  COMENTARIOOOOO
 
             {{!-- <button type="submit" class="btn btn-warning text-white mx-2">
                 Buscar
-            </button> --}}
+            </button>  COMENTARIOOOOO
 
         </form>
     </div>
@@ -39,8 +39,10 @@
                 <th>FECHA VENCIMIENTO</th>
             
                 <th>CANTIDAD</th>
+                <th>UNIDAD</th>
+                <th>TIPO EMBALAJE</th>
 
-                {{!-- <th>FECHA DE CREACIÓN</th> --}}
+                {{!-- <th>FECHA DE CREACIÓN</th>  COMENTARIOOOOO
             
             </tr>
         </thead>
@@ -58,4 +60,154 @@
     </table>
 </div>
 
-<script src="/filtro_lotes.js"> </script>
+<script src="/filtro_lotes.js"> </script> --}}
+
+
+<h1>Gestión de lotes</h1>
+
+
+<div class="container">
+
+    <form action="/gestion_lotes/lotes" method="POST">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+    </form>
+
+</div>
+
+
+<div class="d-flex justify-content-between align-items-center my-5 w-100 gap-3">
+
+    <a href="/gestion_lotes/lotes_viejos" class="btn btn-primary">
+        Lotes agotados
+    </a>
+
+    <input 
+        type="text" 
+        id="buscador" 
+        class="form-control mb-3 w-50 border border-dark" 
+        placeholder="Buscar producto o lote">
+
+</div>
+
+
+<div class="accordion" id="accordionProductos">
+
+
+{{#each lista_lotes}}
+
+    <div class="accordion-item producto-item">
+
+
+        <h2 class="accordion-header">
+
+            <button 
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#producto{{@index}}">
+
+                {{producto}}-{{material}}
+
+            </button>
+
+        </h2>
+
+
+        <div 
+            id="producto{{@index}}"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionProductos">
+
+
+            <div class="accordion-body">
+
+                <div class="table-responsive">
+
+                    <table class="table table-sm table-bordered table-hover text-center align-middle tabla-producto">
+
+                        <thead class="table-primary align-middle">
+
+                            <tr>
+                                <th>LOTE</th>
+                                <th>ESTADO</th>
+                                <th>FECHA INGRESO</th>
+                                <th>FECHA VENCIMIENTO</th>
+                                <th>CANTIDAD</th>
+                                <th>UNIDAD</th>
+                                <th>TIPO EMBALAJE</th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+
+                        {{#each lotes}}
+
+                            <tr class="fila-lote">
+
+                                <td>
+                                    {{lote}}
+                                </td>
+
+
+                                <td>
+                                    {{estado}}
+                                </td>
+
+
+                                <td>
+                                    {{fechaIngreso}}
+                                </td>
+
+
+                                <td>
+                                    {{fechaVencimiento}}
+                                </td>
+
+
+                                <td>
+                                    {{formatoNumero cantidadActual}}
+                                </td>
+
+
+                                <td>
+                                    {{unidadMedida}}
+                                </td>
+
+
+                                <td>
+                                    {{tipoEmbalaje}}
+                                </td>
+
+
+                            </tr>
+
+
+                        {{/each}}
+
+
+                        </tbody>
+
+
+                    </table>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+{{/each}}
+
+
+</div>
+
+
+<script src="/filtro_lotes.js"></script>

@@ -29,11 +29,14 @@ const registrarUsuario=async(req,res)=>{
     }
 
     const {nombre,rol,email,password}=req.body
+
+    
     try {
     let userExistente = await db
         .select()
         .from(usuarios)
-        .where(eq(usuarios.email, email))
+        // .where(eq(usuarios.email, email))
+        .where(eq(usuarios.nombre, nombre))
         
 
     if (userExistente.length > 0) {
@@ -54,9 +57,9 @@ const registrarUsuario=async(req,res)=>{
     })
     
         const { data, error } = await resend.emails.send({
-            from: 'Acme <onboarding@resend.dev>',
+            from: 'Pesquera El Marinero <onboarding@resend.dev>',
             to: [email],
-            subject: 'verifique su cuenta de correo',
+            subject: 'verifique su cuenta de correo en Pesquera El Marinero',
             html:`Bienvenido a pesquera el marinero, por favor confirme su cuenta en el siguiente enlace: 
             <a href="${ process.env.PATH_DE_RENDER ||'http://localhost:5000'}/sesion/confirmarCuenta/${tokenConfirm}">verificar cuenta aquí</a>`,
         });
@@ -66,7 +69,7 @@ const registrarUsuario=async(req,res)=>{
             throw new Error(error.message);
         }
 
-        console.log({ data });
+        // console.log({ data });
     
 
         req.flash("mensajes",[{msg:"Revisa tu correo electrónico y válida cuenta"}])
@@ -119,11 +122,13 @@ const loginUser=async(req,res)=>{
         req.flash("mensajes",errors.array())
         return res.redirect('/sesion/login')
     }
-    const {email,password} = req.body
-
+    // const {email,password} = req.body
+    const {nombre,password} = req.body
+    // console.log(req.body);
     try {
-        const user=await db.select().from(usuarios).where(eq(usuarios.email,email))
-        if(user.length===0) throw new Error("No existe este email")
+        // const user=await db.select().from(usuarios).where(eq(usuarios.email,email))
+        const user=await db.select().from(usuarios).where(eq(usuarios.nombre,nombre))
+        if(user.length===0) throw new Error("No existe este usuario")
 
         if(!user[0].cuentaConfirmada) throw new Error("Falta confirmar la cuenta")
         
@@ -136,10 +141,26 @@ const loginUser=async(req,res)=>{
             throw new Error("Contraseña incorrecta");
         }
 // crea la sesion de usuario a traves de passport   
-        req.login(user[0],function(err){
-            if(err) throw new Error ('error al crear la sesion')
-            return res.redirect("/")
-        })
+        // req.login(user[0],function(err){
+        //     if(err) throw new Error ('error al crear la sesion')
+        //     return res.redirect("/")
+        // })
+
+        req.login(user[0], function(err) {
+            if (err) {
+                throw new Error('error al crear la sesion');
+            }
+
+            if (user[0].rol === "admin") {
+                return res.redirect("/");
+            }
+
+            if (user[0].rol === "empleado") {
+                return res.redirect("/formulario_operario");
+            }
+
+            return res.redirect("/sesion/login");
+        });
 
     } catch (error) {
         req.flash("mensajes",[{msg:error.message}])

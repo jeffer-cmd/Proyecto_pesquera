@@ -4,36 +4,71 @@
 
 <div class="container">
 
+    <div class="mb-3 text-end">
+
+        <form action="/gestion_lotes/generar-backup" method="POST">
+            <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+
+            <button type="submit" class="btn btn-success">
+                📦 Generar Backup
+            </button>
+
+        </form>
+
+        {{!-- <form action="/gestion_lotes/generar-backup-bd" method="POST">
+            <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+
+            <button type="submit" class="btn btn-success">
+                📦 Generar Backup BD
+            </button>
+
+        </form> --}}
 
 
-    <table class="table table-bordered table-hover text-center align-middle" id="tablaLotesViejos">
+        {{!-- <form action="/gestion_lotes/restaurar-backup-bd" method="POST"  enctype="multipart/form-data">
+            <input type="hidden" name="_csrf" value="{{csrfToken}}" />
 
-        <thead class="table-primary">
-            <tr>
-                <th>PRODUCTO</th>
-                <th>LOTE</th>
-                <th>ESTADO</th>
-                <th>FECHA INGRESO</th>
-                <th>FECHA VENCIMIENTO</th>
-            
-                <th>CANTIDAD</th>
+            <input type="file"name="backup"accept=".json"class="form-control mb-2">
 
-                {{!-- <th>FECHA DE CREACIÓN</th> --}}
-            
-            </tr>
-        </thead>
+            <button type="submit"class="btn btn-danger"onclick="return confirm('¿Está seguro? Esto reemplazará toda la base de datos actual');">♻️ Restaurar Base de Datos</button>
 
-        <tbody>
+        </form> --}}
 
-            {{#each agrupado}}
+    </div>
 
-                {{#each this.lotes}}
 
-                    {{>card_lotes item=this}}
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered table-hover text-center align-middle" id="tablaLotesViejos">
+
+            <thead class="table-primary align-middle">
+                <tr>
+                    <th>PRODUCTO</th>
+                    <th>LOTE</th>
+                    <th>ESTADO</th>
+                    <th>FECHA INGRESO</th>
+                    <th>FECHA VENCIMIENTO</th>
                 
-                {{/each}}
-            {{/each}}
-        </tbody>
+                    <th>CANTIDAD</th>
+                    <th>UNIDAD</th>
 
-    </table>
+                    {{!-- <th>FECHA DE CREACIÓN</th> --}}
+                
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {{#each agrupado}}
+
+                    {{#each this.lotes}}
+
+                        {{>card_lotes item=this}}
+                    
+                    {{/each}}
+                {{/each}}
+            </tbody>
+
+        </table>
+
+    </div>
 </div>

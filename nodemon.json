@@ -1,3 +1,9 @@
 {
-    "ext":"js,json,hbs"
+    "ext":"js,json,hbs",
+    "ignore": [
+    "backupsBD/*",
+    "backups/*",
+    "uploads/*"
+  ]
 }
+

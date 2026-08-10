@@ -1,7 +1,7 @@
 const {productos, compras, ventas,lotes,detalleVentas,movimientosInventario,usuarios}=require('../src/db/schema')
 const  db  = require('../src/db/db'); 
 const {validationResult}=require("express-validator")
-const { eq } = require("drizzle-orm");
+const { eq ,desc } = require("drizzle-orm");
 const { ExpressValidator } = require('express-validator');
 const { ilike } = require("drizzle-orm");
 const {  and, gte, lte, lt,gt,or  } = require("drizzle-orm");
@@ -36,7 +36,10 @@ const mostrar_inventario=async(req,res)=>{
                 )  .leftJoin(
                     compras,
                     eq(movimientosInventario.compraId, compras.id)
+                ).orderBy(
+                    desc(movimientosInventario.fecha)
                 )
+                .limit(5000);
                 // ).where(
                 //     or(
                 //         and(

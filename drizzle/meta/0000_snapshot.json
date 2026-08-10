@@ -1,5 +1,5 @@
 {
-  "id": "b502aa53-1e71-4c9f-b6ca-2fdcd59cb0c7",
+  "id": "50e0cc79-a18a-41f5-b102-695fdb1c086c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -39,6 +39,12 @@
           "primaryKey": false,
           "notNull": true
         },
+        "id_proveedor": {
+          "name": "id_proveedor",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
         "precio_referencia_compra": {
           "name": "precio_referencia_compra",
           "type": "numeric(10, 2)",
@@ -53,14 +59,14 @@
         },
         "created_at": {
           "name": "created_at",
-          "type": "timestamp",
+          "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": false,
           "default": "now()"
         },
         "updated_at": {
           "name": "updated_at",
-          "type": "timestamp",
+          "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": false,
           "default": "now()"
@@ -77,6 +83,19 @@
           ],
           "columnsTo": [
             "id_categoria"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "productos_id_proveedor_proveedores_id_fk": {
+          "name": "productos_id_proveedor_proveedores_id_fk",
+          "tableFrom": "productos",
+          "tableTo": "proveedores",
+          "columnsFrom": [
+            "id_proveedor"
+          ],
+          "columnsTo": [
+            "id"
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
@@ -132,7 +151,7 @@
         },
         "created_at": {
           "name": "created_at",
-          "type": "timestamp",
+          "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": false,
           "default": "now()"
@@ -176,8 +195,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "password_hash": {
-          "name": "password_hash",
+        "passwordHash": {
+          "name": "passwordHash",
           "type": "text",
           "primaryKey": false,
           "notNull": true
@@ -189,9 +208,22 @@
           "primaryKey": false,
           "notNull": true
         },
+        "token": {
+          "name": "token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cuenta_confirmada": {
+          "name": "cuenta_confirmada",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
         "created_at": {
           "name": "created_at",
-          "type": "timestamp",
+          "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": false,
           "default": "now()"
@@ -229,16 +261,22 @@
           "primaryKey": false,
           "notNull": true
         },
-        "fecha": {
-          "name": "fecha",
-          "type": "timestamp",
+        "total": {
+          "name": "total",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "estado": {
+          "name": "estado",
+          "type": "varchar(20)",
           "primaryKey": false,
           "notNull": false,
-          "default": "now()"
+          "default": "'ACTIVA'"
         },
         "created_at": {
           "name": "created_at",
-          "type": "timestamp",
+          "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": false,
           "default": "now()"
@@ -288,6 +326,12 @@
           "primaryKey": false,
           "notNull": true
         },
+        "codigo_lote": {
+          "name": "codigo_lote",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
         "fecha_ingreso": {
           "name": "fecha_ingreso",
           "type": "date",
@@ -316,7 +360,7 @@
         },
         "created_at": {
           "name": "created_at",
-          "type": "timestamp",
+          "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": false,
           "default": "now()"
@@ -390,6 +434,12 @@
           "type": "numeric(10, 2)",
           "primaryKey": false,
           "notNull": true
+        },
+        "observaciones": {
+          "name": "observaciones",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {},
@@ -462,9 +512,22 @@
           "primaryKey": false,
           "notNull": false
         },
+        "estado": {
+          "name": "estado",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'ACTIVA'"
+        },
+        "total": {
+          "name": "total",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
         "created_at": {
           "name": "created_at",
-          "type": "timestamp",
+          "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": false,
           "default": "now()"
@@ -525,6 +588,12 @@
           "type": "numeric(10, 2)",
           "primaryKey": false,
           "notNull": true
+        },
+        "observaciones": {
+          "name": "observaciones",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {},
@@ -605,7 +674,7 @@
         },
         "fecha": {
           "name": "fecha",
-          "type": "timestamp",
+          "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": false,
           "default": "now()"
@@ -685,6 +754,39 @@
           "nullsNotDistinct": false,
           "columns": [
             "nombre_categoria"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.embalajes": {
+      "name": "embalajes",
+      "schema": "",
+      "columns": {
+        "id_embalaje": {
+          "name": "id_embalaje",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "nombre_embalaje": {
+          "name": "nombre_embalaje",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "embalajes_nombre_embalaje_unique": {
+          "name": "embalajes_nombre_embalaje_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "nombre_embalaje"
           ]
         }
       },

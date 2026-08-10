@@ -50,19 +50,6 @@ export const proveedores = pgTable("proveedores", {
 	unique("proveedores_email_unique").on(table.email),
 ]);
 
-export const compras = pgTable("compras", {
-	id: serial().primaryKey().notNull(),
-	proveedorId: integer("proveedor_id").notNull(),
-	fecha: timestamp({ mode: 'string' }).defaultNow(),
-	createdAt: timestamp("created_at", { withTimezone: true, mode: 'string' }).defaultNow(),
-}, (table) => [
-	foreignKey({
-			columns: [table.proveedorId],
-			foreignColumns: [proveedores.id],
-			name: "compras_proveedor_id_proveedores_id_fk"
-		}),
-]);
-
 export const lotes = pgTable("lotes", {
 	id: serial().primaryKey().notNull(),
 	productoId: integer("producto_id").notNull(),
@@ -72,6 +59,7 @@ export const lotes = pgTable("lotes", {
 	cantidadActual: numeric("cantidad_actual", { precision: 10, scale:  2 }).notNull(),
 	estado: estadoLote().default('disponible'),
 	createdAt: timestamp("created_at", { withTimezone: true, mode: 'string' }).defaultNow(),
+	codigoLote: varchar("codigo_lote", { length: 50 }),
 }, (table) => [
 	foreignKey({
 			columns: [table.productoId],
@@ -83,6 +71,7 @@ export const lotes = pgTable("lotes", {
 			foreignColumns: [compras.id],
 			name: "lotes_compra_id_compras_id_fk"
 		}),
+	
 ]);
 
 export const detalleCompras = pgTable("detalle_compras", {
@@ -90,8 +79,16 @@ export const detalleCompras = pgTable("detalle_compras", {
 	compraId: integer("compra_id").notNull(),
 	loteId: integer("lote_id").notNull(),
 	cantidad: numeric({ precision: 10, scale:  2 }).notNull(),
+	cantidad_embalaje: integer("cantidad_embalaje"),
 	precio: numeric({ precision: 10, scale:  2 }).notNull(),
+	observaciones: text(),
+	idEmbalaje: integer("id_embalaje"),
 }, (table) => [
+	foreignKey({
+			columns: [table.idEmbalaje],
+			foreignColumns: [embalajes.id_embalaje],
+			name: "detalle_compras_id_embalaje_embalajes_id_embalaje_fk"
+		}),
 	foreignKey({
 			columns: [table.compraId],
 			foreignColumns: [compras.id],
@@ -104,37 +101,17 @@ export const detalleCompras = pgTable("detalle_compras", {
 		}),
 ]);
 
-export const ventas = pgTable("ventas", {
+export const compras = pgTable("compras", {
 	id: serial().primaryKey().notNull(),
-	usuarioId: integer("usuario_id"),
-	fecha: timestamp({ mode: 'string' }).defaultNow(),
-	metodoPago: text("metodo_pago"),
-	cliente: text(),
+	proveedorId: integer("proveedor_id").notNull(),
 	createdAt: timestamp("created_at", { withTimezone: true, mode: 'string' }).defaultNow(),
+	total: numeric({ precision: 12, scale:  2 }).notNull(),
+	estado: varchar({ length: 20 }).default('ACTIVA'),
 }, (table) => [
 	foreignKey({
-			columns: [table.usuarioId],
-			foreignColumns: [usuarios.id],
-			name: "ventas_usuario_id_usuarios_id_fk"
-		}),
-]);
-
-export const detalleVentas = pgTable("detalle_ventas", {
-	id: serial().primaryKey().notNull(),
-	ventaId: integer("venta_id").notNull(),
-	loteId: integer("lote_id").notNull(),
-	cantidad: numeric({ precision: 10, scale:  2 }).notNull(),
-	precio: numeric({ precision: 10, scale:  2 }).notNull(),
-}, (table) => [
-	foreignKey({
-			columns: [table.ventaId],
-			foreignColumns: [ventas.id],
-			name: "detalle_ventas_venta_id_ventas_id_fk"
-		}),
-	foreignKey({
-			columns: [table.loteId],
-			foreignColumns: [lotes.id],
-			name: "detalle_ventas_lote_id_lotes_id_fk"
+			columns: [table.proveedorId],
+			foreignColumns: [proveedores.id],
+			name: "compras_proveedor_id_proveedores_id_fk"
 		}),
 ]);
 
@@ -174,5 +151,51 @@ export const usuarios = pgTable("usuarios", {
 	token: text(),
 	cuentaConfirmada: boolean("cuenta_confirmada").default(false),
 }, (table) => [
-	unique("usuarios_email_unique").on(table.email),
+	unique("usuarios_nombre_unique").on(table.nombre),
 ]);
+
+export const ventas = pgTable("ventas", {
+	id: serial().primaryKey().notNull(),
+	usuarioId: integer("usuario_id"),
+	fecha: timestamp({ mode: 'string' }).defaultNow(),
+	metodoPago: text("metodo_pago"),
+	cliente: text(),
+	createdAt: timestamp("created_at", { withTimezone: true, mode: 'string' }).defaultNow(),
+	total: numeric({ precision: 12, scale:  2 }).notNull(),
+	estado: varchar({ length: 20 }).default('ACTIVA'),
+}, (table) => [
+	foreignKey({
+			columns: [table.usuarioId],
+			foreignColumns: [usuarios.id],
+			name: "ventas_usuario_id_usuarios_id_fk"
+		}),
+]);
+
+export const detalleVentas = pgTable("detalle_ventas", {
+	id: serial().primaryKey().notNull(),
+	ventaId: integer("venta_id").notNull(),
+	loteId: integer("lote_id").notNull(),
+	cantidad: numeric({ precision: 10, scale:  2 }).notNull(),
+	cantidad_embalaje: integer("cantidad_embalaje"),
+	precio: numeric({ precision: 10, scale:  2 }).notNull(),
+	observaciones: text(),
+}, (table) => [
+	foreignKey({
+			columns: [table.ventaId],
+			foreignColumns: [ventas.id],
+			name: "detalle_ventas_venta_id_ventas_id_fk"
+		}),
+	foreignKey({
+			columns: [table.loteId],
+			foreignColumns: [lotes.id],
+			name: "detalle_ventas_lote_id_lotes_id_fk"
+		}),
+]);
+
+export const embalajes = pgTable("embalajes", {
+  id_embalaje: serial("id_embalaje").primaryKey(),
+  nombreEmbalaje: text("nombre_embalaje")
+}, (table) => [
+	unique("embalajes_nombre_embalaje_unique").on(table.nombreEmbalaje),
+]);;
+

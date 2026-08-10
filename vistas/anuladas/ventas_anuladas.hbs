@@ -1,38 +1,41 @@
-<h1>Gestión de compras</h1>
+<h1 class="text-center">Gestión de ventas</h1>
 
 
 
-<div class="container">
+<div class="container my-5">
 
 
 
-    <table class="table table-bordered table-hover text-center align-middle" id="tablaVentasAnuladas">
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered table-hover text-center align-middle" id="tablaVentasAnuladas">
 
-        <thead class="table-primary">
-            <tr>
-                <th>VENTA #</th>
-                <th>VENDEDOR</th>
-                <th>MÉTODO DE PAGO</th>
-                <th>CLIENTE</th>
-                <th>TOTAL</th>
-                <th>FECHA DE REGISTRO</th>
-                <th>ESTADO DE VENTA</th>
-            
-            
-            </tr>
-        </thead>
-
-        <tbody>
-
-            {{#each agrupado}}
-
-                {{#each this.ventas}}
-
-                    {{>card_ventas item=this mostrarAcciones=false}}
+            <thead class="table-primary align-middle">
+                <tr>
+                    <th>VENTA #</th>
+                    <th>VENDEDOR</th>
+                    <th>MÉTODO DE PAGO</th>
+                    <th>CLIENTE</th>
+                    <th>TOTAL</th>
+                    <th>FECHA DE REGISTRO</th>
+                    <th>ESTADO DE VENTA</th>
                 
-                {{/each}}
-            {{/each}}
-        </tbody>
+                
+                </tr>
+            </thead>
 
-    </table>
+            <tbody>
+
+                {{#each agrupado}}
+
+                    {{#each this.ventas}}
+
+                        {{>card_ventas item=this mostrarAcciones=false}}
+                    
+                    {{/each}}
+                {{/each}}
+            </tbody>
+
+        </table>
+
+    </div>
 </div>

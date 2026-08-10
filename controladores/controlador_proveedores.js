@@ -1,12 +1,15 @@
-const {proveedores}=require('../src/db/schema')
+const {proveedores,compras,productos}=require('../src/db/schema')
 const  db  = require('../src/db/db'); 
 const {validationResult}=require("express-validator")
-const { eq } = require("drizzle-orm");
+const { eq,desc } = require("drizzle-orm");
 const { ExpressValidator } = require('express-validator');
 
 const mostrar_proveedor=async(req,res)=>{
         try {
-                const lista_proveedores=await db.select().from(proveedores)
+                const lista_proveedores=await db.select().from(proveedores).orderBy(
+            desc(proveedores.createdAt)
+        )
+        .limit(5000);
                 
                 const proveedores_formateados = lista_proveedores.map(proveedor => {
                 return {
@@ -54,6 +57,15 @@ const registrarProveedor=async(req,res)=>{
         throw new Error("Ya existe el proveedor");
     }
 
+    const proveedorPorEmail = await db
+            .select()
+            .from(proveedores)
+            .where(eq(proveedores.email, email));
+
+        if (proveedorPorEmail.length > 0) {
+            throw new Error("Ya existe un proveedor con ese email");
+        }
+
     const nuevoProveedor = await db
     .insert(proveedores)
     .values({
@@ -82,6 +94,38 @@ const registrarProveedor=async(req,res)=>{
             const {id}=req.params
             
             try {
+
+                const comprasProveedor = await db
+                    .select()
+                    .from(compras)
+                    .where(eq(compras.proveedorId, Number(id)));
+
+                if (comprasProveedor.length > 0) {
+
+                    req.flash("mensajes", [{
+                        msg: "No se puede eliminar el proveedor porque tiene compras asociadas."
+                    }]);
+
+                    return res.redirect("/gestion_proveedores/proveedores");
+                }
+
+
+                // Verificar si el proveedor está asociado a productos
+                const productosProveedor = await db
+                    .select()
+                    .from(productos)
+                    .where(eq(productos.idProveedor, Number(id)));
+
+                if (productosProveedor.length > 0) {
+
+                    req.flash("mensajes", [{
+                        msg: "No se puede eliminar el proveedor porque tiene productos asociados."
+                    }]);
+
+                    return res.redirect("/gestion_proveedores/proveedores");
+                }
+
+                
                 await db.delete(proveedores).where(eq(proveedores.id, id));
                 req.flash("mensajes",[{msg:"proveedor eliminado"}])
                 res.redirect("/gestion_proveedores/proveedores")

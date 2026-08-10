@@ -34,6 +34,11 @@ const categorias = pgTable("categorias", {
   nombre_categoria: text("nombre_categoria").notNull().unique()
 });
 
+const embalajes = pgTable("embalajes", {
+  id_embalaje: serial("id_embalaje").primaryKey(),
+  nombre_embalaje: text("nombre_embalaje").notNull().unique()
+});
+
 
 const usuarios = pgTable("usuarios", {
   id: serial("id").primaryKey(),
@@ -120,6 +125,7 @@ const lotes = pgTable("lotes", {
     .notNull()
     .references(() => compras.id),
 
+
     codigoLote: varchar("codigo_lote", { length: 50 }),
 
     fechaIngreso: date("fecha_ingreso").notNull(),
@@ -149,7 +155,12 @@ const detalleCompras = pgTable("detalle_compras", {
     .notNull()
     .references(() => lotes.id),
 
+  idEmbalaje: integer("id_embalaje")
+    .references(() => embalajes.id_embalaje),
+
   cantidad: numeric("cantidad", { precision: 10, scale: 2 }).notNull(),
+  
+  cantidad_embalaje: integer("cantidad_embalaje"),
 
   precio: numeric("precio", { precision: 10, scale: 2 }).notNull(),
 
@@ -175,6 +186,7 @@ const ventas = pgTable("ventas", {
 
   total: numeric("total", { precision: 12, scale: 2 }).notNull(),
 
+
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
 });
 
@@ -193,6 +205,8 @@ const detalleVentas = pgTable("detalle_ventas", {
     .references(() => lotes.id),
 
   cantidad: numeric("cantidad", { precision: 10, scale: 2 }).notNull(),
+
+  cantidad_embalaje: integer("cantidad_embalaje"),
 
   precio: numeric("precio", { precision: 10, scale: 2 }).notNull(),
 
@@ -237,8 +251,7 @@ module.exports = {
   ventas,
   detalleVentas,
   movimientosInventario,
-  categorias
+  categorias,
+  embalajes
 };
-
-
 

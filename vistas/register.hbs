@@ -1,7 +1,18 @@
 <style>
-    .navbar {
+
+    .navbar-nav,
+    .navbar-toggler {
+        display: none !important;
+    }
+    .soloAdmin {
         display: none;
     
+    }
+
+
+
+    .operacion-navbar{
+        display: none;
     }
 </style>
 
@@ -18,7 +29,7 @@
                 name="nombre"
                 placeholder="Ingrese nombre"
                 type="text"
-                value="jeff"
+                
             />
 
             <label for="" class="my-3">Escoja su rol:</label>
@@ -42,7 +53,8 @@
                 placeholder="Ingrese el rol a desempeñar"
                 type="radio"
                 value="empleado",
-                id="empleado"
+                id="empleado",
+                required
 
             />
             <br>
@@ -53,7 +65,8 @@
                 name="email"
                 placeholder="Ingrese email"
                 type="email"
-                value="jeff@prueba.com"
+                value="pesqueramarinero@gmail.com"
+                readonly
             />
             <label for="" class="my-3">Contraseña</label>
             <input
@@ -61,7 +74,7 @@
                 name="password"
                 placeholder="Ingrese contraseña"
                 type="password"
-                value="hols"
+                
             />
             <label for="" class="my-3">Repita contraseña</label>            
             <input
@@ -69,7 +82,7 @@
                 name="passwordRepit"
                 placeholder="Repita contraseña"
                 type="password"
-                value="123123"
+                
             />
             <button type="submit" class="btn btn-primary my-3">Crear Cuenta</button>
         </form>

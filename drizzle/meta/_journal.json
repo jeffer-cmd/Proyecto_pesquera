@@ -5,50 +5,15 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1777655916631,
-      "tag": "0000_thin_cargill",
+      "when": 1784083915696,
+      "tag": "0000_baseline",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "7",
-      "when": 1777764324170,
-      "tag": "0001_silly_ink",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1779409762460,
-      "tag": "0002_panoramic_sprite",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1779410230608,
-      "tag": "0003_gorgeous_jack_flag",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1779410705353,
-      "tag": "0004_swift_penance",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1779846100212,
-      "tag": "0005_unusual_black_tarantula",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "7",
-      "when": 1780195845235,
-      "tag": "0006_minor_dorian_gray",
+      "when": 1784087110291,
+      "tag": "0001_embalajes_nullable",
       "breakpoints": true
     }
   ]

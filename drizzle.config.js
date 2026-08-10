@@ -22,7 +22,8 @@ if (!process.env.DATABASE_URL) {
 }
 
 module.exports = defineConfig({
-  schema: "./src/db/schema.js",
+  // schema: "./src/db/schema.js",
+  schema: "./drizzle/schema.ts",
   out: "./drizzle",
   dialect: "postgresql",
   dbCredentials: {

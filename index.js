@@ -97,6 +97,8 @@ const hbs = create({
             return a === b;
         },
 
+        gt: (a, b) => a > b,
+
         formatoCOP: (valor) => {
         return new Intl.NumberFormat("es-CO", {
         style: "currency",
@@ -134,11 +136,42 @@ app.set("views", "./vistas");
 
 app.use(express.urlencoded({extended:true}))
 
-app.use(csrf())
+// app.use(csrf())
+
+//--------------------borrar
+const csrfProtection = csrf();
+
+app.use((req,res,next)=>{
+
+    if(
+        req.path === "/gestion_lotes/restaurar-backup-bd"
+        &&
+        req.method === "POST"
+    ){
+        return next();
+    }
+
+    csrfProtection(req,res,next);
+
+});
+
+// -------------------- hasta aqui
+
+//se queda:
+// app.use((req, res, next) => {
+//     res.locals.csrfToken = req.csrfToken();
+//     res.locals.mensajes=req.flash("mensajes")
+//     next();
+// });
 
 app.use((req, res, next) => {
-    res.locals.csrfToken = req.csrfToken();
-    res.locals.mensajes=req.flash("mensajes")
+
+    if (req.csrfToken) {
+        res.locals.csrfToken = req.csrfToken();
+    }
+
+    res.locals.mensajes = req.flash("mensajes");
+
     next();
 });
 
@@ -152,9 +185,32 @@ app.use("/gestion_compras",require("./rutas/compras"))
 app.use("/gestion_ventas",require("./rutas/ventas"))
 app.use("/gestion_inventario",require("./rutas/inventario"))
 app.use("/gestion_lotes",require("./rutas/lotes"))
+app.use("/dashboard",require("./rutas/dashboardRoutes"))
 app.use(express.static(__dirname+"/public"))
 
 
+//manejo error csurf
+app.use((err, req, res, next) => {
+
+    if (err.code === "EBADCSRFTOKEN") {
+
+        console.log("CSRF inválido:", {
+            method: req.method,
+            path: req.path,
+            usuario: req.user?.id
+        });
+
+        req.flash("mensajes", [
+            {
+                msg: "El formulario expiró o la sesión cambió. Cierra todas las ventanas, recarga la página e inténtalo nuevamente."
+            }
+        ]);
+
+        return res.redirect("/sesion/login");
+    }
+
+    next(err);
+});
 
 const PORT=process.env.PORT || 5000
 

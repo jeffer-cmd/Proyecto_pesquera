@@ -1,10 +1,10 @@
-const {productos, compras, proveedores,lotes,detalleCompras,movimientosInventario,detalleVentas}=require('../src/db/schema')
+const {productos, compras, proveedores,lotes,detalleCompras,movimientosInventario,detalleVentas,embalajes}=require('../src/db/schema')
 const  db  = require('../src/db/db'); 
 const {validationResult}=require("express-validator")
 const { eq } = require("drizzle-orm");
 const { ExpressValidator } = require('express-validator');
 const { ilike } = require("drizzle-orm");
-const {  and, gte, lte, lt, sql,gt, inArray } = require("drizzle-orm");
+const {  and, gte, lte, lt, sql,gt, inArray,desc } = require("drizzle-orm");
 
 const mostrar_compra=async(req,res)=>{
 
@@ -23,6 +23,10 @@ const mostrar_compra=async(req,res)=>{
                 proveedores,
                 eq(compras.proveedorId, proveedores.id)  //mirar si se agregar el producto aqui por ser tabla diferente
             ).where(eq(compras.estado,"ACTIVA"))
+            .orderBy(
+                desc(compras.createdAt)
+            )
+            .limit(5000);
                 
                 const compras_formateadas = lista_compras.map(compra => {
                 return {
@@ -52,10 +56,15 @@ const mostrar_compra=async(req,res)=>{
                 const listaProductos = await db
                 .select()
                 .from(productos);
+
+                const listaEmbalajes = await db
+                .select()
+                .from(embalajes);
         
             res.render('componentes/form_compra',{
                 productos:listaProductos,
-                proveedores:listaProveedores
+                proveedores:listaProveedores,
+                embalajes:listaEmbalajes
                 
             })
         
@@ -154,7 +163,7 @@ const mostrar_compra=async(req,res)=>{
                     //     .where(eq(lotes.id, loteId));
 
                     const fecha = fechaIngreso.replaceAll("-", "");
-                    const codigoLote = `LOT-${fecha}-${id_proveedor}-${item.productoId}`;
+                    const codigoLote = `LOT-${fecha}-${id_proveedor}-${item.productoId}-${item.id_embalaje}`;
 
                     // Buscar lote existente
                     const loteExistente = await tx
@@ -197,12 +206,18 @@ const mostrar_compra=async(req,res)=>{
                             compraId: compraId,
     
                             loteId: loteId,
+
+                            cantidad_embalaje: Number(item.cajas || 0),
+
+                    
     
                             cantidad:
                                 cantidad.toString(),
     
                             precio:
                                 item.precio.toString(),
+
+                            idEmbalaje: Number(item.id_embalaje),
     
                             observaciones:
                                 item.observaciones || null
@@ -416,16 +431,20 @@ const mostrar_compra=async(req,res)=>{
                 producto:productos.nombre,
                 lote:lotes.codigoLote,
                 cantidad:detalleCompras.cantidad,
+                cantidad_embalaje:detalleCompras.cantidad_embalaje,
                 precio:detalleCompras.precio,
-                observaciones:detalleCompras.observaciones
+                observaciones:detalleCompras.observaciones,
+                embalaje:embalajes.nombre_embalaje
                 
                 
                 }).from(detalleCompras)
                 .innerJoin(compras, eq(detalleCompras.compraId, compras.id))
                 .innerJoin(proveedores, eq(compras.proveedorId, proveedores.id))
                 .innerJoin(lotes, eq(detalleCompras.loteId, lotes.id))
+                .innerJoin(embalajes, eq(detalleCompras.idEmbalaje, embalajes.id_embalaje))
                 .innerJoin(productos, eq(lotes.productoId, productos.id))
                 .where(eq(detalleCompras.compraId, Number(req.params.id)));
+            
                             
                 
                 // const compras_formateadas = lista_compras.map(compra => {
@@ -456,7 +475,11 @@ const mostrar_compra=async(req,res)=>{
                     const listaProveedores = await db
                         .select()
                         .from(proveedores);
-            
+
+                    const listaEmbalajes = await db
+                        .select()
+                        .from(embalajes);
+                                
                     try {
         
                             const detalle_compra = await db
@@ -468,10 +491,12 @@ const mostrar_compra=async(req,res)=>{
                                 cantidad: detalleCompras.cantidad,
                                 precio: detalleCompras.precio,
                                 observaciones: detalleCompras.observaciones,
-                                fechaVencimiento:lotes.fechaVencimiento
+                                fechaVencimiento:lotes.fechaVencimiento,
+                                idEmbalaje: detalleCompras.idEmbalaje,
                             })
                             .from(detalleCompras)
                             .innerJoin(lotes, eq(detalleCompras.loteId, lotes.id))
+                            .innerJoin(embalajes, eq(detalleCompras.idEmbalaje, embalajes.id_embalaje))
                             .where(eq(detalleCompras.id, Number(id)));
 
                             console.log("ID recibido:", id);
@@ -480,7 +505,7 @@ const mostrar_compra=async(req,res)=>{
                         res.render("componentes/form_editar_compra.hbs", {
                             detalle_compra: detalle_compra[0],
                             productos:listaProductos,
-                            // proveedores:listaProveedores
+                            embalajes: listaEmbalajes
                         });
             
                     } catch (error) {
@@ -506,6 +531,7 @@ const mostrar_compra=async(req,res)=>{
                 cantidad_embalaje,
                 unidades_embalaje,
                 precio,
+                id_embalaje,
                 vencimiento,
                 observaciones
             } = req.body;
@@ -528,17 +554,20 @@ const mostrar_compra=async(req,res)=>{
                 // ======================
                 // 2. CALCULAR CANTIDAD
                 // ======================
-                const cantidad = Number(unidades_embalaje || 0);
+                const cantidad = Number(detalle.cantidad || 0);
 
                 // ======================
                 // 3. ACTUALIZAR DETALLE COMPRA
                 // ======================
+                    
+
                 await tx
                     .update(detalleCompras)
                     .set({
-                    cantidad: cantidad,
+                    // cantidad: cantidad,
                     precio: precio,
-                    observaciones: observaciones
+                    observaciones: observaciones,
+                    idEmbalaje: Number(id_embalaje)
                     })
                     .where(eq(detalleCompras.id, Number(id)));
 
@@ -556,12 +585,17 @@ const mostrar_compra=async(req,res)=>{
                 // ======================
                 // 5. RECALCULAR PRECIO PRODUCTO
                 // ======================
+            
+                
                 const precioUnitario = Number(precio) / cantidad;
+            
+
 
                 await tx
                     .update(productos)
                     .set({
-                    precioReferenciaCompra: precioUnitario.toString()
+                    precioReferenciaCompra: precioUnitario.toString(),
+                    precioReferenciaVenta: (precioUnitario*1.35).toFixed(2)
                     })
                     .where(eq(productos.id, Number(id_producto)));
 
@@ -716,6 +750,10 @@ const mostrar_compra=async(req,res)=>{
                         proveedores,
                         eq(compras.proveedorId, proveedores.id) )
                         .where(eq(compras.estado,"ANULADA"))
+                        .orderBy(
+                            desc(compras.createdAt)
+                        )
+                        .limit(5000);
 
                         const compras_formateadas = lista_anulados.map(compra => {
                                 return {

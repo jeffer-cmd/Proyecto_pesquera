@@ -1,0 +1,1330 @@
+{
+  "fecha": "2026-08-08T05-39-17",
+  "motor": "PostgreSQL",
+  "tablas": {
+    "productos": [
+      {
+        "id": 1,
+        "nombre": "pescado azul",
+        "codigoMaterial": "12345",
+        "unidadMedida": "kg",
+        "idCategoria": 4,
+        "idProveedor": 1,
+        "precioReferenciaCompra": "5000.00",
+        "precioReferenciaVenta": "6750.00",
+        "createdAt": "2026-07-20T23:38:37.363Z",
+        "updatedAt": "2026-07-20T23:38:37.363Z"
+      },
+      {
+        "id": 2,
+        "nombre": "marizcos",
+        "codigoMaterial": "55441",
+        "unidadMedida": "unidad",
+        "idCategoria": 5,
+        "idProveedor": 1,
+        "precioReferenciaCompra": "11000.00",
+        "precioReferenciaVenta": "13000.00",
+        "createdAt": "2026-07-25T01:50:30.779Z",
+        "updatedAt": "2026-07-25T01:50:30.779Z"
+      }
+    ],
+    "proveedores": [
+      {
+        "id": 1,
+        "nombre": "pepe",
+        "telefono": "3126589102",
+        "direccion": "calle 32",
+        "email": "jeff@gmail.com",
+        "createdAt": "2026-07-20T23:38:03.908Z"
+      }
+    ],
+    "usuarios": [
+      {
+        "id": 1,
+        "nombre": "jeff",
+        "email": "jefrir531@gmail.com",
+        "passwordHash": "$2b$10$X0qGPxEQF4PYLMTDC7oLxuGZcUKBwN7jiZgtPd5u6UDKAYpyqOYsq",
+        "rol": "admin",
+        "cuentaConfirmada": true,
+        "createdAt": "2026-07-20T15:47:15.799Z"
+      },
+      {
+        "id": 4,
+        "nombre": "mari",
+        "email": "jefrir531@gmail.com",
+        "passwordHash": "$2b$10$Fjk2Rm1cM3i7XDHjK/zrWerXyRCWXuCuBY0RORH2aOTdZj6P0daR.",
+        "rol": "empleado",
+        "cuentaConfirmada": true,
+        "createdAt": "2026-07-30T01:38:06.948Z"
+      },
+      {
+        "id": 5,
+        "nombre": "prueba",
+        "email": "pesqueramarinero@gmail.com",
+        "passwordHash": "$2b$10$5/NMIVoanRpPEyGfN8wgbu6bEMlbHolX6JzDt6zWD5tvYMfABDRXi",
+        "rol": "admin",
+        "cuentaConfirmada": true,
+        "createdAt": "2026-08-07T18:09:45.899Z"
+      }
+    ],
+    "compras": [
+      {
+        "id": 1,
+        "proveedorId": 1,
+        "total": "30000.00",
+        "estado": "ANULADA",
+        "createdAt": "2026-07-20T23:39:32.486Z"
+      },
+      {
+        "id": 2,
+        "proveedorId": 1,
+        "total": "30000.00",
+        "estado": "ACTIVA",
+        "createdAt": "2026-07-21T00:22:18.163Z"
+      },
+      {
+        "id": 3,
+        "proveedorId": 1,
+        "total": "50000.00",
+        "estado": "ACTIVA",
+        "createdAt": "2026-07-21T03:10:40.520Z"
+      },
+      {
+        "id": 5,
+        "proveedorId": 1,
+        "total": "150000.00",
+        "estado": "ACTIVA",
+        "createdAt": "2026-07-21T03:36:37.774Z"
+      },
+      {
+        "id": 7,
+        "proveedorId": 1,
+        "total": "48000.00",
+        "estado": "ACTIVA",
+        "createdAt": "2026-07-21T04:44:17.981Z"
+      },
+      {
+        "id": 8,
+        "proveedorId": 1,
+        "total": "500000.00",
+        "estado": "ACTIVA",
+        "createdAt": "2026-07-21T04:49:47.283Z"
+      },
+      {
+        "id": 9,
+        "proveedorId": 1,
+        "total": "507000.00",
+        "estado": "ACTIVA",
+        "createdAt": "2026-07-21T04:56:22.474Z"
+      },
+      {
+        "id": 10,
+        "proveedorId": 1,
+        "total": "300000.00",
+        "estado": "ACTIVA",
+        "createdAt": "2026-07-21T05:00:46.653Z"
+      },
+      {
+        "id": 11,
+        "proveedorId": 1,
+        "total": "750000.00",
+        "estado": "ACTIVA",
+        "createdAt": "2026-07-21T23:47:46.821Z"
+      },
+      {
+        "id": 12,
+        "proveedorId": 1,
+        "total": "30000.00",
+        "estado": "ACTIVA",
+        "createdAt": "2026-07-24T02:28:02.966Z"
+      },
+      {
+        "id": 14,
+        "proveedorId": 1,
+        "total": "100000.00",
+        "estado": "ACTIVA",
+        "createdAt": "2026-07-25T00:58:43.565Z"
+      },
+      {
+        "id": 15,
+        "proveedorId": 1,
+        "total": "75000.00",
+        "estado": "ACTIVA",
+        "createdAt": "2026-07-25T01:39:08.302Z"
+      },
+      {
+        "id": 16,
+        "proveedorId": 1,
+        "total": "50000.00",
+        "estado": "ACTIVA",
+        "createdAt": "2026-07-25T01:53:45.303Z"
+      },
+      {
+        "id": 17,
+        "proveedorId": 1,
+        "total": "15000.00",
+        "estado": "ACTIVA",
+        "createdAt": "2026-07-25T02:03:08.561Z"
+      },
+      {
+        "id": 18,
+        "proveedorId": 1,
+        "total": "10000.00",
+        "estado": "ACTIVA",
+        "createdAt": "2026-07-25T02:20:56.504Z"
+      },
+      {
+        "id": 13,
+        "proveedorId": 1,
+        "total": "70000.00",
+        "estado": "ANULADA",
+        "createdAt": "2026-07-25T00:54:30.414Z"
+      }
+    ],
+    "lotes": [
+      {
+        "id": 6,
+        "productoId": 1,
+        "compraId": 10,
+        "codigoLote": "LOT-20260730-1-1",
+        "fechaIngreso": "2026-07-30",
+        "fechaVencimiento": "2026-08-01",
+        "cantidadActual": "0.00",
+        "estado": "agotado",
+        "createdAt": "2026-07-21T05:00:46.653Z"
+      },
+      {
+        "id": 13,
+        "productoId": 1,
+        "compraId": 16,
+        "codigoLote": "LOT-20260308-1-1",
+        "fechaIngreso": "2026-03-08",
+        "fechaVencimiento": "2026-08-08",
+        "cantidadActual": "5.00",
+        "estado": "disponible",
+        "createdAt": "2026-07-25T01:53:45.303Z"
+      },
+      {
+        "id": 3,
+        "productoId": 1,
+        "compraId": 5,
+        "codigoLote": "LOT-20260722-1-1",
+        "fechaIngreso": "2026-07-22",
+        "fechaVencimiento": "2026-08-08",
+        "cantidadActual": "5.00",
+        "estado": "disponible",
+        "createdAt": "2026-07-21T03:36:37.774Z"
+      },
+      {
+        "id": 1,
+        "productoId": 1,
+        "compraId": 1,
+        "codigoLote": "LOT-20260721-1-1",
+        "fechaIngreso": "2026-07-21",
+        "fechaVencimiento": "2026-08-08",
+        "cantidadActual": "0.00",
+        "estado": "agotado",
+        "createdAt": "2026-07-20T23:39:32.486Z"
+      },
+      {
+        "id": 14,
+        "productoId": 2,
+        "compraId": 18,
+        "codigoLote": "LOT-20260721-1-2-3",
+        "fechaIngreso": "2026-07-21",
+        "fechaVencimiento": "2026-08-08",
+        "cantidadActual": "2.00",
+        "estado": "disponible",
+        "createdAt": "2026-07-25T02:20:56.504Z"
+      },
+      {
+        "id": 2,
+        "productoId": 1,
+        "compraId": 2,
+        "codigoLote": "LOT-20260720-1-1",
+        "fechaIngreso": "2026-07-20",
+        "fechaVencimiento": "2026-08-08",
+        "cantidadActual": "0.00",
+        "estado": "agotado",
+        "createdAt": "2026-07-21T00:22:18.163Z"
+      },
+      {
+        "id": 9,
+        "productoId": 1,
+        "compraId": 13,
+        "codigoLote": "LOT-20260801-1-1",
+        "fechaIngreso": "2026-08-01",
+        "fechaVencimiento": "2026-08-15",
+        "cantidadActual": "0.00",
+        "estado": "agotado",
+        "createdAt": "2026-07-25T00:54:30.414Z"
+      },
+      {
+        "id": 12,
+        "productoId": 2,
+        "compraId": 16,
+        "codigoLote": "LOT-20260308-1-2",
+        "fechaIngreso": "2026-03-08",
+        "fechaVencimiento": "2026-08-03",
+        "cantidadActual": "4.00",
+        "estado": "disponible",
+        "createdAt": "2026-07-25T01:53:45.303Z"
+      },
+      {
+        "id": 8,
+        "productoId": 1,
+        "compraId": 12,
+        "codigoLote": "LOT-20260724-1-1",
+        "fechaIngreso": "2026-07-24",
+        "fechaVencimiento": "2026-08-08",
+        "cantidadActual": "0.00",
+        "estado": "agotado",
+        "createdAt": "2026-07-24T02:28:02.966Z"
+      },
+      {
+        "id": 5,
+        "productoId": 1,
+        "compraId": 9,
+        "codigoLote": "LOT-20260727-1-1",
+        "fechaIngreso": "2026-07-27",
+        "fechaVencimiento": "2026-08-08",
+        "cantidadActual": "20.00",
+        "estado": "disponible",
+        "createdAt": "2026-07-21T04:56:22.474Z"
+      },
+      {
+        "id": 7,
+        "productoId": 1,
+        "compraId": 11,
+        "codigoLote": "LOT-20260726-1-1",
+        "fechaIngreso": "2026-07-26",
+        "fechaVencimiento": "2026-08-15",
+        "cantidadActual": "20.00",
+        "estado": "disponible",
+        "createdAt": "2026-07-21T23:47:46.821Z"
+      },
+      {
+        "id": 4,
+        "productoId": 1,
+        "compraId": 8,
+        "codigoLote": "LOT-20260725-1-1",
+        "fechaIngreso": "2026-07-25",
+        "fechaVencimiento": "2026-08-08",
+        "cantidadActual": "13.00",
+        "estado": "disponible",
+        "createdAt": "2026-07-21T04:49:47.283Z"
+      },
+      {
+        "id": 10,
+        "productoId": 1,
+        "compraId": 14,
+        "codigoLote": "LOT-20260731-1-1",
+        "fechaIngreso": "2026-07-31",
+        "fechaVencimiento": "2026-08-12",
+        "cantidadActual": "20.00",
+        "estado": "disponible",
+        "createdAt": "2026-07-25T00:58:43.565Z"
+      },
+      {
+        "id": 11,
+        "productoId": 1,
+        "compraId": 15,
+        "codigoLote": "LOT-20260518-1-1",
+        "fechaIngreso": "2026-05-18",
+        "fechaVencimiento": "2026-08-08",
+        "cantidadActual": "25.00",
+        "estado": "disponible",
+        "createdAt": "2026-07-25T01:39:08.302Z"
+      }
+    ],
+    "detalleCompras": [
+      {
+        "id": 1,
+        "compraId": 1,
+        "loteId": 1,
+        "idEmbalaje": 1,
+        "cantidad": "40.00",
+        "cantidad_embalaje": null,
+        "precio": "30000.00",
+        "observaciones": "trae 2 cajas de 20 unidades"
+      },
+      {
+        "id": 2,
+        "compraId": 2,
+        "loteId": 2,
+        "idEmbalaje": 3,
+        "cantidad": "200.00",
+        "cantidad_embalaje": null,
+        "precio": "30000.00",
+        "observaciones": " se compran 2 cajas por 10 u"
+      },
+      {
+        "id": 3,
+        "compraId": 3,
+        "loteId": 2,
+        "idEmbalaje": 1,
+        "cantidad": "10.00",
+        "cantidad_embalaje": null,
+        "precio": "50000.00",
+        "observaciones": "1 caja de 10 unidades"
+      },
+      {
+        "id": 4,
+        "compraId": 5,
+        "loteId": 3,
+        "idEmbalaje": 1,
+        "cantidad": "20.00",
+        "cantidad_embalaje": 2,
+        "precio": "150000.00",
+        "observaciones": null
+      },
+      {
+        "id": 5,
+        "compraId": 7,
+        "loteId": 1,
+        "idEmbalaje": 1,
+        "cantidad": "30.00",
+        "cantidad_embalaje": 3,
+        "precio": "48000.00",
+        "observaciones": null
+      },
+      {
+        "id": 6,
+        "compraId": 8,
+        "loteId": 4,
+        "idEmbalaje": 3,
+        "cantidad": "20.00",
+        "cantidad_embalaje": 2,
+        "precio": "500000.00",
+        "observaciones": null
+      },
+      {
+        "id": 7,
+        "compraId": 9,
+        "loteId": 5,
+        "idEmbalaje": 1,
+        "cantidad": "30.00",
+        "cantidad_embalaje": 3,
+        "precio": "507000.00",
+        "observaciones": null
+      },
+      {
+        "id": 8,
+        "compraId": 10,
+        "loteId": 6,
+        "idEmbalaje": 1,
+        "cantidad": "30.00",
+        "cantidad_embalaje": 2,
+        "precio": "300000.00",
+        "observaciones": null
+      },
+      {
+        "id": 9,
+        "compraId": 11,
+        "loteId": 7,
+        "idEmbalaje": 3,
+        "cantidad": "60.00",
+        "cantidad_embalaje": 2,
+        "precio": "750000.00",
+        "observaciones": "2 cajas de 30 cada una"
+      },
+      {
+        "id": 10,
+        "compraId": 12,
+        "loteId": 8,
+        "idEmbalaje": 1,
+        "cantidad": "20.00",
+        "cantidad_embalaje": 2,
+        "precio": "15000.00",
+        "observaciones": null
+      },
+      {
+        "id": 11,
+        "compraId": 12,
+        "loteId": 8,
+        "idEmbalaje": 1,
+        "cantidad": "15.00",
+        "cantidad_embalaje": 1,
+        "precio": "15000.00",
+        "observaciones": null
+      },
+      {
+        "id": 12,
+        "compraId": 13,
+        "loteId": 9,
+        "idEmbalaje": 1,
+        "cantidad": "20.00",
+        "cantidad_embalaje": 2,
+        "precio": "40000.00",
+        "observaciones": "trae 2 cajas por 10 unidades"
+      },
+      {
+        "id": 13,
+        "compraId": 13,
+        "loteId": 9,
+        "idEmbalaje": 1,
+        "cantidad": "5.00",
+        "cantidad_embalaje": 1,
+        "precio": "30000.00",
+        "observaciones": "trae 1 caja por 5 unidades"
+      },
+      {
+        "id": 14,
+        "compraId": 14,
+        "loteId": 10,
+        "idEmbalaje": 3,
+        "cantidad": "10.00",
+        "cantidad_embalaje": 0,
+        "precio": "50000.00",
+        "observaciones": null
+      },
+      {
+        "id": 15,
+        "compraId": 14,
+        "loteId": 10,
+        "idEmbalaje": 3,
+        "cantidad": "10.00",
+        "cantidad_embalaje": 0,
+        "precio": "50000.00",
+        "observaciones": null
+      },
+      {
+        "id": 16,
+        "compraId": 15,
+        "loteId": 11,
+        "idEmbalaje": 1,
+        "cantidad": "20.00",
+        "cantidad_embalaje": 2,
+        "precio": "50000.00",
+        "observaciones": "2 cajas de 10 u"
+      },
+      {
+        "id": 17,
+        "compraId": 15,
+        "loteId": 11,
+        "idEmbalaje": 1,
+        "cantidad": "5.00",
+        "cantidad_embalaje": 1,
+        "precio": "25000.00",
+        "observaciones": null
+      },
+      {
+        "id": 18,
+        "compraId": 16,
+        "loteId": 12,
+        "idEmbalaje": 3,
+        "cantidad": "20.00",
+        "cantidad_embalaje": 2,
+        "precio": "25000.00",
+        "observaciones": "se compran 2 bultos de 10 unidades"
+      },
+      {
+        "id": 19,
+        "compraId": 16,
+        "loteId": 13,
+        "idEmbalaje": 1,
+        "cantidad": "5.00",
+        "cantidad_embalaje": 0,
+        "precio": "25000.00",
+        "observaciones": null
+      },
+      {
+        "id": 20,
+        "compraId": 17,
+        "loteId": 12,
+        "idEmbalaje": 3,
+        "cantidad": "5.00",
+        "cantidad_embalaje": 1,
+        "precio": "15000.00",
+        "observaciones": null
+      },
+      {
+        "id": 21,
+        "compraId": 18,
+        "loteId": 14,
+        "idEmbalaje": 3,
+        "cantidad": "10.00",
+        "cantidad_embalaje": 2,
+        "precio": "10000.00",
+        "observaciones": null
+      }
+    ],
+    "ventas": [
+      {
+        "id": 3,
+        "usuarioId": 1,
+        "fecha": "2026-07-22T02:08:36.559Z",
+        "metodoPago": "transferencia",
+        "cliente": "pepe",
+        "estado": "ACTIVA",
+        "total": "400000.00",
+        "createdAt": "2026-07-22T02:08:36.559Z"
+      },
+      {
+        "id": 5,
+        "usuarioId": 1,
+        "fecha": "2026-07-22T02:16:26.308Z",
+        "metodoPago": "efectivo",
+        "cliente": "ronald",
+        "estado": "ANULADA",
+        "total": "90000.00",
+        "createdAt": "2026-07-22T02:16:26.308Z"
+      },
+      {
+        "id": 4,
+        "usuarioId": 1,
+        "fecha": "2026-07-22T02:09:42.642Z",
+        "metodoPago": "efectivo",
+        "cliente": "lucero",
+        "estado": "ACTIVA",
+        "total": "20000.00",
+        "createdAt": "2026-07-22T02:09:42.642Z"
+      },
+      {
+        "id": 2,
+        "usuarioId": 1,
+        "fecha": "2026-07-21T23:51:02.365Z",
+        "metodoPago": "transferencia",
+        "cliente": "mari",
+        "estado": "ANULADA",
+        "total": "0.00",
+        "createdAt": "2026-07-21T23:51:02.365Z"
+      },
+      {
+        "id": 1,
+        "usuarioId": 1,
+        "fecha": "2026-07-21T23:49:46.599Z",
+        "metodoPago": "transferencia",
+        "cliente": "juan",
+        "estado": "ANULADA",
+        "total": "0.00",
+        "createdAt": "2026-07-21T23:49:46.599Z"
+      },
+      {
+        "id": 6,
+        "usuarioId": 1,
+        "fecha": "2026-07-24T01:55:22.093Z",
+        "metodoPago": "transferencia",
+        "cliente": "kimi",
+        "estado": "ACTIVA",
+        "total": "1200000.00",
+        "createdAt": "2026-07-24T01:55:22.093Z"
+      },
+      {
+        "id": 8,
+        "usuarioId": 1,
+        "fecha": "2026-07-24T23:11:39.712Z",
+        "metodoPago": "tarjeta",
+        "cliente": "pedro",
+        "estado": "ACTIVA",
+        "total": "45000.00",
+        "createdAt": "2026-07-24T23:11:39.712Z"
+      },
+      {
+        "id": 7,
+        "usuarioId": 1,
+        "fecha": "2026-07-24T02:01:19.468Z",
+        "metodoPago": "transferencia",
+        "cliente": "lalo",
+        "estado": "ACTIVA",
+        "total": "250000.00",
+        "createdAt": "2026-07-24T02:01:19.468Z"
+      },
+      {
+        "id": 9,
+        "usuarioId": 1,
+        "fecha": "2026-07-25T02:52:10.157Z",
+        "metodoPago": "transferencia",
+        "cliente": "nicolas",
+        "estado": "ACTIVA",
+        "total": "1200000.00",
+        "createdAt": "2026-07-25T02:52:10.157Z"
+      },
+      {
+        "id": 10,
+        "usuarioId": 1,
+        "fecha": "2026-07-25T02:57:29.633Z",
+        "metodoPago": "efectivo",
+        "cliente": "karen",
+        "estado": "ACTIVA",
+        "total": "100000.00",
+        "createdAt": "2026-07-25T02:57:29.633Z"
+      },
+      {
+        "id": 17,
+        "usuarioId": 1,
+        "fecha": "2026-07-28T01:23:09.955Z",
+        "metodoPago": "transferencia",
+        "cliente": "kimi",
+        "estado": "ANULADA",
+        "total": "200000.00",
+        "createdAt": "2026-07-28T01:23:09.955Z"
+      },
+      {
+        "id": 18,
+        "usuarioId": 1,
+        "fecha": "2026-07-28T01:37:17.419Z",
+        "metodoPago": "transferencia",
+        "cliente": "kimi",
+        "estado": "ANULADA",
+        "total": "250000.00",
+        "createdAt": "2026-07-28T01:37:17.419Z"
+      },
+      {
+        "id": 19,
+        "usuarioId": 1,
+        "fecha": "2026-07-28T02:15:36.630Z",
+        "metodoPago": "efectivo",
+        "cliente": "mari",
+        "estado": "ACTIVA",
+        "total": "450000.00",
+        "createdAt": "2026-07-28T02:15:36.630Z"
+      },
+      {
+        "id": 20,
+        "usuarioId": 1,
+        "fecha": "2026-07-28T02:59:47.699Z",
+        "metodoPago": "transferencia",
+        "cliente": "juan",
+        "estado": "ACTIVA",
+        "total": "400000.00",
+        "createdAt": "2026-07-28T02:59:47.699Z"
+      },
+      {
+        "id": 21,
+        "usuarioId": 1,
+        "fecha": "2026-07-28T03:07:51.296Z",
+        "metodoPago": "transferencia",
+        "cliente": "jeff",
+        "estado": "ANULADA",
+        "total": "4000.00",
+        "createdAt": "2026-07-28T03:07:51.296Z"
+      },
+      {
+        "id": 23,
+        "usuarioId": 1,
+        "fecha": "2026-07-28T03:21:57.893Z",
+        "metodoPago": "transferencia",
+        "cliente": "mari",
+        "estado": "ACTIVA",
+        "total": "3000.00",
+        "createdAt": "2026-07-28T03:21:57.893Z"
+      },
+      {
+        "id": 26,
+        "usuarioId": 1,
+        "fecha": "2026-07-29T02:12:58.514Z",
+        "metodoPago": "transferencia",
+        "cliente": "juan",
+        "estado": "ACTIVA",
+        "total": "15000.00",
+        "createdAt": "2026-07-29T02:12:58.514Z"
+      },
+      {
+        "id": 27,
+        "usuarioId": 4,
+        "fecha": "2026-07-30T01:39:38.723Z",
+        "metodoPago": "N/A",
+        "cliente": "Proceso",
+        "estado": "ACTIVA",
+        "total": "0.00",
+        "createdAt": "2026-07-30T01:39:38.723Z"
+      },
+      {
+        "id": 28,
+        "usuarioId": 1,
+        "fecha": "2026-08-01T23:08:03.675Z",
+        "metodoPago": "transferencia",
+        "cliente": "prueba",
+        "estado": "ACTIVA",
+        "total": "1330000.00",
+        "createdAt": "2026-08-01T23:08:03.675Z"
+      }
+    ],
+    "detalleVentas": [
+      {
+        "id": 3,
+        "ventaId": 3,
+        "loteId": 7,
+        "cantidad": "5.00",
+        "cantidad_embalaje": null,
+        "precio": "80000.00",
+        "observaciones": null
+      },
+      {
+        "id": 5,
+        "ventaId": 5,
+        "loteId": 5,
+        "cantidad": "2.00",
+        "cantidad_embalaje": null,
+        "precio": "45000.00",
+        "observaciones": null
+      },
+      {
+        "id": 2,
+        "ventaId": 2,
+        "loteId": 7,
+        "cantidad": "0.00",
+        "cantidad_embalaje": null,
+        "precio": "70000.00",
+        "observaciones": " "
+      },
+      {
+        "id": 1,
+        "ventaId": 1,
+        "loteId": 7,
+        "cantidad": "0.00",
+        "cantidad_embalaje": null,
+        "precio": "80000.00",
+        "observaciones": "  "
+      },
+      {
+        "id": 4,
+        "ventaId": 4,
+        "loteId": 4,
+        "cantidad": "2.00",
+        "cantidad_embalaje": null,
+        "precio": "10000.00",
+        "observaciones": "  "
+      },
+      {
+        "id": 6,
+        "ventaId": 6,
+        "loteId": 6,
+        "cantidad": "30.00",
+        "cantidad_embalaje": null,
+        "precio": "40000.00",
+        "observaciones": " "
+      },
+      {
+        "id": 7,
+        "ventaId": 7,
+        "loteId": 5,
+        "cantidad": "10.00",
+        "cantidad_embalaje": null,
+        "precio": "10000.00",
+        "observaciones": null
+      },
+      {
+        "id": 9,
+        "ventaId": 8,
+        "loteId": 7,
+        "cantidad": "5.00",
+        "cantidad_embalaje": null,
+        "precio": "5000.00",
+        "observaciones": " "
+      },
+      {
+        "id": 10,
+        "ventaId": 8,
+        "loteId": 2,
+        "cantidad": "2.00",
+        "cantidad_embalaje": null,
+        "precio": "10000.00",
+        "observaciones": " "
+      },
+      {
+        "id": 8,
+        "ventaId": 7,
+        "loteId": 4,
+        "cantidad": "5.00",
+        "cantidad_embalaje": null,
+        "precio": "30000.00",
+        "observaciones": "   "
+      },
+      {
+        "id": 11,
+        "ventaId": 9,
+        "loteId": 12,
+        "cantidad": "20.00",
+        "cantidad_embalaje": null,
+        "precio": "60000.00",
+        "observaciones": null
+      },
+      {
+        "id": 12,
+        "ventaId": 10,
+        "loteId": 14,
+        "cantidad": "5.00",
+        "cantidad_embalaje": 1,
+        "precio": "20000.00",
+        "observaciones": null
+      },
+      {
+        "id": 15,
+        "ventaId": 17,
+        "loteId": 13,
+        "cantidad": "5.00",
+        "cantidad_embalaje": 0,
+        "precio": "40000.00",
+        "observaciones": null
+      },
+      {
+        "id": 16,
+        "ventaId": 18,
+        "loteId": 13,
+        "cantidad": "5.00",
+        "cantidad_embalaje": 0,
+        "precio": "50000.00",
+        "observaciones": " "
+      },
+      {
+        "id": 17,
+        "ventaId": 19,
+        "loteId": 3,
+        "cantidad": "15.00",
+        "cantidad_embalaje": 0,
+        "precio": "30000.00",
+        "observaciones": null
+      },
+      {
+        "id": 18,
+        "ventaId": 20,
+        "loteId": 2,
+        "cantidad": "8.00",
+        "cantidad_embalaje": 0,
+        "precio": "50000.00",
+        "observaciones": null
+      },
+      {
+        "id": 19,
+        "ventaId": 21,
+        "loteId": 12,
+        "cantidad": "2.00",
+        "cantidad_embalaje": 0,
+        "precio": "2000.00",
+        "observaciones": null
+      },
+      {
+        "id": 20,
+        "ventaId": 23,
+        "loteId": 14,
+        "cantidad": "2.00",
+        "cantidad_embalaje": 0,
+        "precio": "1500.00",
+        "observaciones": null
+      },
+      {
+        "id": 21,
+        "ventaId": 26,
+        "loteId": 14,
+        "cantidad": "1.00",
+        "cantidad_embalaje": 0,
+        "precio": "15000.00",
+        "observaciones": null
+      },
+      {
+        "id": 22,
+        "ventaId": 27,
+        "loteId": 12,
+        "cantidad": "1.00",
+        "cantidad_embalaje": 0,
+        "precio": "0.00",
+        "observaciones": null
+      },
+      {
+        "id": 23,
+        "ventaId": 28,
+        "loteId": 8,
+        "cantidad": "35.00",
+        "cantidad_embalaje": 0,
+        "precio": "38000.00",
+        "observaciones": null
+      }
+    ],
+    "movimientosInventario": [
+      {
+        "id": 1,
+        "loteId": 2,
+        "tipo": "entrada",
+        "cantidad": "10.00",
+        "compraId": 3,
+        "ventaId": null,
+        "fecha": "2026-07-21T03:10:40.520Z"
+      },
+      {
+        "id": 2,
+        "loteId": 3,
+        "tipo": "entrada",
+        "cantidad": "20.00",
+        "compraId": 5,
+        "ventaId": null,
+        "fecha": "2026-07-21T03:36:37.774Z"
+      },
+      {
+        "id": 3,
+        "loteId": 1,
+        "tipo": "entrada",
+        "cantidad": "30.00",
+        "compraId": 7,
+        "ventaId": null,
+        "fecha": "2026-07-21T04:44:17.981Z"
+      },
+      {
+        "id": 4,
+        "loteId": 4,
+        "tipo": "entrada",
+        "cantidad": "20.00",
+        "compraId": 8,
+        "ventaId": null,
+        "fecha": "2026-07-21T04:49:47.283Z"
+      },
+      {
+        "id": 5,
+        "loteId": 5,
+        "tipo": "entrada",
+        "cantidad": "30.00",
+        "compraId": 9,
+        "ventaId": null,
+        "fecha": "2026-07-21T04:56:22.474Z"
+      },
+      {
+        "id": 6,
+        "loteId": 6,
+        "tipo": "entrada",
+        "cantidad": "30.00",
+        "compraId": 10,
+        "ventaId": null,
+        "fecha": "2026-07-21T05:00:46.653Z"
+      },
+      {
+        "id": 7,
+        "loteId": 7,
+        "tipo": "entrada",
+        "cantidad": "60.00",
+        "compraId": 11,
+        "ventaId": null,
+        "fecha": "2026-07-21T23:47:46.821Z"
+      },
+      {
+        "id": 8,
+        "loteId": 7,
+        "tipo": "salida",
+        "cantidad": "10.00",
+        "compraId": null,
+        "ventaId": 1,
+        "fecha": "2026-07-21T23:49:46.599Z"
+      },
+      {
+        "id": 9,
+        "loteId": 7,
+        "tipo": "salida",
+        "cantidad": "20.00",
+        "compraId": null,
+        "ventaId": 2,
+        "fecha": "2026-07-21T23:51:02.365Z"
+      },
+      {
+        "id": 10,
+        "loteId": 7,
+        "tipo": "salida",
+        "cantidad": "5.00",
+        "compraId": null,
+        "ventaId": 3,
+        "fecha": "2026-07-22T02:08:36.559Z"
+      },
+      {
+        "id": 11,
+        "loteId": 4,
+        "tipo": "salida",
+        "cantidad": "2.00",
+        "compraId": null,
+        "ventaId": 4,
+        "fecha": "2026-07-22T02:09:42.642Z"
+      },
+      {
+        "id": 12,
+        "loteId": 5,
+        "tipo": "salida",
+        "cantidad": "2.00",
+        "compraId": null,
+        "ventaId": 5,
+        "fecha": "2026-07-22T02:16:26.308Z"
+      },
+      {
+        "id": 13,
+        "loteId": 6,
+        "tipo": "salida",
+        "cantidad": "30.00",
+        "compraId": null,
+        "ventaId": 6,
+        "fecha": "2026-07-24T01:55:22.093Z"
+      },
+      {
+        "id": 14,
+        "loteId": 5,
+        "tipo": "salida",
+        "cantidad": "10.00",
+        "compraId": null,
+        "ventaId": 7,
+        "fecha": "2026-07-24T02:01:19.468Z"
+      },
+      {
+        "id": 15,
+        "loteId": 4,
+        "tipo": "salida",
+        "cantidad": "5.00",
+        "compraId": null,
+        "ventaId": 7,
+        "fecha": "2026-07-24T02:01:19.468Z"
+      },
+      {
+        "id": 16,
+        "loteId": 8,
+        "tipo": "entrada",
+        "cantidad": "20.00",
+        "compraId": 12,
+        "ventaId": null,
+        "fecha": "2026-07-24T02:28:02.966Z"
+      },
+      {
+        "id": 17,
+        "loteId": 8,
+        "tipo": "entrada",
+        "cantidad": "15.00",
+        "compraId": 12,
+        "ventaId": null,
+        "fecha": "2026-07-24T02:28:02.966Z"
+      },
+      {
+        "id": 18,
+        "loteId": 7,
+        "tipo": "salida",
+        "cantidad": "5.00",
+        "compraId": null,
+        "ventaId": 8,
+        "fecha": "2026-07-24T23:11:39.712Z"
+      },
+      {
+        "id": 19,
+        "loteId": 2,
+        "tipo": "salida",
+        "cantidad": "2.00",
+        "compraId": null,
+        "ventaId": 8,
+        "fecha": "2026-07-24T23:11:39.712Z"
+      },
+      {
+        "id": 20,
+        "loteId": 9,
+        "tipo": "entrada",
+        "cantidad": "20.00",
+        "compraId": 13,
+        "ventaId": null,
+        "fecha": "2026-07-25T00:54:30.414Z"
+      },
+      {
+        "id": 21,
+        "loteId": 9,
+        "tipo": "entrada",
+        "cantidad": "5.00",
+        "compraId": 13,
+        "ventaId": null,
+        "fecha": "2026-07-25T00:54:30.414Z"
+      },
+      {
+        "id": 22,
+        "loteId": 10,
+        "tipo": "entrada",
+        "cantidad": "10.00",
+        "compraId": 14,
+        "ventaId": null,
+        "fecha": "2026-07-25T00:58:43.565Z"
+      },
+      {
+        "id": 23,
+        "loteId": 10,
+        "tipo": "entrada",
+        "cantidad": "10.00",
+        "compraId": 14,
+        "ventaId": null,
+        "fecha": "2026-07-25T00:58:43.565Z"
+      },
+      {
+        "id": 24,
+        "loteId": 11,
+        "tipo": "entrada",
+        "cantidad": "20.00",
+        "compraId": 15,
+        "ventaId": null,
+        "fecha": "2026-07-25T01:39:08.302Z"
+      },
+      {
+        "id": 25,
+        "loteId": 11,
+        "tipo": "entrada",
+        "cantidad": "5.00",
+        "compraId": 15,
+        "ventaId": null,
+        "fecha": "2026-07-25T01:39:08.302Z"
+      },
+      {
+        "id": 26,
+        "loteId": 12,
+        "tipo": "entrada",
+        "cantidad": "20.00",
+        "compraId": 16,
+        "ventaId": null,
+        "fecha": "2026-07-25T01:53:45.303Z"
+      },
+      {
+        "id": 27,
+        "loteId": 13,
+        "tipo": "entrada",
+        "cantidad": "5.00",
+        "compraId": 16,
+        "ventaId": null,
+        "fecha": "2026-07-25T01:53:45.303Z"
+      },
+      {
+        "id": 28,
+        "loteId": 12,
+        "tipo": "entrada",
+        "cantidad": "5.00",
+        "compraId": 17,
+        "ventaId": null,
+        "fecha": "2026-07-25T02:03:08.561Z"
+      },
+      {
+        "id": 29,
+        "loteId": 14,
+        "tipo": "entrada",
+        "cantidad": "10.00",
+        "compraId": 18,
+        "ventaId": null,
+        "fecha": "2026-07-25T02:20:56.504Z"
+      },
+      {
+        "id": 30,
+        "loteId": 12,
+        "tipo": "salida",
+        "cantidad": "20.00",
+        "compraId": null,
+        "ventaId": 9,
+        "fecha": "2026-07-25T02:52:10.157Z"
+      },
+      {
+        "id": 31,
+        "loteId": 14,
+        "tipo": "salida",
+        "cantidad": "5.00",
+        "compraId": null,
+        "ventaId": 10,
+        "fecha": "2026-07-25T02:57:29.633Z"
+      },
+      {
+        "id": 32,
+        "loteId": 13,
+        "tipo": "salida",
+        "cantidad": "5.00",
+        "compraId": null,
+        "ventaId": 17,
+        "fecha": "2026-07-28T01:23:09.955Z"
+      },
+      {
+        "id": 33,
+        "loteId": 13,
+        "tipo": "salida",
+        "cantidad": "5.00",
+        "compraId": null,
+        "ventaId": 18,
+        "fecha": "2026-07-28T01:37:17.419Z"
+      },
+      {
+        "id": 34,
+        "loteId": 3,
+        "tipo": "salida",
+        "cantidad": "15.00",
+        "compraId": null,
+        "ventaId": 19,
+        "fecha": "2026-07-28T02:15:36.630Z"
+      },
+      {
+        "id": 35,
+        "loteId": 2,
+        "tipo": "salida",
+        "cantidad": "8.00",
+        "compraId": null,
+        "ventaId": 20,
+        "fecha": "2026-07-28T02:59:47.699Z"
+      },
+      {
+        "id": 36,
+        "loteId": 12,
+        "tipo": "salida",
+        "cantidad": "2.00",
+        "compraId": null,
+        "ventaId": 21,
+        "fecha": "2026-07-28T03:07:51.296Z"
+      },
+      {
+        "id": 37,
+        "loteId": 14,
+        "tipo": "salida",
+        "cantidad": "2.00",
+        "compraId": null,
+        "ventaId": 23,
+        "fecha": "2026-07-28T03:21:57.893Z"
+      },
+      {
+        "id": 38,
+        "loteId": 14,
+        "tipo": "salida",
+        "cantidad": "1.00",
+        "compraId": null,
+        "ventaId": 26,
+        "fecha": "2026-07-29T02:12:58.514Z"
+      },
+      {
+        "id": 39,
+        "loteId": 12,
+        "tipo": "salida",
+        "cantidad": "1.00",
+        "compraId": null,
+        "ventaId": 27,
+        "fecha": "2026-07-30T01:39:38.723Z"
+      },
+      {
+        "id": 40,
+        "loteId": 8,
+        "tipo": "salida",
+        "cantidad": "35.00",
+        "compraId": null,
+        "ventaId": 28,
+        "fecha": "2026-08-01T23:08:03.675Z"
+      }
+    ],
+    "categorias": [
+      {
+        "id_categoria": 1,
+        "nombre_categoria": "pezcado combinado 2"
+      },
+      {
+        "id_categoria": 4,
+        "nombre_categoria": "pez marino"
+      },
+      {
+        "id_categoria": 5,
+        "nombre_categoria": "marisco mezclado"
+      },
+      {
+        "id_categoria": 8,
+        "nombre_categoria": "categoria prueba"
+      }
+    ],
+    "embalajes": [
+      {
+        "id_embalaje": 1,
+        "nombre_embalaje": "caja"
+      },
+      {
+        "id_embalaje": 3,
+        "nombre_embalaje": "bulto"
+      },
+      {
+        "id_embalaje": 6,
+        "nombre_embalaje": "prueba"
+      }
+    ]
+  }
+}

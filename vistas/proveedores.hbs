@@ -8,29 +8,33 @@
 
  </div>
 
-<table class="table table-bordered table-hover text-center align-middle" id="tablaProveedores">
 
-    <thead class="table-primary">
-        <tr>
-            <th>NOMBRE</th>
-            <th>TELÉFONO</th>
-            <th>DIRECCIÓN</th>
-            <th>CORREO</th>
-            <th>FECHA DE CREACIÓN</th>
-            <th>ACCIONES</th>
-        </tr>
-    </thead>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover text-center align-middle" id="tablaProveedores">
 
-    <tbody>
+        <thead class="table-primary align-middle">
+            <tr>
+                <th>NOMBRE</th>
+                <th>TELÉFONO</th>
+                <th>DIRECCIÓN</th>
+                <th>CORREO</th>
+                <th>FECHA DE CREACIÓN</th>
+                <th>ACCIONES</th>
+            </tr>
+        </thead>
 
-        {{#each lista_proveedores}}
+        <tbody>
 
-            {{>card_proveedores item=this}}
-        
-        
-        {{/each}}
-    </tbody>
+            {{#each lista_proveedores}}
 
-</table>
+                {{>card_proveedores item=this}}
+            
+            
+            {{/each}}
+        </tbody>
+
+    </table>
+
+</div>
 
 <script src="/filtro_proveedor.js"> </script>

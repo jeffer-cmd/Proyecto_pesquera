@@ -10,9 +10,12 @@ const {  and, gte, lte, lt,gt,sql  } = require("drizzle-orm");
 
 module.exports.formOperario=async(req,res)=>{
 
+    console.log("entro a form operario")
     const listaProductos = await db
         .select()
         .from(productos);
+
+        console.log("PRODUCTOS OPERARIO:", listaProductos);
     res.render("formulario_operario",{
                 productos:listaProductos
 })}

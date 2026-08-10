@@ -38,25 +38,38 @@
                             <div class="producto-row border p-3 mb-2">
 
                                 <!-- PRODUCTO -->
-                                <label>Producto</label>
+                                <label class="my-3">Producto</label>
                                 <select class="form-select select2" name="productos[0][productoId]">
                                     <option value="">Seleccione producto</option>
                                     {{#each productos}}
                                         <option value="{{this.id}}">
-                                            {{this.nombre}}
+                                            {{this.nombre}}  - {{this.codigoMaterial}}
                                         </option>
                                     {{/each}}
                                 </select>
 
+
+                                <label class="my-3">Tipo de embalaje</label>
+                                <select class="form-select" name="productos[0][id_embalaje]">
+                                    <option value="">Seleccione tipo de embalaje</option>
+                                    {{#each embalajes}}
+                                        <option value="{{this.id_embalaje}}">
+                                            {{this.nombre_embalaje}}
+                                        </option>
+                                    {{/each}}
+                                </select>
+
+
+
                                 <!-- CAJAS (opcional frontend) -->
-                                <label class="mt-2">Cantidad de embalaje</label>
+                                <label class="my-3">Cantidad de embalaje</label>
                                 <input type="number"
                                     class="form-control"
                                     name="productos[0][cajas]"
                                     min="0">
 
                                 <!-- UNIDADES POR CAJA -->
-                                <label class="mt-2">Unidades por embalaje</label>
+                                <label class="my-3">Unidades por embalaje</label>
                                 <input type="number"
                                     class="form-control"
                                     name="productos[0][unidadesPorCaja]"
@@ -68,20 +81,20 @@
                             
 
                                 <!-- PRECIO -->
-                                <label class="mt-2">Precio de compra</label>
+                                <label class="my-3">Precio de compra</label>
                                 <input type="number"
                                 class="form-control"
                                 name="productos[0][precio]"
                                 required>
 
                                 <!-- VENCIMIENTO (Lotes) -->
-                                <label class="mt-2">Fecha vencimiento</label>
+                                <label class="my-3">Fecha vencimiento</label>
                                 <input type="date"
                                     class="form-control"
                                     name="productos[0][fechaVencimiento]">
 
                                 <!-- OBSERVACIONES POR ITEM -->
-                                <label>Observaciones de la compra</label>
+                                <label class="my-3">Observaciones de la compra</label>
                                 <br>
                                 <textarea name="productos[0][observaciones]" rows="3"></textarea>
 

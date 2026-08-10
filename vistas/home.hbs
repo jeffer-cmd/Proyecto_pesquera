@@ -1,4 +1,4 @@
-    <h1>Agregue sus categorías de productos</h1>
+    {{!-- <h1>Agregue sus categorías de productos</h1>
 
     {{> form}}
 
@@ -7,7 +7,48 @@
         {{>card item=this}}
     
     
-    {{/each}}
+    {{/each}} --}}
 
 
-    {{!-- min 47:30 --}}
+
+<div class="container mt-4">
+    <div class="row">
+
+        <div class="col-lg-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    Categorías
+                </div>
+
+                <div class="card-body">
+                    {{> form}}
+
+                    <hr>
+
+                    {{#each categorias_pez}}
+                        {{> card item=this}}
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    Embalajes
+                </div>
+
+                <div class="card-body">
+                    {{> formEmbalaje}}
+
+                    <hr>
+
+                    {{#each embalaje_pez}}
+                        {{> cardEmbalaje item=this}}
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

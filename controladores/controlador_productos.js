@@ -1,9 +1,9 @@
-const {productos, categorias, proveedores}=require('../src/db/schema')
+const {productos, categorias, proveedores,lotes}=require('../src/db/schema')
 const  db  = require('../src/db/db'); 
 const {validationResult}=require("express-validator")
 const { eq } = require("drizzle-orm");
 const { ExpressValidator } = require('express-validator');
-const { ilike } = require("drizzle-orm");
+const { ilike,desc } = require("drizzle-orm");
 
 const mostrar_producto=async(req,res)=>{
         try {
@@ -24,6 +24,10 @@ const mostrar_producto=async(req,res)=>{
             ).leftJoin(
                 proveedores,
                 eq(productos.idProveedor, proveedores.id))
+                .orderBy(
+                    desc(productos.createdAt)
+                )
+                .limit(5000);
                 
                 const productos_formateados = lista_productos.map(producto => {
                 return {
@@ -122,6 +126,21 @@ const registrarProducto=async(req,res)=>{
             
             
             try {
+
+
+                const lotesProducto = await db
+                .select()
+                .from(lotes)
+                .where(eq(lotes.productoId, id));
+
+                if (lotesProducto.length > 0) {
+                    req.flash("mensajes", [{
+                        msg: "No se puede eliminar el producto porque tiene compras o ventas asociadas."
+                }]);
+
+                return res.redirect("/gestion_productos/productos");
+                }
+
                 await db.delete(productos).where(eq(productos.id, id));
                 req.flash("mensajes",[{msg:"producto eliminado"}])
                 res.redirect("/gestion_productos/productos")

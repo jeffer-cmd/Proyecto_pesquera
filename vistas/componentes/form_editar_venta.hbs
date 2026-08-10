@@ -51,16 +51,16 @@
             <!-- PRECIO -->
             <label class="mt-2">Precio de venta</label>
             <input type="number"
-            class="form-control"
+            class="form-control my-2"
             name="precio"
             value="{{parseInt detalle_venta.precio}}"
             required>
 
 
             <!-- OBSERVACIONES POR ITEM -->
-            <label>Observaciones de la venta</label>
+            <label class="my-2">Observaciones de la venta</label>
             <br>
-            <textarea name="observaciones" rows="3"> {{detalle_venta.observaciones}}</textarea>   
+            <textarea name="observaciones" rows="3" class="my-2" > {{detalle_venta.observaciones}}</textarea>   
 
         
         <button type="submit" class="btn btn-warning w-100 mb-2">Editar venta</button>

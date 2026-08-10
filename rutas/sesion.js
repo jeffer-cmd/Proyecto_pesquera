@@ -7,6 +7,7 @@ router.get("/register",registerForm)
 router.post("/register",[
     body("nombre","Ingrese un nombre válido").trim().notEmpty().escape(),
     body("email","Ingrese un email válido").trim().isEmail().normalizeEmail(),
+    body("rol", "Debe seleccionar un rol").notEmpty().bail().isIn(["admin", "empleado"]),
     body("password","Ingrese una contraseña de minimo 6 carácteres").trim().isLength({min:4}).escape().custom((value,{req})=>{
         if(value!== req.body.passwordRepit){
             throw new Error("No coinciden las contraseñas")
@@ -19,7 +20,7 @@ router.post("/register",[
 router.get("/confirmarCuenta/:token",confirmarCuenta)
 router.get("/login",loginForm)
 router.post("/login",[
-    body("email","Ingrese un email válido").trim().isEmail().normalizeEmail(),
+    // body("email","Ingrese un email válido").trim().isEmail().normalizeEmail(),
     body("password","Ingrese una contraseña de minimo 6 carácteres").trim().isLength({min:4}).escape()
 ],loginUser)
 

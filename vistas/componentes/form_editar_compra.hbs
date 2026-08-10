@@ -6,7 +6,7 @@
         <input type="hidden" name="_csrf" value="{{csrfToken}}" />
 
 
-            <label for="" class="my-3">Producto</label>
+            <label for="" class="my-2">Producto</label>
             <select class="form-select mb-2 select2" name="id_producto">
 
             
@@ -21,11 +21,30 @@
                                 selected
                             {{/if}}
                         >
-                            {{this.nombre}}
+                            {{this.nombre}}-{{this.codigoMaterial}}
                         </option>
 
                     {{/each}}
 
+            </select>
+
+            <label class="my-2">Tipo de embalaje</label>
+            <select class="form-select my-2" name="id_embalaje">
+
+                {{#each embalajes}}
+                    <option
+                        value="{{this.id_embalaje}}"
+
+                        {{#if (eq this.id ../detalle_compra.idEmbalaje)}}
+                                selected
+                        {{/if}}
+                            >
+                            {{this.nombre_embalaje}}
+
+                </option> 
+
+                        
+                    {{/each}}
             </select>
 
             
@@ -51,7 +70,7 @@
             <!-- PRECIO -->
             <label class="mt-2">Precio de compra</label>
             <input type="number"
-            class="form-control"
+            class="form-control my-2"
             name="precio"
             value="{{parseInt detalle_compra.precio}}"
             required>
@@ -59,14 +78,14 @@
             <!-- VENCIMIENTO (Lotes) -->
             <label class="mt-2">Fecha vencimiento</label>
             <input type="date"
-                class="form-control"
+                class="form-control my-2"
                 name="vencimiento"
                 value="{{detalle_compra.fechaVencimiento}}">
 
             <!-- OBSERVACIONES POR ITEM -->
             <label>Observaciones de la compra</label>
             <br>
-            <textarea name="observaciones" rows="3"> {{detalle_compra.observaciones}}</textarea>   
+            <textarea name="observaciones" rows="3" class="my-2"> {{detalle_compra.observaciones}}</textarea>   
 
         
         <button type="submit" class="btn btn-warning w-100 mb-2">Editar compra</button>

@@ -1,55 +1,75 @@
+<style>
+    .input-busqueda {
+    width: 220px;
+}
+
+.input-fecha {
+    width: 160px;
+}
+
+@media (max-width: 991.98px) {
+
+    .input-busqueda,
+    .input-fecha {
+        width: 100%;
+    }
+
+}
+</style>
+
 <h1>Gestión de compras</h1>
 
-<div class="d-flex justify-content-between align-items-center my-5  w-100 gap-3">
+{{!-- <div class="d-flex justify-content-between align-items-center my-5  w-100 gap-3"> --}}
+<div class="d-flex flex-column flex-lg-row gap-3 align-items-lg-center">
 
     <a class="btn btn-warning text-white my-5" href="/gestion_compras/form_compra">Crear compra</a>
 
-     <a href="/gestion_compras/compras_anuladas" class="btn btn-primary">
+    <a href="/gestion_compras/compras_anuladas" class="btn btn-primary">
             Compras anuladas
         </a>
 
-    {{!-- <input type="text" id="buscador" class="form-control mb-3 w-50 border border-dark" placeholder="Buscar compra">
-
-    <a class="btn btn-warning text-white my-5" id="btnBuscar" href= "/gestion_compras/compras">Buscar compra</a> --}}
-    <form action="/gestion_compras/compras" method="POST">
+    <form action="/gestion_compras/compras" method="POST"  class="d-flex flex-column flex-lg-row gap-2 align-items-center">
         <input type="hidden" name="_csrf" value="{{csrfToken}}" />
-        <input type="text" name="proveedor" placeholder="Buscar compra">
+        <input class="form-control input-busqueda" type="text" name="proveedor" placeholder="Buscar compra">
 
-        <input type="date" name="fechaInicio">
+        <input class="form-control input-fecha" type="date" name="fechaInicio">
 
-        <input type="date" name="fechaFin">
+        <input class="form-control input-fecha" type="date" name="fechaFin">
 
-        <button type="submit" class="btn btn-warning text-white mx-2">
+        <button type="submit" class="btn btn-warning text-white mx-2 my-4">
             Buscar
         </button>
 
     </form>
 </div>
 
-<table class="table table-bordered table-hover text-center align-middle" id="tablaCompras">
+<div class="table-responsive">
+    <table class="table table-sm table-bordered table-hover text-center align-middle" id="tablaCompras">
 
-    <thead class="table-primary">
-        <tr>
-            <th>COMPRA #</th>
-            <th>PROVEEDOR</th>
-            <th>TOTAL</th>
+        <thead class="table-primary align-middle">
+            <tr>
+                <th>COMPRA #</th>
+                <th>PROVEEDOR</th>
+                <th>TOTAL</th>
 
-            <th>FECHA DE REGISTRO</th>
-            <th>ESTADO</th>
-        
-            <th class="" style="width: 150px;">ACCIONES</th>
-        </tr>
-    </thead>
+                <th>FECHA DE REGISTRO</th>
+                <th>ESTADO</th>
+            
+                <th class="" style="width: 150px;">ACCIONES</th>
+            </tr>
+        </thead>
 
-    <tbody>
+        <tbody>
 
-        {{#each lista_compras}}
+            {{#each lista_compras}}
 
-            {{>card_compras item=this mostrarAcciones=true}}
-        
-        
-        {{/each}}
-    </tbody>
+                {{>card_compras item=this mostrarAcciones=true}}
+            
+            
+            {{/each}}
+        </tbody>
 
-</table>
+    </table>
+
+</div>
 

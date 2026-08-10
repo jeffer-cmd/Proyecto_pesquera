@@ -22,9 +22,12 @@
     </td>
     <td>{{item.createdAt}}</td>
 
-    <td>
-        <a href="/gestion_usuarios/form_editar_user/{{item.id}}" class="btn btn-warning btn-sm">✏️</a>
-        <a href="/gestion_usuarios/eliminar_users/{{item.id}}" class="btn btn-danger btn-sm">🗑️</a>
+    <td class="text-nowrap">
+        <div class="d-flex justify-content-center gap-2">
+            <a href="/gestion_usuarios/form_editar_user/{{item.id}}" class="btn btn-warning btn-sm">✏️</a>
+            <a href="/gestion_usuarios/eliminar_users/{{item.id}}" class="btn btn-danger btn-sm">🗑️</a>
+
+        </div>
     </td>
 </tr>
 

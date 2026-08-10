@@ -60,13 +60,22 @@
         <form action="/sesion/login" method="post">
         
             <input type="hidden" name="_csrf" value="{{csrfToken}}" />
-            <label for="" class="my-3 text-white fs-4 fw-bold">Correo</label>
+            {{!-- <label for="" class="my-3 text-white fs-4 fw-bold">Correo</label>
             <input
                 class="form-control mb-2"
                 name="email"
                 placeholder="Ingrese email"
                 type="email"
                 value="jefrir531@gmail.com"
+            /> --}}
+
+            <label for="" class="my-3 text-white fs-4 fw-bold">Usuario</label>
+            <input
+                class="form-control mb-2"
+                name="nombre"
+                placeholder="Ingrese nombre"
+                type="text"
+                {{!-- value="jefrir531@gmail.com" --}}
             />
             <label for="" class="my-3 text-white fs-4 fw-bold">Contraseña</label>
             <input
@@ -74,7 +83,7 @@
                 name="password"
                 placeholder="Ingrese contraseña"
                 type="password"
-                value="123456"
+                
             />
         
             <button type="submit" class="btn btn-warning my-3">Acceder</button>

@@ -1,6 +1,6 @@
 const {usuarios}=require('../src/db/schema')
 const  db  = require('../src/db/db'); 
-const { eq } = require("drizzle-orm");
+const { eq,desc } = require("drizzle-orm");
 const {validationResult}=require("express-validator")
 const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
@@ -10,7 +10,10 @@ const { ExpressValidator } = require('express-validator');
 const leer_usuario=async(req,res)=>{
         
         try {
-            const lista_usuarios=await db.select().from(usuarios)
+            const lista_usuarios=await db.select().from(usuarios).orderBy(
+                    desc(usuarios.createdAt)
+                )
+                .limit(5000);
             
             const usuarios_formateados = lista_usuarios.map(usuario => {
             return {

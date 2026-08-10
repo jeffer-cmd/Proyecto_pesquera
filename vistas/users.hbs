@@ -8,30 +8,32 @@
 
  </div>
 
+<div class="table-responsive">
 
-<table class="table table-bordered table-hover text-center align-middle" id="tablaUsuarios">
+    <table class="table table-sm table-bordered table-hover text-center align-middle" id="tablaUsuarios">
 
-    <thead class="table-primary">
-        <tr>
-            <th>NOMBRE</th>
-            <th>USUARIO</th>
-            <th>ROL</th>
-            <th>CUENTA VERIFICADA</th>
-            <th>FECHA DE CREACIÓN</th>
-            <th>ACCIONES</th>
-        </tr>
-    </thead>
+        <thead class="table-primary align-middle">
+            <tr>
+                <th>USUARIO</th>
+                <th>CORREO</th>
+                <th>ROL</th>
+                <th>CUENTA VERIFICADA</th>
+                <th>FECHA DE CREACIÓN</th>
+                <th>ACCIONES</th>
+            </tr>
+        </thead>
 
-    <tbody>
+        <tbody>
 
-        {{#each lista_usuarios}}
+            {{#each lista_usuarios}}
 
-            {{>card_users item=this}}
-        
-        
-        {{/each}}
-    </tbody>
+                {{>card_users item=this}}
+            
+            
+            {{/each}}
+        </tbody>
 
-</table>
+    </table>
+</div>
 
 <script src="/filtro.js"> </script>

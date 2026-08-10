@@ -1,32 +1,35 @@
 <h1>Resumen de tus ventas</h1>
 
+<div class="table-responsive my-4">
+    <table class="table table-sm table-bordered table-hover text-center align-middle" id="tablaVentas">
 
-<table class="table table-bordered table-hover text-center align-middle" id="tablaVentas">
+        <thead class="table-primary align-middle">
+            <tr>
+                <th>VENTA #</th>
+                <th>VENDEDOR</th>
+                <th>PRODUCTO</th>
+                <th>LOTE</th>
+                <th>CANTIDAD</th>
+                <th>CANTIDAD EMBALAJE</th>
+                <th>PRECIO</th>
+                <th>OBSERVACIONES</th>
 
-    <thead class="table-primary">
-        <tr>
-            <th>VENTA #</th>
-            <th>VENDEDOR</th>
-            <th>PRODUCTO</th>
-            <th>LOTE</th>
-            <th>CANTIDAD</th>
-            <th>PRECIO</th>
-            <th>OBSERVACIONES</th>
+            
+                <th class="" style="width: 150px;">ACCIONES</th>
+            </tr>
+        </thead>
 
-        
-            <th class="" style="width: 150px;">ACCIONES</th>
-        </tr>
-    </thead>
+        <tbody>
 
-    <tbody>
+            {{#each lista_detalle_ventas}}
 
-        {{#each lista_detalle_ventas}}
+                {{>card_ver_detalle_venta item=this}}
+            
+            
+            {{/each}}
+        </tbody>
 
-            {{>card_ver_detalle_venta item=this}}
-        
-        
-        {{/each}}
-    </tbody>
+    </table> 
 
-</table> 
+</div>
 

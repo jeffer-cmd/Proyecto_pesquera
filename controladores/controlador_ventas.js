@@ -4,7 +4,7 @@ const {validationResult}=require("express-validator")
 const { eq } = require("drizzle-orm");
 const { ExpressValidator } = require('express-validator');
 const { ilike } = require("drizzle-orm");
-const {  and, gte, lte, lt,gt,sql  } = require("drizzle-orm");
+const {  and, gte, lte, lt,gt,sql,desc } = require("drizzle-orm");
 
 const mostrar_venta=async(req,res)=>{
 
@@ -24,6 +24,10 @@ const mostrar_venta=async(req,res)=>{
                 usuarios,
                 eq(ventas.usuarioId, usuarios.id) 
             ).where(eq(ventas.estado,"ACTIVA"))
+            .orderBy(
+                desc(ventas.createdAt)
+            )
+            .limit(5000);
                 
                 const ventas_formateadas = lista_ventas.map(venta => {
                 return {
@@ -65,6 +69,8 @@ const mostrar_venta=async(req,res)=>{
 
         const productoId = Number(req.params.productoId);
 
+         console.log("Producto solicitado:", productoId);
+
             try {
 
                 const data = await db
@@ -93,10 +99,15 @@ const mostrar_venta=async(req,res)=>{
 
             const registrarVenta=async(req,res)=>{
                     
+                    
                     const errors=validationResult(req)
                         if(!errors.isEmpty()){
                             req.flash("mensajes",errors.array())
-                            console.log(req.body.productos);
+                            // console.log(req.body.productos);
+
+                            if (req.body.origen === "operario") {
+                                return res.redirect("/formulario_operario");
+                            }
                             return res.redirect('/gestion_ventas/form_venta')
                         }
 
@@ -106,7 +117,7 @@ const mostrar_venta=async(req,res)=>{
                 
                     try {
                         
-                        let {cliente,metodoPago,lotes:productosVenta,precio} = req.body;
+                        let {cliente,metodoPago,lotes:productosVenta,precio,origen} = req.body;
 
                         cliente =
                         req.body.cliente?.trim() || "Proceso";
@@ -185,6 +196,39 @@ const mostrar_venta=async(req,res)=>{
 
                             let precio = Number(item.precio || 0) ;
 
+                            const producto = await tx
+                                .select({
+                                    precioReferenciaVenta: productos.precioReferenciaVenta,
+                                    nombre: productos.nombre,
+                                })
+                                .from(productos)
+                                .where(
+                                    eq(productos.id, Number(item.productoId))
+                                )
+                                .limit(1);
+
+                            if (!producto.length) {
+                                throw new Error("Producto no encontrado");
+                            }
+
+
+                            const precioMinimo =
+                                Number(producto[0].precioReferenciaVenta);
+
+
+                            // if (precio < precioMinimo) {
+                            //     throw new Error(
+                            //         `El precio del producto ${producto[0].nombre} no puede ser menor a ${precioMinimo}`
+                            //     );
+                            // }
+
+                            if (origen !== "operario" && precio < precioMinimo) {
+                                throw new Error(
+                                    `El producto ${producto[0].nombre} no puede venderse por debajo de ${precioMinimo}`
+                                );
+                            }
+    
+
                             let cantidad;
             
                             if(Number(item.cajas)>0){
@@ -197,6 +241,26 @@ const mostrar_venta=async(req,res)=>{
                             }
             
                         
+                            console.log(item);
+
+                            const lote = await tx .select({ 
+                                id: lotes.id, 
+                                productoId: lotes.productoId,
+                                cantidadActual: lotes.cantidadActual,
+                                estado: lotes.estado
+                            }) .from(lotes) 
+                            .where( 
+                                eq( lotes.id, Number(item.loteId) )
+                            ) .limit(1); 
+                                if (!lote.length) { throw new Error( `El lote ${item.loteId} no existe` ); } 
+                                
+                                const cantidadDisponible = Number(lote[0].cantidadActual); 
+                                
+                                //VALIDAR INVENTARIO 
+                                
+                                if (cantidad > cantidadDisponible) {
+                                    throw new Error( `Cantidad por debajo de inventario. El lote seleccionado tiene ${cantidadDisponible} unidades disponibles y se estan intentando disminuir ${cantidad}` ); }
+
                             const subtotal =
                                 cantidad *
                                 Number(item.precio);
@@ -214,6 +278,8 @@ const mostrar_venta=async(req,res)=>{
             
                                     cantidad:
                                         cantidad.toString(),
+                                    
+                                    cantidad_embalaje:Number(item.cajas || 0),
             
                                     precio:
                                         item.precio.toString(),
@@ -253,8 +319,16 @@ const mostrar_venta=async(req,res)=>{
                         
             
                     req.flash("mensajes", [
-                        { msg: "Venta registrada" }
+                        // { msg: "Venta registrada" }
+                        { msg: origen === "operario" 
+                            ? "Merma registrada correctamente"
+                            : "Venta registrada"
+                        }
                     ]);
+
+                    if(origen === "operario"){
+                        return res.redirect("/formulario_operario");
+                    }
             
                     return res.redirect("/gestion_ventas/ventas");    
                     
@@ -263,7 +337,7 @@ const mostrar_venta=async(req,res)=>{
                         console.log(error);
 
                         req.flash("mensajes", [
-                            { msg: "Error al registrar la venta, válida cantidad" }
+                            { msg:error.message || "Error al registrar la venta, válida cantidad, y lotes que no se repitan" }
                         ]);
 
                         return res.redirect(
@@ -284,7 +358,9 @@ const mostrar_venta=async(req,res)=>{
                         lote:lotes.codigoLote,
                         cantidad:detalleVentas.cantidad,
                         precio:detalleVentas.precio,
-                        observaciones:detalleVentas.observaciones
+                        observaciones:detalleVentas.observaciones,
+                        cantidad_embalaje:detalleVentas.cantidad_embalaje
+
                         
                         
                         }).from(detalleVentas)
@@ -370,8 +446,8 @@ const mostrar_venta=async(req,res)=>{
 
                 const {
                     id_producto,
-                    cantidad_embalaje,
-                    unidades_embalaje,
+                    // cantidad_embalaje,
+                    // unidades_embalaje,
                     precio,
                     observaciones
                 } = req.body;
@@ -387,14 +463,44 @@ const mostrar_venta=async(req,res)=>{
                         .from(detalleVentas)
                         .where(eq(detalleVentas.id, Number(id)));
 
+                    console.log("DETALLE EN EDITAR:", detalle);
+
                     if (!detalle) {
                         throw new Error("Detalle de venta no encontrado");
                     }
 
+                    const producto = await tx
+                        .select({
+                            nombre: productos.nombre,
+                            precioReferenciaVenta: productos.precioReferenciaVenta
+                        })
+                        .from(productos)
+                        .where(
+                            eq(productos.id, Number(id_producto))
+                        )
+                        .limit(1);
+
+
+                    if (!producto.length) {
+                        throw new Error("Producto no encontrado");
+                    }
+
+
+                    const precioMinimo = Number(producto[0].precioReferenciaVenta);
+                    const precioNuevo = Number(precio);
+
+
+                    if (precioNuevo < precioMinimo) {
+                        throw new Error(
+                            `El producto ${producto[0].nombre} no puede venderse por debajo de ${precioMinimo}`
+                        );
+                    }
                     // ======================
                     // 2. CALCULAR CANTIDAD
                     // ======================
-                    const cantidad = Number(unidades_embalaje || 0);
+                    const cantidad = Number(detalle.cantidad || 0);
+                    // const cantidad = Number(unidades_embalaje || 0);
+                    console.log(cantidad)
 
                     // ======================
                     // 3. ACTUALIZAR DETALLE VENTA
@@ -402,7 +508,7 @@ const mostrar_venta=async(req,res)=>{
                     await tx
                         .update(detalleVentas)
                         .set({
-                        cantidad: cantidad,
+                        // cantidad: cantidad,
                         precio: precio,
                         observaciones: observaciones
                         })
@@ -449,7 +555,7 @@ const mostrar_venta=async(req,res)=>{
                     for (const item of detallesVenta) {
 
                         const subtotal =
-                                cantidad *
+                                Number(item.cantidad)*
                                 Number(item.precio);
 
                             totalVenta += subtotal;
@@ -617,7 +723,8 @@ const mostrar_venta=async(req,res)=>{
                                         .update(lotes)
                                         .set({
                                             cantidadActual:
-                                                sql`${lotes.cantidadActual} + ${detalle.cantidad}`
+                                                sql`${lotes.cantidadActual} + ${detalle.cantidad}`,
+                                            estado:"disponible"
                                         })
                                         .where(eq(lotes.id, detalle.loteId));
                                 }
@@ -666,6 +773,10 @@ const mostrar_venta=async(req,res)=>{
                                 usuarios,
                                 eq(ventas.usuarioId, usuarios.id) )
                                 .where(eq(ventas.estado,"ANULADA"))
+                                .orderBy(
+                                    desc(ventas.createdAt)
+                                )
+                                .limit(5000);
         
                                 const ventas_formateadas = lista_anulados.map(venta => {
                                         return {

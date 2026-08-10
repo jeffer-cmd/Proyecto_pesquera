@@ -1,0 +1,1 @@
+ALTER TABLE "embalajes" ALTER COLUMN "nombre_embalaje" DROP NOT NULL;

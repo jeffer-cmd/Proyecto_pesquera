@@ -1,9 +1,17 @@
+<style>
+    .soloAdmin {
+        display: none;
+    
+    }
+</style>
+
 <div class="row justify-content-center">
     <div class="col-md-6">
-        <form action="/gestion_ventas/form_venta" method="post">
+        {{!-- <form action="/gestion_ventas/form_venta" method="post"> --}}
+        <form action="/formulario_operario" method="post">
                 <input type="hidden" name="_csrf" value="{{csrfToken}}" />
 
-                
+                <input type="hidden" name="origen" value="operario">
 
                     <h5>PRODUCTOS DE ALISTAMIENTO</h5>
 
@@ -27,15 +35,15 @@
                             </select>
 
                                 <!-- lote -->
-                                <label>lote</label>
-                                <select class="form-select  lote-select" name="lotes[0][loteId]">
+                                <label class="my-3">lote</label>
+                                <select class="form-select  lote-select " name="lotes[0][loteId]">
                                     <option value="">Seleccione lote</option>
                                     
                                 </select>
 
 
                                 <!-- UNIDADES POR CAJA -->
-                                <label class="mt-2">Merma de proceso</label>
+                                <label class="my-3">Merma de proceso</label>
                                 <input type="number"
                                     class="form-control"
                                     name="lotes[0][unidadesPorCaja]"
@@ -46,9 +54,9 @@
 
 
                                 <!-- OBSERVACIONES POR ITEM -->
-                                <label>Observaciones de la merma</label>
+                                <label class="my-3">Observaciones de la merma</label>
                                 <br>
-                                <textarea name="lotes[0][observaciones]" rows="3"></textarea>
+                                <textarea name="lotes[0][observaciones]" rows="3" class="my-3"></textarea>
 
                                 <input type="hidden"
                                 class="form-control"
