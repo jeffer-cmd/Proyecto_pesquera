@@ -74,7 +74,8 @@ class dump {
             /*
              * Ejecutar pg_dump
              */
-            const PG_DUMP = "C:\\Program Files\\PostgreSQL\\18\\bin\\pg_dump.exe";
+            // const PG_DUMP = "C:\\Program Files\\PostgreSQL\\18\\bin\\pg_dump.exe";
+            const PG_DUMP = "pg_dump";
             await new Promise(
                 (resolve, reject) => {
 
@@ -206,7 +207,7 @@ class dump {
             );
 
             console.error(
-                error
+                // error
             );
 
             throw error;
