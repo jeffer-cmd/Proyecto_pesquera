@@ -4,7 +4,7 @@ const {validationResult}=require("express-validator")
 const { eq } = require("drizzle-orm");
 const { ExpressValidator } = require('express-validator');
 const { ilike } = require("drizzle-orm");
-const {  and, gte, lte, lt,gt,sql,desc } = require("drizzle-orm");
+const {  and, gte, lte, lt,gt,sql,desc,or } = require("drizzle-orm");
 
 const mostrar_venta=async(req,res)=>{
 
@@ -583,19 +583,41 @@ const mostrar_venta=async(req,res)=>{
                 };
 
                 const filtrar_venta = async (req, res) => {
-                    const { fechaInicio,fechaFin, usuario } = req.body;
+                    // const { fechaInicio,fechaFin, usuario,metodoPago } = req.body;
+                    const { fechaInicio,fechaFin, busqueda } = req.body;
     
                     try {
     
-                        const filtros = [];
+                        const filtros = [
+                            eq(ventas.estado, "ACTIVA")
+                        ];
     
-                        // Filtro por proveedor
-                        if (usuario) {
+                    
+                        // if (usuario) {
+                        //     filtros.push(
+                        //         ilike(usuarios.nombre, `%${usuario}%`)
+                        //     );
+                        // }
+
+                        // // Método de pago de la tabla ventas
+                        // if (metodoPago) {
+                        //     filtros.push(
+                        //         eq(ventas.metodoPago, metodoPago)
+                        //     );
+                        // }
+    
+
+                        if (busqueda?.trim()) {
+                            const texto = `%${busqueda.trim()}%`;
+
                             filtros.push(
-                                ilike(usuarios.nombre, `%${usuario}%`)
+                                or(
+                                    ilike(ventas.cliente, texto),
+                                    ilike(ventas.metodoPago, texto),
+                                    ilike(usuarios.nombre, texto)
+                                )
                             );
                         }
-    
                     
     
                         if (fechaInicio && fechaFin) {
@@ -644,7 +666,7 @@ const mostrar_venta=async(req,res)=>{
                                 filtros.length > 0
                                     ? and(...filtros)
                                     : undefined
-                            );
+                            ).orderBy(desc(ventas.createdAt));
     
                         const ventas_formateadas = lista_ventas.map(venta => ({
                         ...venta,
@@ -814,7 +836,87 @@ const mostrar_venta=async(req,res)=>{
                                 req.flash("mensajes",[{msg:error.message}])
                                 return res.redirect('/gestion_ventas/ventas')
                             }
+                            
                         }
+
+                        // const filtrar_venta = async (req, res) => {
+                        //     const { fechaInicio,fechaFin, cliente,metodoPago } = req.body;
+            
+                        //     try {
+            
+                        //         const filtros = [];
+            
+                        //         // Filtro por proveedor
+                        //         if (cliente) {
+                        //             filtros.push(
+                        //                 ilike(ventas.cliente, `%${cliente}%`),
+                        //                 ilike(ventas.metodoPago, `%${metodoPago}%`)
+                        //             );
+                        //         }
+            
+                        //         if (fechaInicio && fechaFin) {
+            
+                        //             const inicio = new Date(`${fechaInicio}T00:00:00`);
+            
+                        //             const fin = new Date(`${fechaFin}T00:00:00`);
+                        //             fin.setDate(fin.getDate() + 1);
+            
+                        //             filtros.push(
+                        //                 gte(ventas.createdAt, inicio),
+                        //                 lt(ventas.createdAt, fin)
+                        //             );
+            
+                        //         } else if (fechaInicio) {
+            
+                        //             const inicio = new Date(`${fechaInicio}T00:00:00`);
+            
+                        //             filtros.push(
+                        //                 gte(ventas.createdAt, inicio)
+                        //             );
+            
+                        //         } else if (fechaFin) {
+            
+                        //             const fin = new Date(`${fechaFin}T00:00:00`);
+                        //             fin.setDate(fin.getDate() + 1);
+            
+                        //             filtros.push(
+                        //                 lt(ventas.createdAt, fin)
+                        //             );
+                        //         }
+                        //         const lista_ventas = await db
+                        //         .select({
+                        //             id: ventas.id,
+                        //             cliente: ventas.cliente,
+                        //             metodoPago:ventas.metodoPago,
+                        //             total: ventas.total,
+                        //             createdAt: ventas.createdAt
+                        //         })
+                        //         .from(ventas)
+                        //         // .innerJoin(
+                        //         //     proveedores,
+                        //         //     eq(compras.proveedorId, proveedores.id)
+                        //         // ).where(
+                        //         //         filtros.length > 0
+                        //         //             ? and(...filtros)
+                        //         //             : undefined
+                        //         //     );
+                                
+            
+                        //         const ventas_formateadas = lista_ventas.map(venta => ({
+                        //         ...venta,
+                        //         createdAt: new Date(venta.createdAt).toLocaleDateString('es-CO')
+                        //         }));
+            
+                            
+                        //         res.render("ventas.hbs", {
+                        //         lista_ventas: ventas_formateadas
+                        //         });
+            
+                        //     } catch (error) {
+                        //         req.flash("mensajes", [{ msg: error.message }]);
+                        //         return res.redirect('/gestion_compras/compras');
+                        //     }
+                        //     };
 
 
 

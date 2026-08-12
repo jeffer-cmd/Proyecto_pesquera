@@ -523,7 +523,7 @@ class dump {
              * los últimos 5 backups
              */
 
-            await this.limpiarHistorial(3);
+            await this.limpiarHistorial(7);
 
 
             console.log(
@@ -669,7 +669,7 @@ class dump {
 
     // }
 
-    async limpiarHistorial(maxArchivos = 3) {
+    async limpiarHistorial(maxArchivos = 7) {
 
     try {
 

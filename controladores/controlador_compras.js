@@ -640,7 +640,9 @@ const mostrar_compra=async(req,res)=>{
 
                 try {
 
-                    const filtros = [];
+                    const filtros = [
+                        eq(compras.estado, "ACTIVA")
+                    ];
 
                     // Filtro por proveedor
                     if (proveedor) {
@@ -710,12 +712,8 @@ const mostrar_compra=async(req,res)=>{
                             filtros.length > 0
                                 ? and(...filtros)
                                 : undefined
-                        );
-                    // .where(
-                    //     proveedor
-                    //     ? ilike(proveedores.nombre, `%${proveedor}%`)
-                    //     : undefined
-                    // );
+                        ).orderBy(desc(compras.createdAt));
+                
 
                     const compras_formateadas = lista_compras.map(compra => ({
                     ...compra,
