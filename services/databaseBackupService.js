@@ -417,7 +417,7 @@ class DatabaseBackupService {
             );
 
 
-            this.limpiarHistorial(5);
+            // this.limpiarHistorial(5);
 
             console.log(
                 "✅ Backup BD generado correctamente"
