@@ -8,6 +8,20 @@ const schema = require("../src/db/schema")
 const BACKUP_DIR = path.join(__dirname, "../backups");
 const HISTORY_DIR = path.join(BACKUP_DIR, "historial");
 const EXCEL_FILE = path.join(BACKUP_DIR, "inventario.xlsx");
+const { desc } = require("drizzle-orm");
+const {
+    productos,
+    categorias,
+    proveedores,
+    lotes,
+    detalleCompras,
+    compras,
+    movimientosInventario,
+    usuarios,
+    ventas,
+    detalleVentas,
+    embalajes
+} = require("../src/db/schema");
 
 // Crear carpetas automáticamente
 fs.mkdirSync(HISTORY_DIR, { recursive: true });
@@ -31,14 +45,36 @@ class BackupService {
                 console.log("📄 Creando nuevo backup...");
             }
 
+            const ORDEN_TABLAS = {
+            productos: productos.createdAt,
+            categorias: categorias.id_categoria,
+            proveedores: proveedores.createdAt,
+            lotes: lotes.createdAt,
+            detalleCompras: detalleCompras.id,
+            compras: compras.createdAt,
+            movimientosInventario: movimientosInventario.fecha,
+            usuarios: usuarios.createdAt,
+            ventas: ventas.fecha,
+            detalleVentas: detalleVentas.id,
+            embalajes: embalajes.id_embalaje
+            };
+
+            const MAX_REGISTROS = 5000;
+
+        
+
             // Recorrer todas las tablas exportadas en schema.js
             for (const [nombreTabla, tabla] of Object.entries(schema)) {
 
                 console.log(`Respaldando ${nombreTabla}...`);
 
+                const columnaOrden = ORDEN_TABLAS[nombreTabla];
+
                 const registros = await db
                     .select()
-                    .from(tabla);
+                    .from(tabla)
+                    .orderBy(desc(columnaOrden))
+                    .limit(MAX_REGISTROS);
 
                 // let hoja = workbook.getWorksheet(nombreTabla);
 

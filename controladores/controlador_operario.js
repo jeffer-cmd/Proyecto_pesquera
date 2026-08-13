@@ -16,6 +16,8 @@ module.exports.formOperario=async(req,res)=>{
         .from(productos);
 
         console.log("PRODUCTOS OPERARIO:", listaProductos);
+
+        const mensajes = req.flash("mensajes");
     res.render("formulario_operario",{
                 productos:listaProductos
 })}

@@ -340,6 +340,10 @@ const mostrar_venta=async(req,res)=>{
                             { msg:error.message || "Error al registrar la venta, válida cantidad, y lotes que no se repitan" }
                         ]);
 
+                        if (req.body.origen === "operario") {
+                            return res.redirect("/formulario_operario");
+                        }
+
                         return res.redirect(
                             "/gestion_ventas/form_venta"
                         );
