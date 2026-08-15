@@ -1,28 +1,23 @@
+<style>
+    .input-busqueda {
+        width: 300px;
+    }
+
+    @media (max-width: 991.98px) {
+
+        .input-busqueda {
+            width: 100%;
+        }
+
+    }
+</style>
+
 
 <h1>Gestión de inventario</h1>
 
 <div class="container">
 
-        {{!-- <a href="/gestion_inventario/inventario_anulado" class="btn btn-primary">
-            movimientos anulados
-        </a> --}}
-
-        {{!-- <form action="/gestion_inventario/inventario" method="POST">
-            <input type="hidden" name="_csrf" value="{{csrfToken}}" />
-            <input type="text" name="buscar" placeholder="Buscar">
-
-            <input type="date" name="fechaInicio">
-
-            <input type="date" name="fechaFin">
-
-            <button type="submit" class="btn btn-warning text-white mx-2">
-                Buscar
-            </button>
-
-        </form>
-    </div> --}}
-
-    <div class="d-flex justify-content-between align-items-center my-5  w-100 gap-3">
+    {{!-- <div class="d-flex justify-content-between align-items-center my-5  w-100 gap-3">
 
         <a href="/gestion_ventas/ventas_anuladas" class="btn btn-primary">
                 Ventas anuladas
@@ -30,11 +25,62 @@
 
         <a href="/gestion_compras/compras_anuladas" class="btn btn-primary">
                 Compras anuladas
-            </a>
+            </a> --}}
 
-        <input type="text" id="buscador" class="form-control mb-3 w-50 border border-dark" placeholder="Buscar movimiento">
+        {{!-- <input type="text" id="buscador" class="form-control mb-3 w-50 border border-dark" placeholder="Buscar movimiento"> --}}
+
+        {{!-- <form action="/gestion_inventario/inventario" method="POST" class="d-flex flex-column flex-lg-row gap-2 align-items-center">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+        <input class="form-control input-busqueda mx-5" type="text" name="busqueda" placeholder="Buscar lote,producto,tipo y estado">
+
+        <button type="submit" class=" form-control btn btn-warning text-white mx-2 my-4">
+            Buscar
+        </button>
+
+    </form> --}}
+
+
+    <div class="row g-2 my-4">
+
+        <div class="col-12 col-lg-auto">
+            <a href="/gestion_ventas/ventas_anuladas"
+            class="btn btn-primary w-100 my-2">
+                Ventas anuladas
+            </a>
+        </div>
+
+        <div class="col-12 col-lg-auto">
+            <a href="/gestion_compras/compras_anuladas"
+            class="btn btn-primary w-100 my-2">
+                Compras anuladas
+            </a>
+        </div>
+
+        <div class="col-12 col-lg">
+            <form action="/gestion_inventario/inventario"
+                method="POST"
+                class="d-flex flex-column flex-lg-row gap-2">
+
+                <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+
+                <input
+                    class="form-control input-busqueda flex-grow-1 my-2"
+                    type="text"
+                    name="busqueda"
+                    placeholder="Buscar lote, producto, tipo o estado"
+                >
+
+                <button type="submit"
+                        class="btn btn-warning text-white my-2">
+                    Buscar
+                </button>
+
+            </form>
+        </div>
 
     </div>
+
+</div>
 
     <div class="table-responsive">
         <table class="table table-sm table-bordered table-hover text-center align-middle" id="tablaInventario">

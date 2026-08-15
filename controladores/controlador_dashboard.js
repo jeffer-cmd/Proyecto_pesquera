@@ -24,13 +24,15 @@ try{
 
 // Total productos
 
+console.time("dashboard-totalProductos");
+
 const totalProductos = await db
 .select({
  total: sql`count(*)`
 })
 .from(productos);
 
-
+console.timeEnd("dashboard-totalProductos");
 
 // Productos agotados
 
@@ -43,6 +45,7 @@ const totalProductos = await db
 //  eq(lotes.estado,"agotado")
 // );
 
+console.time("dashboard-agotados");
 const agotados = await db
     .select({
         total: sql`COUNT(DISTINCT ${lotes.productoId})`
@@ -52,10 +55,10 @@ const agotados = await db
         eq(lotes.estado, "agotado")
     );
 
-
+console.timeEnd("dashboard-agotados");
 
 // Valor inventario
-
+console.time("dashboard-valorInventario");
 const valorInventario = await db
 .select({
  valor:
@@ -73,11 +76,11 @@ const valorInventario = await db
 ) .where(
         eq(lotes.estado, "disponible")
     );
-
+console.timeEnd("dashboard-valorInventario");
 
 
 // Inventario por categoria
-
+console.time("dashboard-inventarioCategoria");
 const inventarioCategoria = await db
 .select({
 
@@ -109,6 +112,9 @@ eq(productos.idCategoria,categorias.id_categoria)
 categorias.nombre_categoria
 );
 
+console.timeEnd("dashboard-inventarioCategoria");
+
+
 const hoy = new Date();
 
 const inicioMes = new Date(
@@ -124,7 +130,7 @@ const finMes = new Date(
 );
 
 // movimientos
-
+console.time("dashboard-movimientos");
 const movimientos = await db
 .select({
 
@@ -166,6 +172,10 @@ SUM(${movimientosInventario.cantidad})
 .groupBy(
 movimientosInventario.tipo
 );
+
+console.timeEnd("dashboard-movimientos");
+
+console.time("dashboard-topProductos");
 
 const topProductos = await db
 .select({
@@ -211,11 +221,11 @@ const topProductos = await db
 )
 
 .limit(5);
-
+console.timeEnd("dashboard-topProductos");
 // ======================
 // TOP 5 PRODUCTOS CON MÁS MERMAS
 // ======================
-
+console.time("dashboard-topMermas");
 const topMermas = await db
 .select({
     producto: productos.nombre,
@@ -262,6 +272,7 @@ const topMermas = await db
 )
 
 .limit(5);
+console.timeEnd("dashboard-topMermas");
 
 // console.log({
 //  totalProductos,

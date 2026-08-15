@@ -4,7 +4,7 @@ const {validationResult}=require("express-validator")
 const { eq ,desc } = require("drizzle-orm");
 const { ExpressValidator } = require('express-validator');
 const { ilike } = require("drizzle-orm");
-const {  and, gte, lte, lt,gt,or  } = require("drizzle-orm");
+const {  and, gte, lte, lt,gt,or ,sql } = require("drizzle-orm");
 
 
 
@@ -149,9 +149,88 @@ const mostrar_inventario=async(req,res)=>{
                 }
             }
 
+            const filtrar_inventario = async (req, res) => {
+            
+                const { busqueda } = req.body;
+
+                try {
+
+                    const filtros = [];
+
+
+                    if (busqueda?.trim()) {
+                        const texto = `%${busqueda.trim()}%`;
+
+                        filtros.push(
+                            or(
+                        
+                            ilike(productos.nombre, texto),
+                            ilike(lotes.codigoLote, texto),
+                            sql`${movimientosInventario.tipo}::text ILIKE ${texto}`,
+                            sql`${compras.estado}::text ILIKE ${texto}`,
+                            sql`${ventas.estado}::text ILIKE ${texto}`
+                            )
+                        )
+                        
+                    }
+                
+
+                
+                    const lista_movimientos = await db
+                    .select({
+                        id: movimientosInventario.id,
+                        producto:productos.nombre,
+                        lote:lotes.codigoLote,
+                        estado:lotes.estado,
+                        tipo:movimientosInventario.tipo,
+                        cantidad:movimientosInventario.cantidad,
+                        fecha: movimientosInventario.fecha,
+                        estado_compra:compras.estado,
+                        estado_venta:ventas.estado
+                        
+                        }).from(movimientosInventario)
+                        .innerJoin(
+                        lotes,
+                        eq(movimientosInventario.loteId, lotes.id) )
+                        .innerJoin(
+                            productos,
+                            eq(lotes.productoId, productos.id)
+                        ) .leftJoin(
+                            ventas,
+                            eq(movimientosInventario.ventaId, ventas.id)
+                        )  .leftJoin(
+                            compras,
+                            eq(movimientosInventario.compraId, compras.id)
+                        ).where(
+                                filtros.length > 0
+                                    ? and(...filtros)
+                                    : undefined
+                            ).orderBy(desc(movimientosInventario.fecha))
+                            .limit(1000)
+                    
+            
+
+                    const movimientos_formateadas = lista_movimientos.map(movimiento => ({
+                    ...movimiento,
+                    fecha: new Date(movimiento.fecha).toLocaleDateString('es-CO')
+                    }));
+
+                
+                    res.render("inventario.hbs", {
+                    lista_inventario: movimientos_formateadas
+                    });
+
+                } catch (error) {
+                    console.log(error)
+                    req.flash("mensajes", [{ msg: error.message }]);
+                    return res.redirect('/gestion_inventario/inventario');
+                }
+                };
+
         
 
 module.exports={
     mostrar_inventario,
-    mostrar_anulados
+    mostrar_anulados,
+    filtrar_inventario
 }
