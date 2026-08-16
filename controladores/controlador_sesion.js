@@ -109,6 +109,7 @@ const confirmarCuenta=async(req,res)=>{
             res.redirect("/sesion/login")
             
     } catch (error) {
+        console.log(error)
         req.flash("mensajes",[{msg:error.message}])
         return res.redirect('/sesion/login')
     }
@@ -163,6 +164,7 @@ const loginUser=async(req,res)=>{
         });
 
     } catch (error) {
+        console.log(error)
         req.flash("mensajes",[{msg:error.message}])
         return res.redirect('/sesion/login')
         // res.json({error:error.message})
