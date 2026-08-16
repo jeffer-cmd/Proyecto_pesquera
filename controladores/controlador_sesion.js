@@ -80,9 +80,9 @@ const registrarUsuario=async(req,res)=>{
     // res.json(nuevoUsuario[0]);
 
     } catch (error) {
+        console.log(error)
         req.flash("mensajes",[{msg:error.message}])
         return res.redirect('/sesion/register')
-        console.log(error)
         // res.json({error:error.message})
     }
     
