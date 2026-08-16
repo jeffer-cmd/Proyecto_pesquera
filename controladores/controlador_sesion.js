@@ -82,7 +82,7 @@ const registrarUsuario=async(req,res)=>{
     } catch (error) {
         req.flash("mensajes",[{msg:error.message}])
         return res.redirect('/sesion/register')
-        // console.log(error)
+        console.log(error)
         // res.json({error:error.message})
     }
     
