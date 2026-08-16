@@ -13,8 +13,8 @@ router.post("/form_producto",verificarUser,accesoAdmin, [
         body("nombre","Ingrese un nombre válido").trim().notEmpty().escape().bail().isLength({min:4}),
         body("codigoMaterial","Ingrese un código de material válido de 5 números").trim().notEmpty().bail().isLength({min:5, max: 5 }).isNumeric().escape(),
         body("unidadMedida", "Debe seleccionar una unidad de medida").notEmpty().bail().isIn(["kg","g", "unidad"]),
-        body("precioReferenciaCompra","El precio de compra debe ser un número válido").notEmpty().bail().isInt({ min: 0 }).isLength({min:5 }).escape(),
-        body("precioReferenciaVenta","El precio de venta debe ser un número válido").notEmpty().bail().isInt({ min: 0 }).isLength({min:5}).escape(), 
+        body("precioReferenciaCompra","El precio de compra debe ser un número válido").notEmpty().bail().isInt({ min: 0 }).isLength({min:4 }).escape(),
+        body("precioReferenciaVenta","El precio de venta debe ser un número válido").notEmpty().bail().isInt({ min: 0 }).isLength({min:4}).escape(), 
         body("id_categoria","Debe seleccionar al menos una categoría").notEmpty().bail().escape(),
         body("id_proveedor","Debe seleccionar al menos un proveedor").notEmpty().bail().escape(),
         body("precioReferenciaVenta", "El precio de venta no puede ser menor al de compra").custom((value, { req }) => {
@@ -29,8 +29,8 @@ router.get("/eliminar_producto/:id",verificarUser,accesoAdmin,eliminar_producto)
 router.get("/form_editar_producto/:id",verificarUser,editar_producto)
 router.post("/form_editar_producto/:id",verificarUser,accesoAdmin,[
         body("nombre","Ingrese un nombre válido").trim().notEmpty().escape().bail().isLength({min:4}),
-        body("precioReferenciaCompra","El precio de compra debe ser un número válido de 5 digitos ").notEmpty().bail().isInt({ min: 0 }).isLength({min:5 }).escape(),
-        body("precioReferenciaVenta","El precio de venta debe ser un número válido de 5 digitos ").notEmpty().bail().isInt({ min: 0 }).isLength({min:5}).escape(), 
+        body("precioReferenciaCompra","El precio de compra debe ser un número válido de 4 digitos ").notEmpty().bail().isInt({ min: 0 }).isLength({min:4 }).escape(),
+        body("precioReferenciaVenta","El precio de venta debe ser un número válido de 4 digitos ").notEmpty().bail().isInt({ min: 0 }).isLength({min:4}).escape(), 
         body("unidadMedida", "Debe seleccionar una unidad de medida").notEmpty().bail().isIn(["kg","g", "unidad"]),
         body("id_categoria","Debe seleccionar al menos una categoría").notEmpty().escape(),
         body("id_proveedor","Debe seleccionar al menos un proveedor").notEmpty().bail().escape(),
