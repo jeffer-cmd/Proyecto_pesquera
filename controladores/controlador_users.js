@@ -5,6 +5,7 @@ const {validationResult}=require("express-validator")
 const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
 const { ExpressValidator } = require('express-validator');
+const { user } = require('pg/lib/defaults');
 
 
 const leer_usuario=async(req,res)=>{
@@ -38,6 +39,19 @@ const leer_usuario=async(req,res)=>{
             const {id}=req.params
             
             try {
+
+                const uso = await db
+                    .select({ id: usuarios.id })
+                    .from(usuarios)
+                    .where(eq(usuarios.id, Number(id)))
+                    .limit(1);
+        
+                if (uso.length > 0) {
+                    req.flash("mensajes", [{
+                        msg: "No se puede eliminar el usuario porque está asociada a un proceso."
+                    }]);
+                    return res.redirect("/gestion_usuarios/users");
+                }
                 await db.delete(usuarios).where(eq(usuarios.id, id));
                 req.flash("mensajes",[{msg:"usuario eliminado"}])
                 res.redirect("/gestion_usuarios/users")
