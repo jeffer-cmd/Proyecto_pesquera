@@ -36,21 +36,22 @@
 
                     </select>
 
-                    <label for="" class="my-3">Escoja la unidad de medida</label>
+                    {{!-- <label for="" class="my-3">Escoja la unidad de medida</label> --}}
                             
                     <br>
 
-                    <label for="kg" class="my-3">Kilogramos</label>
-                    <input
+                    <label for="kg" class="my-3" hidden>Kilogramos</label>
+                    <input hidden 
                         class="mx-3"
                         name="unidadMedida"
                         type="radio"
-                        value="kg",
+                        value="kg"
                         id="kg"
+                        checked
 
                     />
 
-                    <label for="g" class="my-3">Gramos</label>
+                    {{!-- <label for="g" class="my-3">Gramos</label>
                     <input
                         class="mx-3"
                         name="unidadMedida"
@@ -70,7 +71,7 @@
                         required
 
                     />
-                    <br>
+                    <br> --}}
 
                     <label for="" class="my-3">Categoria</label>
                     <select class="form-select mb-2 select2" name="id_categoria">

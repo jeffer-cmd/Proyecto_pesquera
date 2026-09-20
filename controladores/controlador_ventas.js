@@ -196,6 +196,37 @@ const mostrar_venta=async(req,res)=>{
 
                             let precio = Number(item.precio || 0) ;
 
+                            const unidadesSolicitadas = item.unidadesSolicitadas || "";
+                            const Medida = item.Medida || "";
+                            const Talla = item.Talla || "";
+
+                            // const observaciones = `
+                            //     Unidades solicitadas: ${unidadesSolicitadas}
+                            //     Medida: ${Medida}
+                            //     Talla: ${Talla}
+                                
+                            // `.trim();
+
+                            const observaciones = [
+                                unidadesSolicitadas
+                                    ? `Unidades solicitadas: ${unidadesSolicitadas},
+                                    `
+                                    : "",
+
+                                Medida
+                                    ? `Medida: ${Medida},
+                                    `
+                                    : "",
+
+                                Talla
+                                    ? `Talla: ${Talla},
+                                    `
+                                    : ""
+                            ]
+                            .filter(Boolean)
+                            .join("\n");
+
+
                             const producto = await tx
                                 .select({
                                     precioReferenciaVenta: productos.precioReferenciaVenta,
@@ -284,8 +315,10 @@ const mostrar_venta=async(req,res)=>{
                                     precio:
                                         item.precio.toString(),
             
-                                    observaciones:
-                                        item.observaciones || null
+                                    // observaciones:
+                                    //     item.observaciones || null
+
+                                    observaciones: `${observaciones} \n ${item.observaciones || ""}`
                                 });
 
 

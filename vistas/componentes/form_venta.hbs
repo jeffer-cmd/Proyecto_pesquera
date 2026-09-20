@@ -82,8 +82,9 @@
                                     
                                 </select>
 
+                                <label class="my-3">Nota: El campo Cantidad de embalaje solo se usa si por ejemplo todas las cajas pesan lo mismo, ahi se pone el peso unitario en Cantidad kg y la cantidad de cajas en Cantidad de embalaje,  en caso de no ser asi, solo se llena el campo Cantidad de kg de toda la venta de ese producto  </label>
                                 
-                                <label class="mt-2">Cantidad de embalaje</label>
+                                <label class="mt-2">Cantidad de embalaje(cajas,sacos,bultos,etc si aplica)</label>
                                 <input type="number"
                                     class="form-control"
                                     name="lotes[0][cajas]"
@@ -91,19 +92,45 @@
                                     >
 
                                 
-                                <label class="mt-2">Unidades por embalaje</label>
+                                <label class="mt-2">Cantidad solicitada por el cliente</label>
+                                <input type="number"
+                                    class="form-control"
+                                    name="lotes[0][unidadesSolicitadas]"
+                                    min="1"
+                                    required
+                                    >
+
+                                <label class="mt-2">Medida</label>
+                                <input type="text"
+                                    class="form-control"
+                                    name="lotes[0][Medida]"
+                                    
+                                    
+                                    >
+
+                                <label class="mt-2">Talla</label>
+                                <input type="text"
+                                    class="form-control"
+                                    name="lotes[0][Talla]"
+                                    
+                                
+                                    >
+
+
+
+                                <label class="mt-2">Cantidad real de kg por embalaje</label>
                                 <input type="number"
                                     class="form-control"
                                     name="lotes[0][unidadesPorCaja]"
                                     min="1"
                                     required
-                                    oninvalid="this.setCustomValidity('Ingrese la cantidad de unidades por embalaje')"
+                                    oninvalid="this.setCustomValidity('Ingrese la cantidad de kg por embalaje')"
                                     oninput="this.setCustomValidity('')">
 
                             
 
                             
-                                <label class="mt-2">Precio de venta</label>
+                                <label class="mt-2">Precio de venta unitario</label>
                                 <input type="number"
                                 class="form-control"
                                 name="lotes[0][precio]"

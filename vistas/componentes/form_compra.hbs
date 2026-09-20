@@ -59,17 +59,17 @@
                                     {{/each}}
                                 </select>
 
-
+                                <label class="my-3">Nota: El campo Cantidad de embalaje solo se usa si por ejemplo todas las cajas pesan lo mismo, ahi se pone el peso unitario en Cantidad kg y la cantidad de cajas en Cantidad de embalaje,  en caso de no ser asi, solo se llena el campo Cantidad de kg con la cantidad total de kg de toda la compra de ese producto  </label>
 
                                 <!-- CAJAS (opcional frontend) -->
-                                <label class="my-3">Cantidad de embalaje</label>
+                                <label class="my-3">Cantidad de embalaje(cajas,sacos,bultos,etc si aplica)</label>
                                 <input type="number"
                                     class="form-control"
                                     name="productos[0][cajas]"
                                     min="0">
 
                                 <!-- UNIDADES POR CAJA -->
-                                <label class="my-3">Unidades por embalaje</label>
+                                <label class="my-3">Cantidad de kg</label>
                                 <input type="number"
                                     class="form-control"
                                     name="productos[0][unidadesPorCaja]"

@@ -119,7 +119,7 @@ const hoy = new Date();
 
 const inicioMes = new Date(
     hoy.getFullYear(),
-    hoy.getMonth(),
+    hoy.getMonth()-2,
     1
 );
 

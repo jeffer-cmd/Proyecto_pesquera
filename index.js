@@ -13,6 +13,7 @@ const csrf=require('csurf')
 const pgSession = require('connect-pg-simple')(session);
 const pool = require("./src/db/pool");
 const cors=require('cors')
+const { neon } = require('@neondatabase/serverless')
 
 
 // const { crearTabla } = require('./modelos/pescados')
@@ -216,7 +217,8 @@ const PORT=process.env.PORT || 5000
 
 app.listen(PORT,()=>console.log("servidor andando " + PORT))
 
-//3:11 para ver la config de flash como csrf de forma global
-//3:20 explica la relacion del id con mongoose
 
-//video4 min 38 subir proyecto
+
+//En caso de tener que volver a activar bd estos son los pasos:
+// 1) pasar el schema con npx a la nueva bd que se cambia en el .env
+// 2)Aplicar los triggers de compra y venta directamente en neon
