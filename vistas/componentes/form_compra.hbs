@@ -49,9 +49,11 @@
                                 </select>
 
 
-                                <label class="my-3">Tipo de embalaje</label>
+                                <label class="my-3">Nota: Si la mercancía viene sin empaque, en tipo de empaque escoja la opción sin empaque</label>
+
+                                <label class="my-3">Tipo de empaque</label>
                                 <select class="form-select" name="productos[0][id_embalaje]">
-                                    <option value="">Seleccione tipo de embalaje</option>
+                                    <option value="">Seleccione tipo de empaque</option>
                                     {{#each embalajes}}
                                         <option value="{{this.id_embalaje}}">
                                             {{this.nombre_embalaje}}
@@ -59,29 +61,28 @@
                                     {{/each}}
                                 </select>
 
-                                <label class="my-3">Nota: El campo Cantidad de embalaje solo se usa si por ejemplo todas las cajas pesan lo mismo, ahi se pone el peso unitario en Cantidad kg y la cantidad de cajas en Cantidad de embalaje,  en caso de no ser asi, solo se llena el campo Cantidad de kg con la cantidad total de kg de toda la compra de ese producto  </label>
-
                                 <!-- CAJAS (opcional frontend) -->
-                                <label class="my-3">Cantidad de embalaje(cajas,sacos,bultos,etc si aplica)</label>
+                                <label class="my-3">Cantidad de empaque(cajas,sacos,bultos,etc si aplica)</label>
                                 <input type="number"
                                     class="form-control"
                                     name="productos[0][cajas]"
                                     min="0">
 
                                 <!-- UNIDADES POR CAJA -->
-                                <label class="my-3">Cantidad de kg</label>
+                                <label class="my-3">Cantidad de kg del producto a comprar(decimales si lleva separados con . y máximo de 2 digitos)</label>
                                 <input type="number"
                                     class="form-control"
                                     name="productos[0][unidadesPorCaja]"
-                                    min="1"
+                                    min="0.01"
+                                    step="0.01"
                                     required
-                                    oninvalid="this.setCustomValidity('Ingrese la cantidad de unidades por embalaje')"
+                                    oninvalid="this.setCustomValidity('Ingrese una cantidad de kg válida')"
                                     oninput="this.setCustomValidity('')">
 
                             
 
                                 <!-- PRECIO -->
-                                <label class="my-3">Precio de compra</label>
+                                <label class="my-3">Precio total de la compra</label>
                                 <input type="number"
                                 class="form-control"
                                 name="productos[0][precio]"

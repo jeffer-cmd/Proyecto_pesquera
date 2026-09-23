@@ -16,13 +16,13 @@ router.post("/form_venta",[
             body("metodoPago","Debe seleccionar al menos un método de pago").notEmpty().escape(),
             body("lotes.*.loteId","Debe agregar al menos un lote").notEmpty().escape(),
             body("lotes.*.productoId","Debe seleccionar al menos un producto").notEmpty().escape(),
-            body("lotes.*.unidadesPorCaja","Ingrese una cantidad en unidades por embalaje válida").notEmpty().trim().bail().isInt({ min: 1 }),
+            body("lotes.*.unidadesPorCaja","Ingrese una cantidad en kg válida").notEmpty().trim().bail().isFloat({ min: 0.01 }),
             body("lotes.*.precio","El precio de venta debe ser un número válido").notEmpty().bail().isInt({ min: 0 }).isLength({min:4 }).escape(),
 ],verificarUser,accesoAdmin,registrarVenta)
 router.get("/ver_detalle_venta/:id",verificarUser,accesoAdmin,ver_detalle_venta)
 router.get("/form_editar_venta/:id",verificarUser,accesoAdmin,editar_venta)
 router.post("/form_editar_venta/:id",[
-            body("id_producto","Debe seleccionar al menos un producto").notEmpty().escape(),
+            // body("id_producto","Debe seleccionar al menos un producto").notEmpty().escape(),
             // body("unidades_embalaje","Ingrese una cantidad en unidades por embalaje válida").notEmpty().trim().bail().isInt({ min: 1 }),
             body("precio","El precio de venta debe ser un número válido").notEmpty().isInt({ min: 0 }).isLength({min:4 }).escape(),
 

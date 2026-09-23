@@ -14,8 +14,8 @@ router.post("/form_compra",[
             body("fechaIngreso","Debe seleccionar al menos una fecha de ingreso").notEmpty().escape(),
             body("productos","Debe agregar al menos un producto").isArray({min:1}),
             body("productos.*.productoId","Debe seleccionar al menos un producto").notEmpty().escape(),
-            body("productos.*.id_embalaje","Debe seleccionar al menos un embalaje").notEmpty().escape(),
-            body("productos.*.unidadesPorCaja","Ingrese una cantidad en unidades por embalaje válida").notEmpty().trim().bail().isInt({ min: 1 }),
+            body("productos.*.id_embalaje","Debe seleccionar al menos un tipo de empaque, en caso de no llevar, seleccione la opción sin empaque").notEmpty().escape(),
+            body("productos.*.unidadesPorCaja","Ingrese una cantidad en kg válida").notEmpty().trim().bail().isFloat({ min: 0.01 }),
             body("productos.*.precio","El precio de compra debe ser un número válido").notEmpty().bail().isInt({ min: 0 }).isLength({min:4 }).escape(),
             body("productos.*.fechaVencimiento","Debe seleccionar una fecha de vencimiento").notEmpty().custom((value, { req }) => {
 
@@ -36,7 +36,7 @@ router.get("/anular_compra/:id",verificarUser,accesoAdmin,anularCompra)
 router.get("/ver_detalle_compra/:id",verificarUser,accesoAdmin,ver_detalle_compra)
 router.get("/form_editar_compra/:id",verificarUser,accesoAdmin,editar_compra)
 router.post("/form_editar_compra/:id",[
-            body("id_producto","Debe seleccionar al menos un producto").notEmpty().escape(),
+            // body("id_producto","Debe seleccionar al menos un producto").notEmpty().escape(),
             // body("unidades_embalaje","Ingrese una cantidad en unidades por embalaje válida").notEmpty().trim().isInt({ min: 1 }),
             body("precio","El precio de compra debe ser un número válido").notEmpty().bail().isInt({ min: 0 }).isLength({min:4 }).escape(),
 

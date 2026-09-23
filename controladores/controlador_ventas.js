@@ -117,7 +117,7 @@ const mostrar_venta=async(req,res)=>{
                 
                     try {
                         
-                        let {cliente,metodoPago,lotes:productosVenta,precio,origen} = req.body;
+                        let {cliente,metodoPago,ciudad,lotes:productosVenta,precio,origen} = req.body;
 
                         cliente =
                         req.body.cliente?.trim() || "Proceso";
@@ -199,6 +199,7 @@ const mostrar_venta=async(req,res)=>{
                             const unidadesSolicitadas = item.unidadesSolicitadas || "";
                             const Medida = item.Medida || "";
                             const Talla = item.Talla || "";
+                            // const ciudad = item.ciudad || "";
 
                             // const observaciones = `
                             //     Unidades solicitadas: ${unidadesSolicitadas}
@@ -220,6 +221,11 @@ const mostrar_venta=async(req,res)=>{
 
                                 Talla
                                     ? `Talla: ${Talla},
+                                    `
+                                    : "",
+
+                                ciudad
+                                    ? `Ciudad: ${ciudad},
                                     `
                                     : ""
                             ]
@@ -264,9 +270,12 @@ const mostrar_venta=async(req,res)=>{
             
                             if(Number(item.cajas)>0){
 
-                                cantidad =
-                                    Number(item.cajas) *
-                                    Number(item.unidadesPorCaja);
+                                // cantidad =
+                                //     Number(item.cajas) *
+                                //     Number(item.unidadesPorCaja);
+
+                                cantidad =Number(item.unidadesPorCaja);
+                                
                             }else{
                                 cantidad=Number(item.unidadesPorCaja);
                             }
@@ -388,6 +397,7 @@ const mostrar_venta=async(req,res)=>{
                 
                 try {
                         const lista_detalle_ventas=await db.select({
+                        cliente: ventas.cliente,
                         detalleId: detalleVentas.id,
                         id: ventas.id,
                         usuario:usuarios.nombre,

@@ -111,12 +111,17 @@ const mostrar_compra=async(req,res)=>{
                 for (const item of productosCompra) {
 
                     let cantidad;
-    
+                    let fechaVencimiento=item.fechaVencimiento
+
                     if(Number(item.cajas)>0){
 
-                        cantidad =
-                            Number(item.cajas) *
-                            Number(item.unidadesPorCaja);
+                        // cantidad =
+                        //     Number(item.cajas) *
+                        //     Number(item.unidadesPorCaja);
+
+                        cantidad =Number(item.unidadesPorCaja);
+                        
+                            
                     }else{
                         cantidad=Number(item.unidadesPorCaja);
                     }
@@ -163,7 +168,7 @@ const mostrar_compra=async(req,res)=>{
                     //     .where(eq(lotes.id, loteId));
 
                     const fecha = fechaIngreso.replaceAll("-", "");
-                    const codigoLote = `LOT-${fecha}-${id_proveedor}-${item.productoId}-${item.id_embalaje}`;
+                    let codigoLote = `LOT-${fecha}-${id_proveedor}-${item.productoId}-${item.id_embalaje}`;
 
                     // Buscar lote existente
                     const loteExistente = await tx
@@ -193,7 +198,10 @@ const mostrar_compra=async(req,res)=>{
                     }
 
                     
-                    
+                    let observaciones=[ fechaVencimiento
+                                    ? `Fecha de vencimiento: ${fechaVencimiento},
+                                    `
+                                    : "",]
     
                     // ======================
                     // DETALLE COMPRA
@@ -219,8 +227,10 @@ const mostrar_compra=async(req,res)=>{
 
                             idEmbalaje: Number(item.id_embalaje),
     
-                            observaciones:
-                                item.observaciones || null
+                            // observaciones:
+                            //     item.observaciones || null
+
+                            observaciones: `${observaciones} \n ${item.observaciones || ""}`
                         });
 
 
@@ -536,6 +546,7 @@ const mostrar_compra=async(req,res)=>{
                 observaciones
             } = req.body;
 
+
             try {
                 await db.transaction(async (tx) => {
 
@@ -550,6 +561,27 @@ const mostrar_compra=async(req,res)=>{
                 if (!detalle) {
                     throw new Error("Detalle de compra no encontrado");
                 }
+
+                
+                let observacionesAnteriores = detalle.observaciones || "";
+                observacionesAnteriores = observacionesAnteriores.replace(/Fecha de vencimiento: [^,.]*[,.]?\s*/g, "").trim();
+
+
+                let observaciones2 = "";
+
+                if (vencimiento) {
+                    observaciones2 = `Fecha de vencimiento: ${vencimiento}, `;
+                }
+
+                const notasUsuario = observaciones ? observaciones.replace(/Fecha de vencimiento: [^,.]*[,.]?\s*/g, "").trim() : observacionesAnteriores;
+
+                if (notasUsuario) {
+                    observaciones2 += notasUsuario;
+                }
+
+                // if (observaciones && observaciones.trim() !== "") {
+                //     observaciones2 += observaciones.trim();
+                // }
 
                 // ======================
                 // 2. CALCULAR CANTIDAD
@@ -566,7 +598,7 @@ const mostrar_compra=async(req,res)=>{
                     .set({
                     // cantidad: cantidad,
                     precio: precio,
-                    observaciones: observaciones,
+                    observaciones: observaciones2,
                     idEmbalaje: Number(id_embalaje)
                     })
                     .where(eq(detalleCompras.id, Number(id)));
@@ -574,10 +606,28 @@ const mostrar_compra=async(req,res)=>{
                 // ======================
                 // 4. ACTUALIZAR LOTE
                 // ======================
+
+                const [compraInfo] = await tx
+                    .select({
+                        proveedorId: compras.proveedorId,
+                    })
+                    .from(compras)
+                    .where(eq(compras.id, detalle.compraId));
+
+                const [loteActual] = await tx
+                    .select()
+                    .from(lotes)
+                    .where(eq(lotes.id, detalle.loteId));
+
+                const fechaFormateada = loteActual.fechaIngreso ? loteActual.fechaIngreso.replaceAll("-", "") : "";
+                const nuevoCodigoLote = `LOT-${fechaFormateada}-${compraInfo.proveedorId}-${id_producto}-${id_embalaje}`;
+
+
                 await tx
                     .update(lotes)
                     .set({
                     productoId: Number(id_producto),
+                    codigoLote: nuevoCodigoLote,
                     fechaVencimiento: vencimiento || null
                     })
                     .where(eq(lotes.id, detalle.loteId));

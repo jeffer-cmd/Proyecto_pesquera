@@ -104,7 +104,8 @@ const hbs = create({
         return new Intl.NumberFormat("es-CO", {
         style: "currency",
         currency: "COP",
-        minimumFractionDigits: 0
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
       }).format(valor);
 
     },
@@ -113,8 +114,10 @@ const hbs = create({
         if (valor === null || valor === undefined || isNaN(valor)) return "0";
 
         return new Intl.NumberFormat("es-CO", {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0
+            // minimumFractionDigits: 0,
+            // maximumFractionDigits: 0
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
         }).format(valor);
         },
 

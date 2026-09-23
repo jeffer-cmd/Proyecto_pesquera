@@ -41,17 +41,27 @@ const leer_usuario=async(req,res)=>{
             try {
 
                 const uso = await db
-                    .select({ id: usuarios.id })
+                    .select({ id: usuarios.id,
+                            cuentaConfirmada: usuarios.cuentaConfirmada
+                    })
                     .from(usuarios)
                     .where(eq(usuarios.id, Number(id)))
                     .limit(1);
         
-                if (uso.length > 0) {
+                // if (uso.length > 0) {
+                //     req.flash("mensajes", [{
+                //         msg: "No se puede eliminar el usuario porque está asociada a un proceso."
+                //     }]);
+                //     return res.redirect("/gestion_usuarios/users");
+                // }
+
+                if (uso[0].cuentaConfirmada === true) {
                     req.flash("mensajes", [{
-                        msg: "No se puede eliminar el usuario porque está asociada a un proceso."
+                        msg: "No se puede eliminar el usuario porque ya tiene la cuenta confirmada."
                     }]);
                     return res.redirect("/gestion_usuarios/users");
                 }
+
                 await db.delete(usuarios).where(eq(usuarios.id, id));
                 req.flash("mensajes",[{msg:"usuario eliminado"}])
                 res.redirect("/gestion_usuarios/users")

@@ -7,7 +7,7 @@
 
 
             <label for="" class="my-3">Producto</label>
-            <select class="form-select mb-2 select2" name="id_producto">
+            <select class="form-select mb-2 select2" name="id_producto" disabled>
 
             
 
@@ -19,6 +19,7 @@
 
                             {{#if (eq this.id ../detalle_venta.productoId)}}
                                 selected
+                                
                             {{/if}}
                         >
                             {{this.nombre}}
@@ -28,6 +29,7 @@
 
             </select>
 
+            <input type="hidden" name="id_producto" value="{{detalle_venta.productoId}}">
 {{!--             
             <label class="mt-2">Cantidad de embalaje</label>
             <input type="number"

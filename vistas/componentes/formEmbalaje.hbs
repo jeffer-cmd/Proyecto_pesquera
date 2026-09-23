@@ -3,14 +3,14 @@
     <form action="/embalaje/editar/{{embalaje.id_embalaje}}" method="post">
         <input type="hidden" name="_csrf" value="{{csrfToken}}" />
         <input value="{{embalaje.nombre_embalaje}}" type="text" placeholder="Ingrese embalaje de pez" name="empaque" class="form-control my-2">
-        <button type="submit" class="btn btn-warning w-100 mb-2">Editar embalaje</button>
+        <button type="submit" class="btn btn-warning w-100 mb-2">Editar empaque</button>
     </form>
 
 {{else}}
     <form action="/embalaje" method="post">
         <input type="hidden" name="_csrf" value="{{csrfToken}}" />
         <input type="text" placeholder="Ingrese embalaje de pez" name="empaque" class="form-control my-2">
-        <button type="submit" class="btn btn-success w-100 mb-2">Agregar Embalaje</button>
+        <button type="submit" class="btn btn-success w-100 mb-2">Agregar empaque</button>
     </form>
 
 {{/if}}

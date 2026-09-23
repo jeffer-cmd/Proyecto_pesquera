@@ -157,7 +157,8 @@ async function cargarLotes(productoId, selectLote) {
             option.value = lote.id;
 
             option.textContent =
-                `${lote.codigoLote} - Stock: ${parseInt( lote.cantidadActual)}`;
+                // `${lote.codigoLote} - Stock: ${parseInt( lote.cantidadActual)}`;
+                `${lote.codigoLote} - Stock: ${lote.cantidadActual}`;
 
             selectLote.appendChild(option);
 
